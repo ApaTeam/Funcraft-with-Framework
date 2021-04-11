@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column flex-center">
+  <q-page class="flex column flex-center pageCont">
     <img alt="Quasar logo" src="~assets/FunCraft.svg" />
     <h5 class="SubTitle">by APA</h5>
   </q-page>
@@ -7,7 +7,12 @@
 
 <script>
 export default {
-  name: "PageIndex",
+  name: "Splash",
+  mounted() {
+    setTimeout(() => {
+      this.$router.push({ path: "/main" });
+    }, 3000);
+  },
 };
 </script>
 
