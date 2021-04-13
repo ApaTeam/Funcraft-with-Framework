@@ -3,17 +3,30 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
       <router-view />
-      <div class="row no-wrap items-center rounded-borders NavButton">
+      <div class="row no-wrap items-center rounded-borders NavButtonContainer">
         <q-space />
         <div>
-          <q-btn unelevated color="indigo-10" icon="fas fa-gamepad" />
+          <!-- <q-icon name="fas fa-gamepad" /> -->
+          <q-btn
+            unelevated
+            color="indigo-10"
+            icon="fas fa-gamepad"
+            class="NavBtn LeftBtn"
+          />
           <q-btn
             round
             color="indigo"
             rounded
             icon="svguse:icons.svg#FuncraftIcon"
+            class="MiddleBtn"
           />
-          <q-btn unelevated color="indigo-10" icon="fas fa-comment-dots" />
+          <!-- <q-icon name="fas fa-comment-dots" /> -->
+          <q-btn
+            unelevated
+            color="indigo-10"
+            icon="fas fa-comment-dots"
+            class="NavBtn RightBtn"
+          />
         </div>
         <q-space />
       </div>
@@ -41,11 +54,29 @@ export default {
   color: #f4f4f4;
 
   position: relative;
-  .NavButton {
-    position: absolute;
+  .NavButtonContainer {
+    position: sticky;
     bottom: 7.5%;
     width: 100%;
     padding: 10px 0;
+    .NavBtn {
+      --PaddingSize: 25px;
+      padding: 10px var(--PaddingSize);
+      --BtnHeight: 21px;
+      &.LeftBtn {
+        border-radius: 10px 0 0 10px;
+        padding-right: calc(var(--BtnHeight) + var(--PaddingSize));
+        margin-right: calc(var(--BtnHeight) * -1);
+      }
+      &.RightBtn {
+        border-radius: 0 10px 10px 0;
+        padding-left: calc(var(--BtnHeight) + var(--PaddingSize));
+        margin-left: calc(var(--BtnHeight) * -1);
+      }
+    }
+    .MiddleBtn {
+      z-index: 99;
+    }
   }
 }
 </style>
