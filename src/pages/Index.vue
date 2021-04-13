@@ -1,11 +1,19 @@
 <template>
-  <q-page class="flex column PageIndex" style="overflow-x: hidden">
+  <q-page class="flex column PageIndex">
     <Nav class="NavArea">
       <q-btn flat color="standard" icon="arrow_back_ios" label="Back" />
       <img alt="Funcraft logo" src="~assets/FunCraft.svg" />
     </Nav>
-    <img alt="" src="~assets/Player-WithBG.png" />
-    <div class="Tabs"></div>
+    <img alt="" src="~assets/Player-WithBG.png" class="PlayerImage" />
+    <div class="Tabs">
+      <!-- 
+      Todo
+      Make Component 
+        - Name + LVL,
+        - Health Gold Exp + Weapon Icon
+        - Access Inventory
+      -->
+    </div>
   </q-page>
 </template>
 
@@ -17,7 +25,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.PageIndex {
+  overflow-x: hidden;
+  position: relative;
+}
 .NavArea {
+  z-index: 99;
   //relative biar bisa ada garisnya
   position: relative;
 
@@ -46,5 +59,10 @@ export default {
     height: 1.5rem;
     margin-right: 20px;
   }
+}
+.PlayerImage {
+  position: absolute;
+  width: 100vw;
+  top: 0;
 }
 </style>
