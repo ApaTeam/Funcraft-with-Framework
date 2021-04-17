@@ -2,7 +2,7 @@
   <q-page class="flex column PageProfile">
     <navbar />
     <div class="ProfileInfo">
-      <img src="~assets/Profile-pic.png" alt="" />
+      <img src="~assets/Profile-Pic.png" alt="" />
       <h5 class="Title">Ivan Wijaya</h5>
       <p class="SubTitle">Salesman</p>
     </div>
