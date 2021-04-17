@@ -5,17 +5,11 @@
       <router-view />
       <div class="row no-wrap items-center rounded-borders NavButtonContainer">
         <q-space />
-        <div>
+        <div class="ButtonsContainer">
           <!-- <q-icon name="fas fa-gamepad" /> -->
-          <q-btn
-            unelevated
-            color="indigo-10"
-            icon="fas fa-gamepad"
-            class="NavBtn LeftBtn"
-          />
+          <q-btn unelevated icon="fas fa-comment-dots" class="NavBtn LeftBtn" />
           <q-btn
             round
-            color="indigo"
             rounded
             icon="svguse:icons.svg#FuncraftIcon"
             class="MiddleBtn"
@@ -23,9 +17,9 @@
           <!-- <q-icon name="fas fa-comment-dots" /> -->
           <q-btn
             unelevated
-            color="indigo-10"
-            icon="fas fa-comment-dots"
+            icon="fas fa-user-alt"
             class="NavBtn RightBtn"
+            to="/main/profile"
           />
         </div>
         <q-space />
@@ -59,9 +53,18 @@ export default {
     bottom: 7.5%;
     width: 100%;
     padding: 10px 0;
+    .ButtonsContainer {
+      background: linear-gradient(
+        252.74deg,
+        rgba(55, 0, 179, 0.8) -171.41%,
+        rgba(56, 56, 56, 0.352) 92.84%
+      );
+      border-radius: 20px;
+    }
+
     .NavBtn {
       --PaddingSize: 25px;
-      padding: 10px var(--PaddingSize);
+      padding: 15px var(--PaddingSize);
       --BtnHeight: 21px;
       &.LeftBtn {
         border-radius: 10px 0 0 10px;
@@ -76,6 +79,12 @@ export default {
     }
     .MiddleBtn {
       z-index: 99;
+      background: linear-gradient(
+        222.04deg,
+        rgba(72, 244, 255, 0.59) 1.99%,
+        rgba(130, 28, 255, 0.65) 63.32%,
+        #1804ff 91.77%
+      );
     }
   }
 }
