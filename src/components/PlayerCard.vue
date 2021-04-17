@@ -1,7 +1,7 @@
 <template>
   <div class="PlayerCard">
     <img
-      :src="require('../assets/PLayerIcon/' + PlayerIcon)"
+      :src="require('../assets/PlayerIcon/' + PlayerIcon)"
       alt=""
       class="PlayerIcon"
     />
