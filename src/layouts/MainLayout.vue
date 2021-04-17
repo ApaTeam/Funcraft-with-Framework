@@ -7,19 +7,24 @@
         <q-space />
         <div class="ButtonsContainer">
           <!-- <q-icon name="fas fa-gamepad" /> -->
-          <q-btn unelevated icon="fas fa-comment-dots" class="NavBtn LeftBtn" />
+          <q-btn
+            unelevated
+            icon="fas fa-signal"
+            class="NavBtn LeftBtn"
+            to="/main/ranks"
+          />
           <q-btn
             round
             rounded
             icon="svguse:icons.svg#FuncraftIcon"
             class="MiddleBtn"
+            to="/main/profile"
           />
           <!-- <q-icon name="fas fa-comment-dots" /> -->
           <q-btn
             unelevated
-            icon="fas fa-user-alt"
+            icon="fas fa-comment-dots"
             class="NavBtn RightBtn"
-            to="/main/profile"
           />
         </div>
         <q-space />

@@ -7,13 +7,26 @@
       label="Back"
       @click="goBack"
     />
-    <img alt="Funcraft logo" src="~assets/FunCraft.svg" />
+    <img
+      v-if="type === 'Profile'"
+      class="Profile logo"
+      src="~assets/Profile-Pic.png"
+      @click="
+        () => {
+          this.$router.push('/main/profile');
+        }
+      "
+    />
+    <img v-else class="Funcraft logo" src="~assets/FunCraft.svg" />
   </Nav>
 </template>
 
 <script>
 export default {
   name: "Navbar",
+  props: {
+    type: String,
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
@@ -50,9 +63,14 @@ export default {
     width: 90%;
   }
 
-  img {
-    height: 1.5rem;
+  .logo {
     margin-right: 20px;
   }
+}
+.Funcraft {
+  height: 1.5rem;
+}
+.Profile {
+  height: 2.3rem;
 }
 </style>
