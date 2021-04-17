@@ -1,17 +1,50 @@
 <template>
   <q-page class="flex column PageRankings">
     <navbar :type="'Profile'" />
+    <div class="PlayerList">
+      <Player-Card
+        :PlayerName="'Carlene Lim'"
+        :GameName="'CassieAlpha'"
+        :Level="1"
+        :PlayerIcon="'Player (0).png'"
+        :IsActive="true"
+      />
+      <Player-Card
+        :PlayerName="'Ivan WIjaya'"
+        :GameName="'CassieBeta'"
+        :Level="2"
+        :PlayerIcon="'Player (1).png'"
+      />
+      <Player-Card
+        :PlayerName="'Mitchell Ryuu'"
+        :GameName="'CassieCharlie'"
+        :Level="3"
+        :PlayerIcon="'Player (2).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+    </div>
   </q-page>
 </template>
 
 <script>
 import Navbar from "src/components/Navbar.vue";
+import PlayerCard from "src/components/PlayerCard.vue";
 export default {
-  components: { Navbar },
+  components: { Navbar, PlayerCard },
   name: "Rankings",
 };
 </script>
 
 
 <style lang="scss" scoped>
+.PlayerList {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+}
 </style>
