@@ -7,7 +7,8 @@ const routes = [
   {
     path: "",
     component: () => import("src/layouts/BlankLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Splash.vue") }]
+    children: [{ path: "", component: () => import("pages/Splash.vue") },
+              { path: "/quest", component: () => import("pages/Quest_Screen.vue")}]
   },
 
   // Always leave this as last one,
