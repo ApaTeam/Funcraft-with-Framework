@@ -10,14 +10,14 @@
     <img
       v-if="type === 'Profile'"
       class="Profile logo"
-      src="~assets/Profile-Pic.png"
+      :src="require('../assets/' + this.$store.state.Player.PicUrl)"
       @click="
         () => {
           this.$router.push('/main/profile');
         }
       "
     />
-    <img v-else class="Funcraft logo" src="~assets/FunCraft.svg" />
+    <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
   </Nav>
 </template>
 
@@ -72,5 +72,6 @@ export default {
 }
 .Profile {
   height: 2.3rem;
+  border-radius: 100%;
 }
 </style>
