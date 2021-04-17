@@ -27,6 +27,66 @@
         :Level="4"
         :PlayerIcon="'Player (3).png'"
       />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
+      <Player-Card
+        :PlayerName="'Wijaya Lim'"
+        :GameName="'CassieDelta'"
+        :Level="4"
+        :PlayerIcon="'Player (3).png'"
+      />
     </div>
   </q-page>
 </template>
@@ -43,8 +103,12 @@ export default {
 
 <style lang="scss" scoped>
 .PlayerList {
+  //bikin component ini scrollable
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
-  padding: 10px 30px;
+  padding: 10px 30px 10rem 30px;
 }
 </style>

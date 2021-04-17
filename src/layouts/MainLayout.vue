@@ -54,6 +54,7 @@ export default {
 
   position: relative;
   .NavButtonContainer {
+    z-index: 99;
     position: sticky;
     bottom: 7.5%;
     width: 100%;
@@ -83,7 +84,7 @@ export default {
       }
     }
     .MiddleBtn {
-      z-index: 99;
+      z-index: 2;
       background: linear-gradient(
         222.04deg,
         rgba(72, 244, 255, 0.59) 1.99%,

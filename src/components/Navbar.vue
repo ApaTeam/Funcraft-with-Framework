@@ -1,24 +1,28 @@
 <template>
-  <Nav class="NavArea">
-    <q-btn
-      flat
-      color="standard"
-      icon="arrow_back_ios"
-      label="Back"
-      @click="goBack"
-    />
-    <img
-      v-if="type === 'Profile'"
-      class="Profile logo"
-      :src="require('../assets/' + this.$store.state.Player.PicUrl)"
-      @click="
-        () => {
-          this.$router.push('/main/profile');
-        }
-      "
-    />
-    <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
-  </Nav>
+  <div class="NavPadding">
+    <div class="NavContainer">
+      <Nav class="NavArea">
+        <q-btn
+          flat
+          color="standard"
+          icon="arrow_back_ios"
+          label="Back"
+          @click="goBack"
+        />
+        <img
+          v-if="type === 'Profile'"
+          class="Profile logo"
+          :src="require('../assets/' + this.$store.state.Player.PicUrl)"
+          @click="
+            () => {
+              this.$router.push('/main/profile');
+            }
+          "
+        />
+        <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
+      </Nav>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,8 +41,15 @@ export default {
 
 
 <style lang="scss" scoped>
-.NavArea {
+.NavPadding {
+  height: 5rem;
+}
+.NavContainer {
   z-index: 99;
+  position: fixed;
+  width: 100%;
+}
+.NavArea {
   //relative biar bisa ada garisnya
   position: relative;
 
