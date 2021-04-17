@@ -28,7 +28,6 @@
             unelevated
             icon="fas fa-comment-dots"
             class="NavBtn RightBtn"
-            to="/main/profile"
           />
         </div>
         <q-space />
