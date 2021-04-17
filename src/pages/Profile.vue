@@ -2,7 +2,11 @@
   <q-page class="flex column PageProfile">
     <navbar />
     <div class="ProfileInfo">
-      <img src="~assets/Profile-Pic.png" alt="" />
+      <img
+        :src="require('../assets/' + this.$store.state.Player.PicUrl)"
+        alt=""
+        class="PlayerImage"
+      />
       <h5 class="Title">Ivan Wijaya</h5>
       <p class="SubTitle">Salesman</p>
     </div>
@@ -61,5 +65,9 @@ export default {
   .SubTitle {
     font-weight: lighter;
   }
+}
+.PlayerImage {
+  height: 180px;
+  border-radius: 180px;
 }
 </style>
