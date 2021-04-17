@@ -144,6 +144,10 @@ export default {
   }
 }
 .PlayerList {
+  //bikin component ini scrollable
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
