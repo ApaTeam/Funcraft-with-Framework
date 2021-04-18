@@ -236,8 +236,4 @@ export default {
     }
   }
 }
-.PlayerImage {
-  height: 180px;
-  border-radius: 180px;
-}
 </style>
