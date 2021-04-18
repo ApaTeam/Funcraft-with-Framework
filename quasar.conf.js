@@ -111,7 +111,7 @@ module.exports = function(/* ctx */) {
         description: `A task tracker gamification app for employee`,
         display: "standalone",
         orientation: "portrait",
-        background_color: "#3700B3",
+        background_color: "#ffffff",
         theme_color: "#3700B3",
         // background_color: "#ffffff",
         // theme_color: "#027be3",
