@@ -11,10 +11,12 @@ const routes = [
   {
     path: "",
     component: () => import("src/layouts/BlankLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Splash.vue") },
-              { path: "/quest", component: () => import("pages/Quest_Screen.vue")}]
+    children: [
+      { path: "", component: () => import("pages/Splash.vue") },
+      { path: "quest", component: () => import("pages/Quest_Screen.vue") },
+      { path: "map", component: () => import("pages/Quest_Map.vue") }
+    ]
   },
-
   // Always leave this as last one,
   // but you can also remove it
   {

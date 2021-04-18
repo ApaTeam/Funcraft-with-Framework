@@ -1,9 +1,6 @@
 <template>
   <q-page class="flex column QuestScreen">
-      <Nav class="NavArea">
-        <q-btn flat rounder color="standard" icon="arrow_back_ios" label="Back" />
-        <img alt="Funcraft logo" src="~assets/FunCraft.svg" />
-      </Nav>
+      <Navbar />
       <div class="content">
           <div class="TaskTitleBox">
               <p class="QuestType">URGENT TASK</p>
@@ -34,7 +31,7 @@
           <div class="Location">
               <p class="top">Location</p>
               <p class="address">Jl. Letjen S Parman No 1 ,Grogol, Jakarta Barat, DKI Jakarta, 11450</p>
-              <a href="#">See in Maps</a>
+              <router-link to="/map">See in Maps</router-link>
           </div>
           <div class="rounded-borders Description">
               <p class="top">Job Description</p>
@@ -50,7 +47,9 @@
 </template>
 
 <script>
+import Navbar from "src/components/Navbar.vue";
 export default {
+    components: { Navbar },
     name: "QuestScreen",
 };
 </script>
@@ -62,37 +61,6 @@ export default {
     font-size: 12px;
     color: #B1B1B1;
     margin: 0;
-}
-.NavArea {
-  z-index: 99;
-  //relative biar bisa ada garisnya
-  position: relative;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  padding: 12px;
-
-  &::after {
-    //Garis putih yang dibawah
-    content: "";
-    position: absolute;
-
-    // ngatur lokasinya (tengah bawah)
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-
-    border-bottom: 1px solid rgba(168, 120, 227, 0.3);
-    width: 90%;
-  }
-
-  img {
-    height: 1.5rem;
-    margin-right: 20px;
-  }
 }
 .content{
     display: flex;
