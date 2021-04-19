@@ -104,15 +104,15 @@ module.exports = function(/* ctx */) {
     // https://v1.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxOptions: { skipWaiting: true, clientsClaim: true }, // only for GenerateSW
       manifest: {
         name: `FunCraft`,
         short_name: `FunCraft`,
         description: `A task tracker gamification app for employee`,
         display: "standalone",
         orientation: "portrait",
-        background_color: "#ffffff",
-        theme_color: "#3700B3",
+        background_color: "#3700B3",
+        theme_color: "#000000",
         // background_color: "#ffffff",
         // theme_color: "#027be3",
         icons: [
