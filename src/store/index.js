@@ -17,19 +17,31 @@ Vue.use(Vuex);
 
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
-    state: {},
+    state: {
+      isScrolledDown: false
+    },
     mutations: {
       initState(state) {
         if (LocalStorage.has("Player")) {
           state["Player"] = LocalStorage.getItem("Player");
         } else {
-          state["Player"] = {};
+          state["Player"] = {
+            PicUrl: "",
+            Name: ""
+          };
           LocalStorage.set("Player", state["Player"]);
         }
       },
       setPicUrl(state, url) {
         state.Player["PicUrl"] = url;
         LocalStorage.set("Player", state["Player"]);
+      },
+      setPlayerName(state, Name) {
+        state.Player["Name"] = Name;
+        LocalStorage.set("Player", state["Player"]);
+      },
+      setScrollDir(state, scrollDir) {
+        state.isScrolledDown = scrollDir;
       }
     },
     modules: {

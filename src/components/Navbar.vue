@@ -3,14 +3,19 @@
     <div class="NavContainer">
       <Nav class="NavArea">
         <q-btn
+          v-if="type != 'Title'"
           flat
           color="standard"
           icon="arrow_back_ios"
           label="Back"
           @click="goBack"
         />
+        <div v-else class="MOTDContainer">
+          <p class="Greetings">Hi, {{ this.$store.state.Player.Name }}</p>
+          <p class="MOTD">What's for Today ?</p>
+        </div>
         <img
-          v-if="type === 'Profile'"
+          v-if="type != null"
           class="Profile logo"
           :src="require('../assets/' + this.$store.state.Player.PicUrl)"
           @click="
@@ -84,5 +89,15 @@ export default {
 .Profile {
   height: 2.3rem;
   border-radius: 100%;
+}
+.MOTDContainer {
+  padding-left: 1rem;
+  .Greetings {
+    font-size: 0.8rem;
+  }
+  .MOTD {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
 }
 </style>
