@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex column PageProfile">
     <navbar />
-    <div class="Content">
+    <div class="Content overflow-auto">
       <div class="Charts">
         <div class="Description">
           <h5 class="Title">Monthly Performance</h5>
@@ -33,7 +33,66 @@
           </div>
         </div>
       </div>
-      <div class="History"></div>
+      <div class="History">
+        <h5 class="Title">Your History</h5>
+        <div class="MonthList">
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+          <div class="Month">
+            <div class="Description">
+              <h5 class="MonthName">January 2021</h5>
+              <p class="Reward">Rp. 10.000.000,-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <q-scroll-observer @scroll="onScroll" />
     </div>
   </q-page>
 </template>
@@ -43,15 +102,35 @@ import Navbar from "src/components/Navbar.vue";
 export default {
   components: { Navbar },
   name: "Profile",
+  methods: {
+    onScroll(info) {
+      if (info.direction == "down") {
+        this.$store.commit("setScrollDir", true);
+        return;
+      }
+      this.$store.commit("setScrollDir", false);
+    },
+  },
+  mounted() {
+    this.$store.commit("setScrollDir", false);
+  },
+  destroyed() {
+    this.$store.commit("setScrollDir", false);
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
 .Content {
+  display: flex;
+  flex-direction: column;
   padding: 0 1.5rem;
+  height: calc(100vh - 6rem);
 }
 .Charts {
+  flex-grow: 0;
+
   .Description {
     .Title {
       font-weight: bold;
@@ -115,6 +194,43 @@ export default {
         font-weight: bold;
         .Details {
           font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+.History {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  .Title {
+    flex-grow: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .MonthList {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    .Month {
+      margin-bottom: 1.5rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(
+        246.81deg,
+        rgba(108, 0, 192, 0.5) -93.94%,
+        rgba(0, 0, 0, 0.32) 116.58%
+      );
+      border: 1px solid #3c3c3c;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      .Description {
+        .MonthName {
+          font-weight: bold;
+          font-size: 1.1rem;
+          color: #a978e6;
         }
       }
     }

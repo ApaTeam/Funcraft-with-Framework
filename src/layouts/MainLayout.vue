@@ -3,7 +3,10 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
       <router-view />
-      <div class="row no-wrap items-center rounded-borders NavButtonContainer">
+      <div
+        v-if="!this.$store.state.isScrolledDown"
+        class="row no-wrap items-center rounded-borders NavButtonContainer"
+      >
         <q-space />
         <div class="ButtonsContainer">
           <!-- <q-icon name="fas fa-gamepad" /> -->

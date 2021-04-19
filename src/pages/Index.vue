@@ -1,39 +1,12 @@
 <template>
   <q-page class="flex column PageIndex">
-    <Navbar />
+    <Navbar :type="'Title'" />
     <img alt="" src="~assets/Player-WithBG.png" class="PlayerImage" />
     <div class="Content">
       <div class="Tabs" :style="{ 'margin-top': MarginTop }">
         <div
           class="DragBarContainer"
-          v-touch-pan.prevent.mouse="
-            ({ e, ...info }) => {
-              if (info.position.top - 112 > windowHeight * 0.5) {
-                MarginTop = 0.5 * windowHeight + 'px';
-              } else {
-                MarginTop = info.position.top - 112 + 'px';
-              }
-              if (info.isFinal) {
-                if (isTop) {
-                  if (info.position.top > windowHeight * 0.3) {
-                    MarginTop = '40vh';
-                    isTop = false;
-                  } else {
-                    MarginTop = '0';
-                    isTop = true;
-                  }
-                } else {
-                  if (info.position.top > windowHeight * 0.5) {
-                    MarginTop = '40vh';
-                    isTop = false;
-                  } else {
-                    MarginTop = '0';
-                    isTop = true;
-                  }
-                }
-              }
-            }
-          "
+          v-touch-pan.prevent.mouse="DragBarHandler"
           @click="
             () => {
               MarginTop = isTop ? '40vh' : '0';
@@ -108,6 +81,34 @@ export default {
       MarginTop: "40vh",
       windowHeight: window.innerHeight,
     };
+  },
+  methods: {
+    DragBarHandler: function ({ e, ...info }) {
+      if (info.position.top - 112 > this.windowHeight * 0.5) {
+        this.MarginTop = 0.5 * this.windowHeight + "px";
+      } else {
+        this.MarginTop = info.position.top - 112 + "px";
+      }
+      if (info.isFinal) {
+        if (this.isTop) {
+          if (info.position.top > this.windowHeight * 0.3) {
+            this.MarginTop = "40vh";
+            this.isTop = false;
+          } else {
+            this.MarginTop = "0";
+            this.isTop = true;
+          }
+        } else {
+          if (info.position.top > this.windowHeight * 0.5) {
+            this.MarginTop = "40vh";
+            this.isTop = false;
+          } else {
+            this.MarginTop = "0";
+            this.isTop = true;
+          }
+        }
+      }
+    },
   },
 };
 </script>

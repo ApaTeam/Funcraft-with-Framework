@@ -10,6 +10,7 @@ export default {
   name: "Splash",
   mounted() {
     this.$store.commit("setPicUrl", "Profile-Pic.png");
+    this.$store.commit("setPlayerName", "Ivan");
     setTimeout(() => {
       this.$router.push({ path: "/main" });
     }, 3000);
