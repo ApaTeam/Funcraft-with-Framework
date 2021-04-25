@@ -2,18 +2,9 @@
   <q-page class="flex column PageIndex">
     <Navbar :type="'Title'" />
     <img alt="" src="~assets/Player-WithBG.png" class="PlayerImage" />
-    <div class="Content">
-      <div class="Tabs" :style="{ 'margin-top': MarginTop }">
-        <div
-          class="DragBarContainer"
-          v-touch-pan.prevent.mouse="DragBarHandler"
-          @click="
-            () => {
-              MarginTop = isTop ? '40vh' : '0';
-              isTop = !isTop;
-            }
-          "
-        >
+    <div class="Content overflow-auto" v-on:scroll.passive="handleScroll">
+      <div class="Tabs">
+        <div class="DragBarContainer">
           <div class="DragBar"></div>
         </div>
         <div class="PlayerInfo">
@@ -78,36 +69,36 @@ export default {
   data: function () {
     return {
       isTop: false,
-      MarginTop: "40vh",
-      windowHeight: window.innerHeight,
+      windowHeight: window.outerHeight,
+      isScrolling: null,
     };
   },
   methods: {
-    DragBarHandler: function ({ e, ...info }) {
-      if (info.position.top - 112 > this.windowHeight * 0.5) {
-        this.MarginTop = 0.5 * this.windowHeight + "px";
-      } else {
-        this.MarginTop = info.position.top - 112 + "px";
-      }
-      if (info.isFinal) {
-        if (this.isTop) {
-          if (info.position.top > this.windowHeight * 0.3) {
-            this.MarginTop = "40vh";
-            this.isTop = false;
-          } else {
-            this.MarginTop = "0";
-            this.isTop = true;
-          }
-        } else {
-          if (info.position.top > this.windowHeight * 0.5) {
-            this.MarginTop = "40vh";
-            this.isTop = false;
-          } else {
-            this.MarginTop = "0";
-            this.isTop = true;
-          }
+    handleScroll(e) {
+      // console.log(e);
+      let max_scroll = e.target.scrollHeight - e.target.clientHeight;
+      // console.log(e.target.scrollTop);
+      window.clearTimeout(this.isScrolling);
+      this.isScrolling = setTimeout(() => {
+        // this.scrolling = false;
+        if (e.target.scrollTop < 0.05 * max_scroll) {
+          e.target.scrollTop = 0;
+          this.isTop = false;
+          return;
         }
-      }
+        if (e.target.scrollTop > 0.95 * max_scroll) {
+          e.target.scrollTop = max_scroll;
+          this.isTop = true;
+          return;
+        }
+        if (this.isTop) {
+          e.target.scrollTop = 0;
+          this.isTop = false;
+        } else {
+          e.target.scrollTop = max_scroll;
+          this.isTop = true;
+        }
+      }, 20);
     },
   },
 };
@@ -138,6 +129,7 @@ export default {
   width: 100%;
   height: 90vh;
   border-radius: 25px;
+  margin-top: 40vh;
 
   padding: 1rem 1.5rem;
 
