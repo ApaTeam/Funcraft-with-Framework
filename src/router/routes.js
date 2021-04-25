@@ -14,7 +14,8 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/Splash.vue") },
       { path: "quest", component: () => import("pages/Quest_Screen.vue") },
-      { path: "map", component: () => import("pages/Quest_Map.vue") }
+      { path: "map", component: () => import("pages/Quest_Map.vue") },
+      { path: "login", component: () => import("pages/Login.vue") }
     ]
   },
   // Always leave this as last one,
