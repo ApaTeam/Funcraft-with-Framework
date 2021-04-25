@@ -14,10 +14,13 @@
           <p class="Greetings">Hi, {{ this.$store.state.Player.Name }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
-        <img
+        <q-img
           v-if="type != null"
           class="Profile logo"
-          :src="require('../assets/' + this.$store.state.Player.PicUrl)"
+          :src="
+            'http://localhost:3000/image/user/' +
+            this.$store.state.Player.PicUrl
+          "
           @click="
             () => {
               this.$router.push('/main/profile');
@@ -87,6 +90,7 @@ export default {
   height: 1.5rem;
 }
 .Profile {
+  width: 2.3rem;
   height: 2.3rem;
   border-radius: 100%;
 }
