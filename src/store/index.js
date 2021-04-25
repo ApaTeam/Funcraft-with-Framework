@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import { LocalStorage, SessionStorage } from "quasar";
 
 // import example from './module-example'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 /*
  * If not building with SSR mode, you can
@@ -14,8 +15,35 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
-export default function (/* { ssrContext } */) {
+export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
+    state: {
+      isScrolledDown: false
+    },
+    mutations: {
+      initState(state) {
+        if (LocalStorage.has("Player")) {
+          state["Player"] = LocalStorage.getItem("Player");
+        } else {
+          state["Player"] = {
+            PicUrl: "",
+            Name: ""
+          };
+          LocalStorage.set("Player", state["Player"]);
+        }
+      },
+      setPicUrl(state, url) {
+        state.Player["PicUrl"] = url;
+        LocalStorage.set("Player", state["Player"]);
+      },
+      setPlayerName(state, Name) {
+        state.Player["Name"] = Name;
+        LocalStorage.set("Player", state["Player"]);
+      },
+      setScrollDir(state, scrollDir) {
+        state.isScrolledDown = scrollDir;
+      }
+    },
     modules: {
       // example
     },
@@ -23,7 +51,7 @@ export default function (/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING
-  })
+  });
 
-  return Store
+  return Store;
 }

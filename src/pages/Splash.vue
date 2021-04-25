@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex column flex-center pageCont">
-    <img alt="Funcaraft logo" src="~assets/FunCraft.svg" />
+    <img alt="Funcaraft logo" src="~assets/Funcraft.svg" />
     <h5 class="SubTitle">by APA</h5>
   </q-page>
 </template>
@@ -9,6 +9,8 @@
 export default {
   name: "Splash",
   mounted() {
+    this.$store.commit("setPicUrl", "user(1).jpg");
+    this.$store.commit("setPlayerName", "Ivan");
     setTimeout(() => {
       this.$router.push({ path: "/main" });
     }, 3000);

@@ -1,24 +1,36 @@
 <template>
-  <Nav class="NavArea">
-    <q-btn
-      flat
-      color="standard"
-      icon="arrow_back_ios"
-      label="Back"
-      @click="goBack"
-    />
-    <img
-      v-if="type === 'Profile'"
-      class="Profile logo"
-      src="~assets/Profile-Pic.png"
-      @click="
-        () => {
-          this.$router.push('/main/profile');
-        }
-      "
-    />
-    <img v-else class="Funcraft logo" src="~assets/FunCraft.svg" />
-  </Nav>
+  <div class="NavPadding">
+    <div class="NavContainer">
+      <Nav class="NavArea">
+        <q-btn
+          v-if="type != 'Title'"
+          flat
+          color="standard"
+          icon="arrow_back_ios"
+          label="Back"
+          @click="goBack"
+        />
+        <div v-else class="MOTDContainer">
+          <p class="Greetings">Hi, {{ this.$store.state.Player.Name }}</p>
+          <p class="MOTD">What's for Today ?</p>
+        </div>
+        <q-img
+          v-if="type != null"
+          class="Profile logo"
+          :src="
+            'http://localhost:3000/image/user/' +
+            this.$store.state.Player.PicUrl
+          "
+          @click="
+            () => {
+              this.$router.push('/main/profile');
+            }
+          "
+        />
+        <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
+      </Nav>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,8 +49,15 @@ export default {
 
 
 <style lang="scss" scoped>
-.NavArea {
+.NavPadding {
+  height: 5rem;
+}
+.NavContainer {
   z-index: 99;
+  position: fixed;
+  width: 100%;
+}
+.NavArea {
   //relative biar bisa ada garisnya
   position: relative;
 
@@ -71,6 +90,18 @@ export default {
   height: 1.5rem;
 }
 .Profile {
+  width: 2.3rem;
   height: 2.3rem;
+  border-radius: 100%;
+}
+.MOTDContainer {
+  padding-left: 1rem;
+  .Greetings {
+    font-size: 0.8rem;
+  }
+  .MOTD {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
 }
 </style>
