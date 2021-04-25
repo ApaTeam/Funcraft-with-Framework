@@ -40,7 +40,7 @@ export default {
       RankColor: "#CBCBCB",
     };
   },
-  mounted() { 
+  mounted() {
     let j = this.Rank % 10,
       k = this.Rank % 100;
     if (j == 1 && k != 11) {
