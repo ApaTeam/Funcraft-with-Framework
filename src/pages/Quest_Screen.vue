@@ -33,7 +33,14 @@
         <p class="address">
           Jl. Letjen S Parman No 1 ,Grogol, Jakarta Barat, DKI Jakarta, 11450
         </p>
-        <a href="#">See in Maps</a>
+        <a
+          @click="
+            () => {
+              this.$router.push('/map');
+            }
+          "
+          >See in Maps</a
+        >
       </div>
       <div class="rounded-borders Description">
         <p class="top">Job Description</p>
