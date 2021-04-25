@@ -3,7 +3,10 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
       <router-view />
-      <div class="row no-wrap items-center rounded-borders NavButtonContainer">
+      <div
+        v-if="!this.$store.state.isScrolledDown"
+        class="row no-wrap items-center rounded-borders NavButtonContainer"
+      >
         <q-space />
         <div class="ButtonsContainer">
           <!-- <q-icon name="fas fa-gamepad" /> -->
@@ -54,6 +57,7 @@ export default {
 
   position: relative;
   .NavButtonContainer {
+    z-index: 99;
     position: sticky;
     bottom: 7.5%;
     width: 100%;
@@ -83,7 +87,7 @@ export default {
       }
     }
     .MiddleBtn {
-      z-index: 99;
+      z-index: 2;
       background: linear-gradient(
         222.04deg,
         rgba(72, 244, 255, 0.59) 1.99%,
