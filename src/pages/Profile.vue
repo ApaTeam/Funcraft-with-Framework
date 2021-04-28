@@ -13,7 +13,7 @@
             <q-circular-progress
               show-value
               :value="74"
-              size="35vw"
+              size="8rem"
               :thickness="0.1"
               color="blue"
               center-color="transparent"
@@ -126,6 +126,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0 1.5rem;
+
   height: calc(100vh - 6rem);
 }
 .Charts {
@@ -170,6 +171,7 @@ export default {
       }
       .CircularChart {
         grid-area: chart;
+        place-self: center;
       }
       .Agreement {
         grid-area: agreement;
