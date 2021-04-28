@@ -57,7 +57,9 @@ export default {
   .Location {
     position: absolute;
     top: 72vh;
-    left: 8vw;
+    left: 1.5rem;
+    right: 1.5rem;
+
     border-radius: 20px;
     background: linear-gradient(
       107.24deg,
@@ -65,7 +67,7 @@ export default {
       rgba(23, 0, 89, 0.7) -15.25%,
       rgba(0, 0, 0, 0.7) 76.34%
     );
-    width: 84vw;
+
     padding: 20px;
     .address {
       margin-bottom: 0;
