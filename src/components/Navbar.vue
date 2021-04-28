@@ -50,12 +50,14 @@ export default {
 
 <style lang="scss" scoped>
 .NavPadding {
+  position: relative;
   height: 5rem;
 }
 .NavContainer {
   z-index: 99;
-  position: fixed;
-  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 .NavArea {
   //relative biar bisa ada garisnya
@@ -76,7 +78,7 @@ export default {
     // ngatur lokasinya (tengah bawah)
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%);
 
     border-bottom: 1px solid rgba(168, 120, 227, 0.3);
     width: 90%;
