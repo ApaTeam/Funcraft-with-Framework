@@ -7,31 +7,51 @@
           <h5 class="Title">Monthly Performance</h5>
           <p class="SubTitle">Review your past performance to improve</p>
         </div>
-        <div class="Performance">
-          <h5 class="ChartTitle">Februari 2021</h5>
-          <div class="Information">
-            <q-circular-progress
-              show-value
-              :value="74"
-              size="8rem"
-              :thickness="0.1"
-              color="blue"
-              center-color="transparent"
-              track-color="grey"
-              class="CircularChart"
-            >
-              <span class="ChartContent"> 76% </span>
-            </q-circular-progress>
-            <div class="Agreement">
-              <p class="Title">Total Agreement</p>
-              <div class="Value">5 <span class="Details">out of 8</span></div>
+
+        <q-carousel
+          v-model="slidePage"
+          transition-prev="scale"
+          transition-next="scale"
+          swipeable
+          animated
+          control-color="white"
+          navigation
+          class="transparent"
+        >
+          <q-carousel-slide name="CircularChart" class="CircularContainer">
+            <div class="Performance">
+              <h5 class="ChartTitle">Februari 2021</h5>
+              <div class="Information">
+                <q-circular-progress
+                  show-value
+                  :value="74"
+                  size="8rem"
+                  :thickness="0.1"
+                  color="blue"
+                  center-color="transparent"
+                  track-color="grey"
+                  class="CircularChart"
+                >
+                  <span class="ChartContent"> 76% </span>
+                </q-circular-progress>
+                <div class="Agreement">
+                  <p class="Title">Total Agreement</p>
+                  <div class="Value">
+                    5 <span class="Details">out of 8</span>
+                  </div>
+                </div>
+                <div class="Reward">
+                  <p class="Title">Total Reward</p>
+                  <div class="Value">Rp. 1.000.000</div>
+                </div>
+              </div>
             </div>
-            <div class="Reward">
-              <p class="Title">Total Reward</p>
-              <div class="Value">Rp. 1.000.000</div>
-            </div>
-          </div>
-        </div>
+          </q-carousel-slide>
+
+          <q-carousel-slide name="BarChart" class="BarContainer">
+            <bar-comp :chartdata="chartData"></bar-comp>
+          </q-carousel-slide>
+        </q-carousel>
       </div>
       <div class="History">
         <h5 class="Title">Your History</h5>
@@ -99,9 +119,43 @@
 
 <script>
 import Navbar from "src/components/Navbar.vue";
+import BarComp from "src/components/BarComponent.vue";
 export default {
-  components: { Navbar },
+  components: { Navbar, BarComp },
   name: "Profile",
+  data() {
+    return {
+      slidePage: "CircularChart",
+      chartData: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ],
+        datasets: [
+          {
+            label: "GitHub Commits",
+            backgroundColor: "#f87979",
+            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+          },
+          {
+            label: "GitHub Commits 2",
+            backgroundColor: "#fafafa",
+            data: [60, 10, 2, 3, 1, 40, 39, 80, 40, 20, 12, 11],
+          },
+        ],
+      },
+    };
+  },
   methods: {
     onScroll(info) {
       if (info.direction == "down") {
@@ -122,6 +176,10 @@ export default {
 
 
 <style lang="scss" scoped>
+.BarContainer {
+  position: relative;
+  width: calc(100vw - 3rem);
+}
 .Content {
   display: flex;
   flex-direction: column;
@@ -141,61 +199,65 @@ export default {
       color: #ff9393;
     }
   }
-  .Performance {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .CircularContainer {
+    display: grid;
+    .Performance {
+      place-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    width: 100%;
-
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 25px;
-
-    background: rgba(255, 255, 255, 0.09);
-
-    .ChartTitle {
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-    .Information {
-      margin-top: 1rem;
-      display: grid;
       width: 100%;
-      grid-template-areas:
-        "chart agreement"
-        "chart reward";
-      .ChartContent {
-        font-size: 1.3rem;
+
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 25px;
+
+      background: rgba(255, 255, 255, 0.09);
+
+      .ChartTitle {
+        font-size: 1.1rem;
         font-weight: bold;
       }
-      .CircularChart {
-        grid-area: chart;
-        place-self: center;
-      }
-      .Agreement {
-        grid-area: agreement;
-        .Value {
-          color: #02dac5;
-          .Details {
-            color: #00a595;
+      .Information {
+        margin-top: 1rem;
+        display: grid;
+        width: 100%;
+        grid-template-areas:
+          "chart agreement"
+          "chart reward";
+        .ChartContent {
+          font-size: 1.3rem;
+          font-weight: bold;
+        }
+        .CircularChart {
+          grid-area: chart;
+          place-self: center;
+        }
+        .Agreement {
+          grid-area: agreement;
+          .Value {
+            color: #02dac5;
+            .Details {
+              color: #00a595;
+            }
           }
         }
-      }
-      .Reward {
-        grid-area: reward;
-        .Value {
-          color: #e5a01b;
+        .Reward {
+          grid-area: reward;
+          .Value {
+            color: #e5a01b;
+          }
         }
-      }
-      .Title {
-        font-weight: bold;
-      }
-      .Value {
-        font-size: 1.2rem;
-        font-weight: bold;
-        .Details {
-          font-size: 0.8rem;
+        .Title {
+          font-weight: bold;
+        }
+        .Value {
+          font-size: 1.2rem;
+          font-weight: bold;
+          .Details {
+            font-size: 0.8rem;
+          }
         }
       }
     }
