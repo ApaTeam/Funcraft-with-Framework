@@ -185,7 +185,7 @@ export default {
 
   width: 100%;
   height: 90vh;
-  border-radius: 25px;
+  border-radius: 25px 25px 0 0;
   margin-top: 40vh;
 
   padding: 1rem 1.5rem;
