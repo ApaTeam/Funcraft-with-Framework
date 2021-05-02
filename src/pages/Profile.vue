@@ -176,10 +176,6 @@ export default {
 
 
 <style lang="scss" scoped>
-.BarContainer {
-  position: relative;
-  width: calc(100vw - 3rem);
-}
 .Content {
   display: flex;
   flex-direction: column;
@@ -262,6 +258,10 @@ export default {
       }
     }
   }
+  .BarContainer {
+    position: relative;
+    width: calc(100vw - 3rem);
+  }
 }
 
 .History {
@@ -298,6 +298,12 @@ export default {
         }
       }
     }
+  }
+}
+
+@media only screen and (min-device-width: 768px) {
+  .BarContainer {
+    width: calc(50vh - 3rem) !important;
   }
 }
 </style>
