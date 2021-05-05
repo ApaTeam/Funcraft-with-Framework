@@ -24,7 +24,9 @@
             }
           " -->
         <q-avatar font-size="2.3rem" v-if="type != null" class="logo">
-          <img src="~assets/user/user(1).jpg" />
+          <img
+            src="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(2).jpg"
+          />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
               <q-item clickable to="/main/profile">
