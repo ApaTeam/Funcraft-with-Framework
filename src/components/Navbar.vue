@@ -14,19 +14,29 @@
           <p class="Greetings">Hi, {{ this.$store.state.Player.Name }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
-        <q-img
-          v-if="type != null"
-          class="Profile logo"
-          :src="
+        <!-- :src="
             'http://localhost:3000/image/user/' +
             this.$store.state.Player.PicUrl
-          "
-          @click="
+          " -->
+        <!-- @click="
             () => {
               this.$router.push('/main/profile');
             }
-          "
-        />
+          " -->
+        <q-avatar font-size="2.3rem" v-if="type != null" class="logo">
+          <img src="~assets/user/user(1).jpg" />
+          <q-menu anchor="bottom end" self="top end" auto-close>
+            <q-list style="min-width: 100px" class="popupText">
+              <q-item clickable to="/main/profile">
+                <q-item-section>My Profile</q-item-section>
+              </q-item>
+              <q-item clickable>
+                <q-item-section>Log Out</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-avatar>
+
         <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
       </Nav>
     </div>
@@ -34,6 +44,7 @@
 </template>
 
 <script>
+//type : Title, Profile, (null)
 export default {
   name: "Navbar",
   props: {
@@ -91,11 +102,11 @@ export default {
 .Funcraft {
   height: 1.5rem;
 }
-.Profile {
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 100%;
-}
+// .Profile {
+//   width: 2.3rem;
+//   height: 2.3rem;
+//   border-radius: 100%;
+// }
 .MOTDContainer {
   padding-left: 1rem;
   .Greetings {
@@ -104,6 +115,16 @@ export default {
   .MOTD {
     font-size: 1.2rem;
     font-weight: bold;
+  }
+}
+
+.popupText {
+  .q-item {
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    * {
+      font-size: 1rem;
+    }
   }
 }
 </style>

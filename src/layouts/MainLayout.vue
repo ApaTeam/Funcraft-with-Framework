@@ -21,7 +21,7 @@
             rounded
             icon="svguse:icons.svg#FuncraftIcon"
             class="MiddleBtn"
-            to="/main/profile"
+            to="/main"
           />
           <!-- <q-icon name="fas fa-comment-dots" /> -->
           <q-btn

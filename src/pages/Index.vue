@@ -79,7 +79,14 @@
           </div>
           <div class="DailyQuest">
             <h5 class="Title">Daily Quest</h5>
-            <q-scroll-area horizontal class="QuestList">
+            <q-scroll-area
+              horizontal
+              class="QuestList"
+              :thumb-style="{
+                borderRadius: '5px',
+                background: 'white',
+              }"
+            >
               <div class="row no-wrap">
                 <div class="QuestContainer" @click="chpage(1)">
                   <p class="QuestName">Make Agreement</p>
@@ -93,6 +100,30 @@
                   <h5 class="QuestPoint">5 Pts</h5>
                 </div>
                 <div class="QuestContainer" @click="chpage(2)">
+                  <p class="QuestName">Make Agreement</p>
+                  <span class="QuestRate">(5/7)</span>
+
+                  <q-linear-progress
+                    :value="5 / 7"
+                    size=".5rem"
+                    class="ProgressBar"
+                    track-color="black"
+                  />
+                  <h5 class="QuestPoint">5 Pts</h5>
+                </div>
+                <div class="QuestContainer" @click="chpage(3)">
+                  <p class="QuestName">Make Agreement</p>
+                  <span class="QuestRate">(5/7)</span>
+
+                  <q-linear-progress
+                    :value="5 / 7"
+                    size=".5rem"
+                    class="ProgressBar"
+                    track-color="black"
+                  />
+                  <h5 class="QuestPoint">5 Pts</h5>
+                </div>
+                <div class="QuestContainer" @click="chpage(4)">
                   <p class="QuestName">Make Agreement</p>
                   <span class="QuestRate">(5/7)</span>
 
@@ -185,7 +216,7 @@ export default {
 
   width: 100%;
   height: 90vh;
-  border-radius: 25px;
+  border-radius: 25px 25px 0 0;
   margin-top: 40vh;
 
   padding: 1rem 1.5rem;
@@ -305,7 +336,7 @@ export default {
   .DailyQuest {
     .QuestList {
       width: 100%;
-      height: 160px;
+      height: 170px;
       .QuestContainer {
         width: 150px;
         height: 150px;

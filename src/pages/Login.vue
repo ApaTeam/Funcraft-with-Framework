@@ -17,6 +17,7 @@
         outlined
         filled
         color="purple-9"
+        label-color="purple-1"
         class="input1"
         v-model="email"
         label="E-MAIL"
@@ -30,6 +31,7 @@
         outlined
         filled
         color="purple-9"
+        label-color="purple-1"
         class="input2"
         v-model="password"
         :type="isPwd ? 'password' : 'text'"
@@ -73,7 +75,7 @@ export default {
   font-family: Roboto;
   font-size: 12px;
   .Funcraft {
-    width: 20vw;
+    height: 3rem;
   }
   .playerimage {
     display: flex;
@@ -113,13 +115,19 @@ export default {
     }
   }
   .ButtonLogin {
-    margin-top: 10vh;
-    margin-left: 19vw;
+    align-self: center;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+
     width: 50vw;
-    background: linear-gradient(rgb(30, 52, 253), rgb(161, 85, 255)), #f4f4f4;
+    background: linear-gradient(
+      247.7deg,
+      rgba(30, 52, 253, 0.55) -73.17%,
+      rgba(161, 85, 255, 0.55) 64.31%
+    );
+    border-radius: 15px;
     border: transparent;
     color: white;
-    margin-bottom: 10vh;
   }
   p {
     text-align: center;

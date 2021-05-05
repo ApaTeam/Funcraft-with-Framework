@@ -36,66 +36,7 @@
           :PlayerIcon="'Player (3).png'"
           :Rank="4"
         />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-        />
+
         <q-scroll-observer @scroll="onScroll" />
       </div>
     </div>
