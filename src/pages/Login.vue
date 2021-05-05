@@ -81,8 +81,11 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if (res.data != null) {
+          if (res.data !== "") {
             //redirect
+            this.$store.commit("setPlayer", res.data);
+            console.log(this.$store.state);
+            this.$router.push({ name: "Home" });
           } else {
             //show error message
           }

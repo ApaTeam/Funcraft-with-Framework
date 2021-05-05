@@ -9,8 +9,10 @@
         </div>
         <div class="PlayerInfo">
           <p class="CharacterName">
-            <span class="Name"> CassieAlpha </span>
-            <span class="Level">(Lvl. 1)</span>
+            <span class="Name"> {{ this.$store.state.Player.charaName }} </span>
+            <span class="Level"
+              >(Lvl. {{ this.$store.state.Player.charaLevel }} )</span
+            >
           </p>
           <div class="PlayerStat">
             <q-img
@@ -21,34 +23,40 @@
             />
             <div class="StatList">
               <div class="Stat Health">
-                <p class="StatValue">60/100</p>
+                <p class="StatValue">
+                  {{ this.$store.state.Player.charaHp }}/100
+                </p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="0.8"
+                  :value="this.$store.state.Player.charaHp / 100"
                   color="red"
                   class="Bar"
                 />
               </div>
               <div class="Stat Mana">
-                <p class="StatValue">25/75</p>
+                <p class="StatValue">
+                  {{ this.$store.state.Player.charaAp }}/100
+                </p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="0.33"
+                  :value="this.$store.state.Player.charaAp / 100"
                   color="cyan"
                   class="Bar"
                 />
               </div>
               <div class="Stat Gold">
-                <p class="StatValue">8/13</p>
+                <p class="StatValue">
+                  {{ this.$store.state.Player.charaExp }}/100
+                </p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="0.7"
+                  :value="this.$store.state.Player.charaExp / 100"
                   color="yellow"
                   class="Bar"
                 />

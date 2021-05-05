@@ -11,7 +11,7 @@
           @click="goBack"
         />
         <div v-else class="MOTDContainer">
-          <p class="Greetings">Hi, {{ this.$store.state.Player.Name }}</p>
+          <p class="Greetings">Hi, {{ this.$store.state.Player.fullName }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
         <!-- :src="
@@ -25,14 +25,17 @@
           " -->
         <q-avatar font-size="2.3rem" v-if="type != null" class="logo">
           <img
-            src="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(2).jpg"
+            :src="
+              'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+              this.$store.state.Player.profilePicture
+            "
           />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
               <q-item clickable to="/main/profile">
                 <q-item-section>My Profile</q-item-section>
               </q-item>
-              <q-item clickable>
+              <q-item clickable @click="LogOut">
                 <q-item-section>Log Out</q-item-section>
               </q-item>
             </q-list>
@@ -55,6 +58,10 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    LogOut() {
+      this.$store.commit("playerLogOut");
+      this.$router.go({ name: "Login" });
     },
   },
 };

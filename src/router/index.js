@@ -1,9 +1,11 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import routes from './routes'
+import routes from "./routes";
 
-Vue.use(VueRouter)
+import { LocalStorage, SessionStorage } from "quasar";
+
+Vue.use(VueRouter);
 
 /*
  * If not building with SSR mode, you can
@@ -14,7 +16,7 @@ Vue.use(VueRouter)
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function({ store }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -24,7 +26,21 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
-  })
+  });
+  Router.beforeEach((to, from, next) => {
+    console.log(to.name);
+    console.log(store.state);
+    console.log(store.state["Player"]);
+    if (to.name !== "Login" && store.state["Player"] == null) {
+      if (LocalStorage.has("Player")) {
+        store.state["Player"] = LocalStorage.getItem("Player");
+      } else {
+        next({ name: "Login" });
+        return;
+      }
+    }
+    next();
+  });
 
-  return Router
+  return Router;
 }

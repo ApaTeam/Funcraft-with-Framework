@@ -11,7 +11,7 @@
 export default {
   name: "App",
   mounted() {
-    this.$store.commit("initState");
+    // this.$store.commit("initState");
   },
 };
 </script>
