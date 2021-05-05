@@ -50,12 +50,19 @@
       </q-input>
       <a>Forgot Password</a>
     </div>
-    <q-btn flat rounded class="ButtonLogin" label="LOGIN" />
+    <q-btn
+      flat
+      rounded
+      class="ButtonLogin"
+      label="LOGIN"
+      @click="loginMethod"
+    />
     <p>Don't have an account? <a>SIGN UP</a></p>
   </q-page>
 </template>
 
 <script>
+import { api } from "boot/axios";
 export default {
   name: "Login",
   data() {
@@ -65,15 +72,36 @@ export default {
       isPwd: true,
     };
   },
+  methods: {
+    loginMethod() {
+      api
+        .post("/login", {
+          Email: this.email,
+          Pass: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data != null) {
+            //redirect
+          } else {
+            //show error message
+          }
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
 .Login {
-  padding: 10vh 5vw;
+  padding: 10vh 2rem;
   font-family: Roboto;
   font-size: 12px;
+  > * {
+    width: 100%;
+  }
   .Funcraft {
     height: 3rem;
   }
@@ -119,7 +147,7 @@ export default {
     margin-top: 5rem;
     margin-bottom: 5rem;
 
-    width: 50vw;
+    width: 50%;
     background: linear-gradient(
       247.7deg,
       rgba(30, 52, 253, 0.55) -73.17%,
