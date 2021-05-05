@@ -1,4 +1,4 @@
-     <template>
+<template>
   <q-page class="flex column InputSales">
     <navbar :type="'Profile'" />
     <div class="pageContent">
@@ -6,8 +6,12 @@
       <label>Name</label>
       <q-input dark filled placeholder="Input name.." />
 
-      <p>Sales Date:</p>
-      <q-input dark filled placeholder="Date" type="date" />
+      <div class="inlineinput">
+        <div class="textline">
+          <span>Sales Date :</span>
+        </div>
+        <q-input dark filled class="inputbox" placeholder="Date" type="date" />
+      </div>
 
       <label>Location</label>
       <q-input dark filled placeholder="Input location.." />
@@ -20,10 +24,20 @@
         type="textarea"
       />
 
-      <p>Total Sales:</p>
-      <q-input dark filled placeholder="" />
+      <div class="inlineinput">
+        <div class="textline">
+          <span>Total Sales :</span>
+        </div>
+        <q-input dark filled class="inputbox" placeholder="">
+          <template v-slot:prepend>
+            <q-icon name="money" />
+          </template>
+        </q-input>
+      </div>
 
-      <q-btn color="purple" label="Save" @click="showAlert = true" />
+      <div class="savebtn">
+        <q-btn label="Save" @click="showAlert = true" />
+      </div>
 
       <div class="modalContainer">
         <q-dialog v-model="showAlert">
@@ -63,4 +77,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pageContent{
+  margin: 20px 30px;
+  .Title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .inlineinput{
+    padding-top: 15px;
+    display: flex;
+    flex-direction: row;
+    .textline{
+      display: flex;
+      flex-direction: column;
+      font-weight: bolder;
+      justify-content: space-around;
+    }
+    .inputbox{
+      width: 244px;
+    }
+  }
+
+  .savebtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    button{
+      width: 182px;
+      height: 45px;
+      font-size: 16px;
+      background: linear-gradient(
+      rgb(30, 52, 253, 0.7),
+      rgb(161, 85, 255,0.7)
+      );
+    }
+  }
+
+  label{
+    padding: 7px 0;
+    font-size: 12px;
+  }
+}
 </style>
