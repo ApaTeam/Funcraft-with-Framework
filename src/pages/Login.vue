@@ -3,13 +3,13 @@
     <div class="title">
       <img class="Funcraft logo" src="~assets/Funcraft.svg" />
       <div class="playerimage">
-        <img class="player logo" src="~assets/PlayerIcon/Player (1).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (2).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (3).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (4).png" />
+        <img class="player logo" src="~assets/PlayerIcon/Warrior.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Mage.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Archer.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Sorcerer.png" />
       </div>
     </div>
-    <div class="inputbox">
+    <q-form @submit="loginMethod" class="inputbox">
       <h4>Login</h4>
       <p>Please Sign In to Continue</p>
       <q-input
@@ -19,7 +19,7 @@
         color="purple-9"
         label-color="purple-1"
         class="input1"
-        v-model="email"
+        v-model.trim="email"
         label="E-MAIL"
       >
         <template v-slot:prepend>
@@ -33,7 +33,7 @@
         color="purple-9"
         label-color="purple-1"
         class="input2"
-        v-model="password"
+        v-model.trim="password"
         :type="isPwd ? 'password' : 'text'"
         label="PASSWORD"
       >
@@ -49,14 +49,9 @@
         </template>
       </q-input>
       <a>Forgot Password</a>
-    </div>
-    <q-btn
-      flat
-      rounded
-      class="ButtonLogin"
-      label="LOGIN"
-      @click="loginMethod"
-    />
+      <q-btn flat rounded class="ButtonLogin" label="LOGIN" type="submit" />
+    </q-form>
+
     <p>Don't have an account? <a>SIGN UP</a></p>
   </q-page>
 </template>
