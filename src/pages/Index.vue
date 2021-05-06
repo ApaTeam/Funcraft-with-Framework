@@ -1,7 +1,19 @@
 <template>
   <q-page class="flex column PageIndex">
     <Navbar :type="'Title'" />
-    <img alt="" src="~assets/Player-WithBG.png" class="PlayerImage" />
+    <div class="Background">
+      <img alt="" src="~assets/Background/BG1.png" class="BGImage" />
+      <q-img
+        :src="
+          require('../assets/PlayerIcon/' +
+            this.$store.state.Player.jobs_name +
+            '.png')
+        "
+        class="BGChar"
+      />
+      <!-- <q-btn class="BGBtn" text-color="#f4f4f4" label="Input Sales" /> -->
+    </div>
+
     <div class="Content overflow-auto" v-on:scroll.passive="handleScroll">
       <div class="Tabs">
         <div class="DragBarContainer">
@@ -203,14 +215,45 @@ export default {
 .PageIndex {
   position: relative;
 }
-.PlayerImage {
+.Background {
   position: absolute;
-  width: 100%;
-
+  top: 0;
   left: 0;
   right: 0;
-  top: 0;
+  bottom: 40%;
+  .BGImage {
+    position: absolute;
+    width: 100%;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    z-index: 1;
+  }
+  .BGChar {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: 20vh;
+    height: 20vh;
+    image-rendering: pixelated;
+    transform: translate(-50%, -50%);
+  }
+  .BGBtn {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
+    border-radius: 1rem;
+    padding: 0.2em 1.5em;
+    z-index: 3;
+    color: #f4f4f4;
+  }
 }
+
 .Content {
   z-index: 2;
   //bikin component ini scrollable
