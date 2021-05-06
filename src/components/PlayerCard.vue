@@ -2,7 +2,10 @@
   <div class="PlayerCard">
     <h5 class="Rank" :style="{ color: RankColor }">{{ Rank }}{{ Ext }}</h5>
     <img
-      :src="require('../assets/PlayerIcon/' + PlayerIcon)"
+      :src="
+        'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+        PlayerIcon
+      "
       alt=""
       class="PlayerIcon"
     />
@@ -32,12 +35,12 @@ export default {
     GameName: String,
     Level: Number,
     PlayerIcon: String,
-    IsActive: Boolean,
   },
   data() {
     return {
       Ext: "",
       RankColor: "#CBCBCB",
+      IsActive: this.PlayerName == this.$store.state.Player.fullName,
     };
   },
   mounted() {
@@ -97,6 +100,7 @@ export default {
   }
   .PlayerIcon {
     height: 3rem;
+    border-radius: 1.5rem;
   }
   .Description {
     margin-left: 1rem;

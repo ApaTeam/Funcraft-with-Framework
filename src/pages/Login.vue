@@ -69,20 +69,21 @@ export default {
   },
   methods: {
     loginMethod() {
+      //tambahin loading animation disini
       api
         .post("/login", {
           Email: this.email,
           Pass: this.password,
         })
         .then((res) => {
-          console.log(res);
+          //loading animation ilang pas disini
+          // console.log(res);
           if (res.data !== "") {
             //redirect
             this.$store.commit("setPlayer", res.data);
-            console.log(this.$store.state);
             this.$router.push({ name: "Home" });
           } else {
-            //show error message
+            //show error message disini
           }
         })
         .catch(() => {});

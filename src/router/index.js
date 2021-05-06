@@ -28,9 +28,9 @@ export default function({ store }) {
     base: process.env.VUE_ROUTER_BASE
   });
   Router.beforeEach((to, from, next) => {
-    console.log(to.name);
-    console.log(store.state);
-    console.log(store.state["Player"]);
+    // console.log(to.name);
+    // console.log(store.state);
+    // console.log(store.state["Player"]);
     if (to.name !== "Login" && store.state["Player"] == null) {
       if (LocalStorage.has("Player")) {
         store.state["Player"] = LocalStorage.getItem("Player");

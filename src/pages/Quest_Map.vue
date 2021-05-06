@@ -4,9 +4,13 @@
     <div class="mapbody">
       <div class="QuestTitleContainer">
         <q-img
-          src="~assets/PlayerIcon/Knight.png"
+          :src="
+            require('../assets/PlayerIcon/' +
+              this.$store.state.Player.jobs_name +
+              '.png')
+          "
           style="height: 1.2rem; width: 1.2rem; margin-right: 0.5rem"
-        ></q-img>
+        />
         <p class="QuestTitle">Meeting with Mr. Mitchell</p>
       </div>
       <div class="Location">

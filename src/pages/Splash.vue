@@ -12,9 +12,9 @@ export default {
   mounted() {
     // this.$store.commit("setPicUrl", "user(1).jpg");
     // this.$store.commit("setPlayerName", "Ivan");
-    // setTimeout(() => {
-    //   this.$router.push({ path: "/main" });
-    // }, 3000);
+    setTimeout(() => {
+      this.$router.push({ path: "/main" });
+    }, 2000);
   },
 };
 </script>
