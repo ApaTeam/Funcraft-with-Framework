@@ -14,3 +14,7 @@ h5 {
 body {
     overflow: hidden;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}

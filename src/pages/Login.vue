@@ -9,6 +9,14 @@
         <img class="player logo" src="~assets/PlayerIcon/Sorcerer.png" />
       </div>
     </div>
+    <q-banner class="loginBanner text-white" v-if="showLogin">
+      This app is still in devlopment, to use this app please use :
+      <br />
+      <br />email : admin, <br />password : admin
+      <template v-slot:action>
+        <q-btn flat color="white" label="Dismiss" @click="showLogin = false" />
+      </template>
+    </q-banner>
     <q-form @submit="loginMethod" class="inputbox">
       <h4>Login</h4>
       <p>Please Sign In to Continue</p>
@@ -65,6 +73,7 @@ export default {
       email: "",
       password: "",
       isPwd: true,
+      showLogin: true,
     };
   },
   methods: {
@@ -164,5 +173,16 @@ export default {
   a {
     color: #a978e6;
   }
+}
+.loginBanner {
+  background: linear-gradient(
+    246.81deg,
+    rgba(108, 0, 192, 0.5) -93.94%,
+    rgba(0, 0, 0, 0.32) 116.58%
+  );
+  border: 1px solid #3c3c3c;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 </style>
