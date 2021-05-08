@@ -1,10 +1,10 @@
 <script>
 // CommitChart.js
-import { Bar } from "vue-chartjs";
+import { Line } from "vue-chartjs";
 
 export default {
   name: "BarComp",
-  extends: Bar,
+  extends: Line,
   props: {
     chartdata: {
       type: Object,
