@@ -11,7 +11,7 @@
           @click="goBack"
         />
         <div v-else class="MOTDContainer">
-          <p class="Greetings">Hi, {{ this.$store.state.Player.fullName }}</p>
+          <p class="Greetings">Hi, {{ this.$store.state.Player.EMP_NAME }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
         <!-- :src="
@@ -27,7 +27,7 @@
           <img
             :src="
               'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
-              this.$store.state.Player.profilePicture
+              this.$store.state.Player.PROF_PIC_URL
             "
           />
           <q-menu anchor="bottom end" self="top end" auto-close>

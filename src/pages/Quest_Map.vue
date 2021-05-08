@@ -6,7 +6,7 @@
         <q-img
           :src="
             require('../assets/PlayerIcon/' +
-              this.$store.state.Player.jobs_name +
+              this.$store.state.Player.JOB_NAME +
               '.png')
           "
           style="height: 1.2rem; width: 1.2rem; margin-right: 0.5rem"

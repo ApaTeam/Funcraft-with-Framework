@@ -81,6 +81,7 @@ export default {
           if (res.data !== "") {
             //redirect
             this.$store.commit("setPlayer", res.data);
+            console.log(res.data);
             this.$router.push({ name: "Home" });
           } else {
             //show error message disini

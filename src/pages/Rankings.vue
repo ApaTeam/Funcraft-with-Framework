@@ -12,11 +12,12 @@
             <q-item :key="index" dense>
               <q-item-section>
                 <Player-Card
-                  :PlayerName="item.EmpName"
-                  :GameName="item.GameName"
-                  :Level="item.CharaLvl"
-                  :PlayerIcon="item.EmpPic"
+                  :PlayerName="item.EMP_NAME"
+                  :GameName="item.GAME_NAME"
+                  :Level="item.GAME_LEVEL"
+                  :PlayerIcon="item.PROF_PIC_URL"
                   :Rank="index + 1"
+                  :RankPt="item.REWARD_AMT"
                 />
               </q-item-section>
             </q-item>
@@ -92,5 +93,8 @@ export default {
 .PlayerList {
   flex-grow: 1;
   margin-top: 1rem;
+  .q-item {
+    padding: 0;
+  }
 }
 </style>

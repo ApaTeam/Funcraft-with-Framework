@@ -6,7 +6,7 @@
       <q-img
         :src="
           require('../assets/PlayerIcon/' +
-            this.$store.state.Player.jobs_name +
+            this.$store.state.Player.JOB_NAME +
             '.png')
         "
         class="BGChar"
@@ -21,9 +21,9 @@
         </div>
         <div class="PlayerInfo">
           <p class="CharacterName">
-            <span class="Name"> {{ this.$store.state.Player.charaName }} </span>
+            <span class="Name"> {{ this.$store.state.Player.NAME }} </span>
             <span class="Level"
-              >(Lvl. {{ this.$store.state.Player.charaLevel }} )</span
+              >(Lvl. {{ this.$store.state.Player.LEVEL }} )</span
             >
           </p>
           <div class="PlayerStat">
@@ -35,40 +35,34 @@
             />
             <div class="StatList">
               <div class="Stat Health">
-                <p class="StatValue">
-                  {{ this.$store.state.Player.charaHp }}/100
-                </p>
+                <p class="StatValue">{{ this.$store.state.Player.HP }}/100</p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="this.$store.state.Player.charaHp / 100"
+                  :value="this.$store.state.Player.HP / 100"
                   color="red"
                   class="Bar"
                 />
               </div>
               <div class="Stat Mana">
-                <p class="StatValue">
-                  {{ this.$store.state.Player.charaAp }}/100
-                </p>
+                <p class="StatValue">{{ this.$store.state.Player.EXP }}/100</p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="this.$store.state.Player.charaAp / 100"
+                  :value="this.$store.state.Player.EXP / 100"
                   color="cyan"
                   class="Bar"
                 />
               </div>
               <div class="Stat Gold">
-                <p class="StatValue">
-                  {{ this.$store.state.Player.charaExp }}/100
-                </p>
+                <p class="StatValue">{{ this.$store.state.Player.GOLD }}/100</p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="this.$store.state.Player.charaExp / 100"
+                  :value="this.$store.state.Player.GOLD / 100"
                   color="yellow"
                   class="Bar"
                 />
@@ -206,6 +200,9 @@ export default {
     chpage(QuestId) {
       this.$router.push({ path: "/quest" });
     },
+  },
+  mounted () {
+    
   },
 };
 </script>

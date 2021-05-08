@@ -16,7 +16,7 @@
           animated
           control-color="white"
           navigation
-          class="transparent"
+          class="transparent Slide_Container"
         >
           <q-carousel-slide name="CircularChart" class="CircularContainer">
             <div class="Performance">
@@ -49,7 +49,10 @@
           </q-carousel-slide>
 
           <q-carousel-slide name="BarChart" class="BarContainer">
-            <bar-comp :chartdata="chartData"></bar-comp>
+            <bar-comp
+              :chartdata="chartData"
+              :options="{ responsive: true }"
+            ></bar-comp>
           </q-carousel-slide>
         </q-carousel>
       </div>
@@ -185,6 +188,10 @@ export default {
 }
 .Charts {
   flex-grow: 0;
+  .Slide_Container {
+    height: calc(100vw - 3rem);
+    width: calc(100vw - 3rem);
+  }
 
   .Description {
     .Title {
@@ -258,10 +265,6 @@ export default {
       }
     }
   }
-  .BarContainer {
-    position: relative;
-    width: calc(100vw - 3rem);
-  }
 }
 
 .History {
@@ -302,7 +305,8 @@ export default {
 }
 
 @media only screen and (min-device-width: 768px) {
-  .BarContainer {
+  .Slide_Container {
+    height: calc(50vh - 3rem) !important;
     width: calc(50vh - 3rem) !important;
   }
 }
