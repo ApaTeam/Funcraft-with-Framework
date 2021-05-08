@@ -39,6 +39,7 @@
               contain
             />
             <div class="StatList">
+              <p class="JobName">{{ this.$store.state.Player.JOB_NAME }}</p>
               <div class="Stat Health">
                 <p class="StatValue">{{ this.$store.state.Player.HP }}/100</p>
                 <q-linear-progress
@@ -58,17 +59,6 @@
                   size=".8rem"
                   :value="this.$store.state.Player.EXP / 100"
                   color="cyan"
-                  class="Bar"
-                />
-              </div>
-              <div class="Stat Gold">
-                <p class="StatValue">{{ this.$store.state.Player.GOLD }}/100</p>
-                <q-linear-progress
-                  rounded
-                  dark
-                  size=".8rem"
-                  :value="this.$store.state.Player.GOLD / 100"
-                  color="yellow"
                   class="Bar"
                 />
               </div>
@@ -306,6 +296,9 @@ export default {
 }
 
 .PlayerInfo {
+  .JobName {
+    color: #e5a01b;
+  }
   .CharacterName {
     .Name {
       color: #02dac5;
