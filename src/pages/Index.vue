@@ -11,7 +11,6 @@
         "
         class="BGChar"
       />
-      <!-- <q-btn class="BGBtn" text-color="#f4f4f4" label="Input Sales" /> -->
     </div>
 
     <div class="Content overflow-auto" v-on:scroll.passive="handleScroll">
@@ -19,6 +18,12 @@
         <div class="DragBarContainer">
           <div class="DragBar"></div>
         </div>
+        <q-btn
+          to="/Input"
+          class="InpBtn"
+          text-color="#f4f4f4"
+          label="Input Sales"
+        />
         <div class="PlayerInfo">
           <p class="CharacterName">
             <span class="Name"> {{ this.$store.state.Player.NAME }} </span>
@@ -168,19 +173,23 @@ export default {
         if (e.target.scrollTop < 0.05 * max_scroll) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.$store.commit("setScrollDir", false);
           return;
         }
         if (e.target.scrollTop > 0.95 * max_scroll) {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.$store.commit("setScrollDir", true);
           return;
         }
         if (this.isTop) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.$store.commit("setScrollDir", false);
         } else {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.$store.commit("setScrollDir", true);
         }
       }, 20);
     },
@@ -189,6 +198,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit("setScrollDir", false);
     api
       .get("/getAllQuest", {
         params: {
@@ -211,6 +221,9 @@ export default {
         }
       })
       .catch(() => {});
+  },
+  destroyed() {
+    this.$store.commit("setScrollDir", true);
   },
 };
 </script>
@@ -245,17 +258,6 @@ export default {
     height: 20vh;
     image-rendering: pixelated;
     transform: translate(-50%, -50%);
-  }
-  .BGBtn {
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
-    border-radius: 1rem;
-    padding: 0.2em 1.5em;
-    z-index: 3;
-    color: #f4f4f4;
   }
 }
 
@@ -294,6 +296,15 @@ export default {
     transform: translateX(-50%);
   }
 }
+
+.InpBtn {
+  background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
+  border-radius: 1rem;
+  padding: 0.2em 1.5em;
+  color: #f4f4f4;
+  margin-bottom: 1rem;
+}
+
 .PlayerInfo {
   .CharacterName {
     .Name {

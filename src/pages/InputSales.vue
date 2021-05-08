@@ -4,17 +4,22 @@
     <div class="pageContent">
       <h5 class="Title">Input Sales</h5>
       <label>Name</label>
-      <q-input dark filled placeholder="Input name.." />
+      <q-input dark dense filled placeholder="Input name.." />
 
       <div class="inlineinput">
-        <div class="textline">
-          <span>Sales Date :</span>
-        </div>
-        <q-input dark filled class="inputbox" placeholder="Date" type="date" />
+        <label>Sales Date :</label>
+        <q-input
+          dark
+          dense
+          filled
+          class="inputbox"
+          placeholder="Date"
+          type="date"
+        />
       </div>
 
       <label>Location</label>
-      <q-input dark filled placeholder="Input location.." />
+      <q-input dark dense filled placeholder="Input location.." />
 
       <label>Additional Description</label>
       <q-input
@@ -25,10 +30,8 @@
       />
 
       <div class="inlineinput">
-        <div class="textline">
-          <span>Total Sales :</span>
-        </div>
-        <q-input dark filled class="inputbox" placeholder="">
+        <label>Total Sales :</label>
+        <q-input dark dense filled class="inputbox" placeholder="">
           <template v-slot:prepend>
             <q-icon name="money" />
           </template>
@@ -39,26 +42,31 @@
         <q-btn label="Save" @click="showAlert = true" />
       </div>
 
-      <div class="modalContainer">
-        <q-dialog v-model="showAlert">
-          <q-card>
-            <q-card-section>
-              <div class="text-h6">Alert</div>
-            </q-card-section>
+      <q-dialog v-model="showAlert">
+        <q-card class="modalContainer">
+          <q-card-section align="center">
+            <div class="ImageContainer">
+              <q-img
+                :src="
+                  require('../assets/PlayerIcon/' +
+                    this.$store.state.Player.JOB_NAME +
+                    '.png')
+                "
+              />
+            </div>
+          </q-card-section>
+          <q-card-section align="center">
+            <div class="h6 Title">Save sales data ?</div>
+          </q-card-section>
 
-            <q-card-section class="q-pt-none">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-              perferendis totam, ea at omnis vel numquam exercitationem aut,
-              natus minima, porro labore.
-            </q-card-section>
-
-            <q-card-actions align="right">
-              <q-btn flat label="OK" color="primary" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-      </div>
+          <q-card-actions align="center">
+            <div class="btnContainer">
+              <q-btn flat label="Save" class="Savebtn" to="/main" />
+              <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup />
+            </div>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </q-page>
 </template>
@@ -77,46 +85,78 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pageContent{
+.pageContent {
   margin: 20px 30px;
-  .Title{
+  .Title {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
   }
-  .inlineinput{
-    padding-top: 15px;
-    display: flex;
-    flex-direction: row;
-    .textline{
-      display: flex;
-      flex-direction: column;
-      font-weight: bolder;
-      justify-content: space-around;
-    }
-    .inputbox{
-      width: 244px;
+  .inlineinput {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 6em auto;
+    align-items: center;
+    .inputbox {
+      width: 100%;
     }
   }
 
-  .savebtn{
+  .savebtn {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    button{
+    margin-top: 3rem;
+    button {
       width: 182px;
       height: 45px;
       font-size: 16px;
       background: linear-gradient(
-      rgb(30, 52, 253, 0.7),
-      rgb(161, 85, 255,0.7)
+        247.7deg,
+        rgba(30, 52, 253, 0.75) -73.17%,
+        rgba(161, 85, 255, 0.75) 64.31%
       );
+      border-radius: 15px;
     }
   }
 
-  label{
+  label {
     padding: 7px 0;
     font-size: 12px;
   }
+}
+.modalContainer {
+  padding: 1rem 4rem;
+  .btnContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    > * {
+      padding-bottom: 0.2rem;
+      padding-top: 0.2rem;
+      border-radius: 15px;
+    }
+    .Savebtn {
+      margin-bottom: 0.5rem;
+      background: linear-gradient(
+        247.7deg,
+        rgba(30, 52, 253, 0.75) -73.17%,
+        rgba(161, 85, 255, 0.75) 64.31%
+      );
+      color: #f4f4f4;
+    }
+  }
+  .ImageContainer {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+.q-input {
+  background: linear-gradient(
+    250.02deg,
+    rgba(36, 0, 138, 0.2) 10.99%,
+    rgba(60, 60, 60, 0.2) 93.39%
+  );
+  border-radius: 7px;
 }
 </style>
