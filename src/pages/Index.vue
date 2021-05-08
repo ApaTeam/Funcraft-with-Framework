@@ -71,28 +71,36 @@
           </div>
         </div>
         <div class="QuestArea">
-          <div class="MonthlyQuest">
-            <h5 class="Title">Monthly Quest</h5>
+          <div class="MonthlyQuest" v-if="monthlyTask.length > 0">
+            <h5 class="Title">Monthly Task</h5>
             <div class="QuestList">
-              <div class="QuestContainer" @click="chpage(0)">
+              <div
+                v-for="task of monthlyTask"
+                :key="task.TASK_ID"
+                class="QuestContainer"
+                @click="chpage(task.TASK_ID)"
+              >
                 <p class="QuestName">
-                  Make Agreement
-                  <span class="QuestRate">(5/7)</span>
+                  {{ task.TASK_NAME }}
+                  <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
+                    >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
+                  >
                 </p>
 
                 <q-linear-progress
+                  v-if="task.IS_PROGRESSIVE"
                   dark
-                  :value="5 / 7"
+                  :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
                   size=".5rem"
                   class="ProgressBar"
                   track-color="black"
                 />
-                <h5 class="QuestPoint">5 Pts</h5>
+                <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
               </div>
             </div>
           </div>
-          <div class="DailyQuest">
-            <h5 class="Title">Daily Quest</h5>
+          <div class="DailyQuest" v-if="normalTask.length > 0">
+            <h5 class="Title">Normal Task</h5>
             <q-scroll-area
               horizontal
               class="QuestList"
@@ -102,52 +110,28 @@
               }"
             >
               <div class="row no-wrap">
-                <div class="QuestContainer" @click="chpage(1)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(2)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
+                <div
+                  v-for="task of normalTask"
+                  :key="task.TASK_ID"
+                  class="QuestContainer"
+                  @click="chpage(task.TASK_ID)"
+                >
+                  <p class="QuestName">
+                    {{ task.TASK_NAME }}
+                  </p>
+                  <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
+                    >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
+                  >
 
                   <q-linear-progress
-                    :value="5 / 7"
+                    v-if="task.IS_PROGRESSIVE"
+                    dark
+                    :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
                     size=".5rem"
                     class="ProgressBar"
                     track-color="black"
                   />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(3)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(4)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
+                  <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
                 </div>
               </div>
             </q-scroll-area>
@@ -159,6 +143,7 @@
 </template>
 
 <script>
+import { api } from "boot/axios";
 import Navbar from "components/Navbar.vue";
 export default {
   components: { Navbar },
@@ -168,6 +153,8 @@ export default {
       isTop: false,
       windowHeight: window.outerHeight,
       isScrolling: null,
+      monthlyTask: [],
+      normalTask: [],
     };
   },
   methods: {
@@ -198,11 +185,32 @@ export default {
       }, 20);
     },
     chpage(QuestId) {
-      this.$router.push({ path: "/quest" });
+      this.$router.push({ path: "/quest/" + QuestId });
     },
   },
-  mounted () {
-    
+  mounted() {
+    api
+      .get("/getAllQuest", {
+        params: {
+          EmpId: this.$store.state.Player.EMP_ID,
+        },
+      })
+      .then((res) => {
+        //loading animation ilang pas disini
+
+        if (res.data !== "") {
+          for (let i of res.data) {
+            if (i.IS_MONTHLY) {
+              this.monthlyTask.push(i);
+            } else {
+              this.normalTask.push(i);
+            }
+          }
+        } else {
+          //show error message disini
+        }
+      })
+      .catch(() => {});
   },
 };
 </script>

@@ -20,7 +20,7 @@
         >
           <q-carousel-slide name="CircularChart" class="CircularContainer">
             <div class="Performance">
-              <h5 class="ChartTitle">Februari 2021</h5>
+              <h5 class="ChartTitle">{{ currDate }}</h5>
               <div class="Information">
                 <q-circular-progress
                   show-value
@@ -32,13 +32,14 @@
                   track-color="grey"
                   class="CircularChart"
                 >
-                  <span class="ChartContent"> 76% </span>
+                  <span class="ChartContent">
+                    Total Sales <br />
+                    <span class="SubTitle">5 Out of 8</span>
+                  </span>
                 </q-circular-progress>
                 <div class="Agreement">
-                  <p class="Title">Total Agreement</p>
-                  <div class="Value">
-                    5 <span class="Details">out of 8</span>
-                  </div>
+                  <p class="Title">Performance</p>
+                  <div class="Value">60<span class="Details">Pts</span></div>
                 </div>
                 <div class="Reward">
                   <p class="Title">Total Reward</p>
@@ -157,6 +158,7 @@ export default {
           },
         ],
       },
+      currDate: null,
     };
   },
   methods: {
@@ -170,6 +172,11 @@ export default {
   },
   mounted() {
     this.$store.commit("setScrollDir", false);
+    let today = new Date();
+    this.currDate = today.toLocaleString("default", {
+      month: "long",
+      year: "numeric",
+    });
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);
@@ -230,8 +237,12 @@ export default {
           "chart agreement"
           "chart reward";
         .ChartContent {
-          font-size: 1.3rem;
+          font-size: 1rem;
           font-weight: bold;
+          text-align: center;
+          .SubTitle {
+            font-size: 0.8rem;
+          }
         }
         .CircularChart {
           grid-area: chart;

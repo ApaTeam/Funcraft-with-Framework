@@ -13,7 +13,10 @@ const routes = [
     component: () => import("src/layouts/BlankLayout.vue"),
     children: [
       { path: "", component: () => import("pages/Splash.vue") },
-      { path: "quest", component: () => import("pages/Quest_Screen.vue") },
+      {
+        path: "quest/:QuestId",
+        component: () => import("pages/Quest_Screen.vue")
+      },
       { path: "map", component: () => import("pages/Quest_Map.vue") },
       {
         name: "Login",
