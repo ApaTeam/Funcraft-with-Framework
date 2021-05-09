@@ -23,7 +23,8 @@ const routes = [
         path: "login",
         component: () => import("pages/Login.vue")
       },
-      { path: "Input", component: () => import("pages/InputSales.vue") }
+      { path: "Input", component: () => import("pages/InputSales.vue") },
+      { path: "NewTask", component: () => import("pages/AssignTask.vue") }
     ]
   },
   // Always leave this as last one,

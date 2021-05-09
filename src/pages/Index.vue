@@ -18,7 +18,7 @@
         <div class="DragBarContainer">
           <div class="DragBar"></div>
         </div>
-        <div class="TabScrollContainer">
+        <div class="TabScrollContainer" :style="overflowTab">
           <q-btn
             to="/Input"
             class="InpBtn"
@@ -165,6 +165,9 @@ export default {
       isScrolling: null,
       monthlyTask: [],
       normalTask: [],
+      overflowTab: {
+        "overflow-y": "hidden",
+      },
     };
   },
   methods: {
@@ -178,22 +181,26 @@ export default {
         if (e.target.scrollTop < 0.05 * max_scroll) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.overflowTab["overflow-y"] = "hidden";
           this.$store.commit("setScrollDir", false);
           return;
         }
         if (e.target.scrollTop > 0.95 * max_scroll) {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.overflowTab["overflow-y"] = "auto";
           this.$store.commit("setScrollDir", true);
           return;
         }
         if (this.isTop) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.overflowTab["overflow-y"] = "hidden";
           this.$store.commit("setScrollDir", false);
         } else {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.overflowTab["overflow-y"] = "auto";
           this.$store.commit("setScrollDir", true);
         }
       }, 20);
@@ -230,7 +237,7 @@ export default {
       .catch(() => {});
   },
   destroyed() {
-    this.$store.commit("setScrollDir", true);
+    this.$store.commit("setScrollDir", false);
   },
 };
 </script>
@@ -289,7 +296,6 @@ export default {
   background: linear-gradient(197.99deg, #2e0097 -80.8%, #000000 78.41%);
   .TabScrollContainer {
     height: 100%;
-    overflow-y: auto;
   }
 }
 .DragBarContainer {

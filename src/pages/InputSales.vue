@@ -2,45 +2,47 @@
   <q-page class="flex column InputSales">
     <navbar :type="'Profile'" />
     <div class="pageContent">
-      <h5 class="Title">Input Sales</h5>
-      <label>Name</label>
-      <q-input dark dense filled placeholder="Input name.." />
+      <form action="" class="FormContainer" @submit="showAlert = true">
+        <h5 class="Title">Input Sales</h5>
+        <label>Name</label>
+        <q-input dark dense filled placeholder="Input name.." />
 
-      <div class="inlineinput">
-        <label>Sales Date :</label>
+        <div class="inlineinput">
+          <label>Sales Date :</label>
+          <q-input
+            dark
+            dense
+            filled
+            class="inputbox"
+            placeholder="Date"
+            type="date"
+          />
+        </div>
+
+        <label>Location</label>
+        <q-input dark dense filled placeholder="Input location.." />
+
+        <label>Additional Description</label>
         <q-input
           dark
-          dense
           filled
-          class="inputbox"
-          placeholder="Date"
-          type="date"
+          placeholder="Insert additional description.."
+          type="textarea"
         />
-      </div>
 
-      <label>Location</label>
-      <q-input dark dense filled placeholder="Input location.." />
+        <div class="inlineinput">
+          <label>Total Sales :</label>
+          <q-input dark dense filled class="inputbox" placeholder="">
+            <template v-slot:prepend>
+              <q-icon name="money" />
+            </template>
+          </q-input>
+        </div>
 
-      <label>Additional Description</label>
-      <q-input
-        dark
-        filled
-        placeholder="Insert additional description.."
-        type="textarea"
-      />
-
-      <div class="inlineinput">
-        <label>Total Sales :</label>
-        <q-input dark dense filled class="inputbox" placeholder="">
-          <template v-slot:prepend>
-            <q-icon name="money" />
-          </template>
-        </q-input>
-      </div>
-
-      <div class="savebtn">
-        <q-btn label="Save" @click="showAlert = true" />
-      </div>
+        <div class="savebtn">
+          <q-btn label="Save" type="submit" />
+        </div>
+      </form>
 
       <q-dialog v-model="showAlert">
         <q-card class="modalContainer">
@@ -86,7 +88,10 @@ export default {
 
 <style lang="scss" scoped>
 .pageContent {
-  margin: 20px 30px;
+  padding: 0 30px;
+  margin-top: 20px;
+  height: calc(100vh - 20px - 6rem);
+  overflow-y: auto;
   .Title {
     text-align: center;
     font-weight: bold;
