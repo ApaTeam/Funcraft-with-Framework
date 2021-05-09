@@ -11,7 +11,7 @@
           "
           style="height: 1.2rem; width: 1.2rem; margin-right: 0.5rem"
         />
-        <p class="QuestTitle">Meeting with Mr. Mitchell</p>
+        <p class="QuestTitle">{{this.$store.state.taskname}}</p>
       </div>
       <div class="Location">
         <p class="top">Location</p>

@@ -78,6 +78,7 @@ export default {
   },
   methods: {
     loginMethod() {
+      this.$q.loading.show()
       //tambahin loading animation disini
       api
         .post("/login", {
@@ -85,6 +86,7 @@ export default {
           Pass: this.password,
         })
         .then((res) => {
+          this.$q.loading.hide()
           //loading animation ilang pas disini
           // console.log(res);
           if (res.data !== "") {

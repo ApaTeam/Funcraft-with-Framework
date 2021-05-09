@@ -40,6 +40,7 @@
           @click="
             () => {
               this.$router.push('/map');
+              this.$store.state.taskname=this.Task.TASK_NAME;
             }
           "
           >See in Maps</a
@@ -56,7 +57,7 @@
           Reward : <a class="points">{{ Task.REWARD_AMT }} pts</a>
         </p>
       </div>
-      <q-btn flat rounded class="ButtonStart" label="Start Working" />
+      <q-btn flat rounded id="btnclass" class="ButtonStart" :label="btnlabel" @click="changestate" />
     </div>
   </q-page>
 </template>
@@ -70,9 +71,12 @@ export default {
   data() {
     return {
       Task: null,
+      btnlabel: "Start Working",
+      btncolor: "linear-gradient(#00FF75,#00FFFF)",
     };
   },
   mounted() {
+    this.$q.loading.show()
     api
       .get("/getQuestDetail", {
         params: {
@@ -80,6 +84,7 @@ export default {
         },
       })
       .then((res) => {
+        this.$q.loading.hide()
         //loading animation ilang pas disini
 
         if (res.data !== "") {
@@ -104,6 +109,12 @@ export default {
       })
       .catch(() => {});
     console.log(this.$route.params.QuestId);
+  },
+  methods:{
+    changestate(){
+      this.btnlabel = "Complete Task";
+      document.getElementById("btnclass").style.background = "linear-gradient(rgb(0, 255, 117,0.55),rgb(0, 255, 255,0.55))";
+    }
   },
 };
 </script>
@@ -205,6 +216,7 @@ export default {
       rgb(30, 52, 253, 0.55),
       rgb(161, 85, 255, 0.55)
     );
+    
     border: transparent;
     color: white;
   }
