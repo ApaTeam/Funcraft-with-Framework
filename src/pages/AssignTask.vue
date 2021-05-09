@@ -102,12 +102,12 @@
             </div>
           </q-card-section>
           <q-card-section align="center">
-            <div class="h6 Title">Save sales data ?</div>
+            <div class="h6 Title">Assign this task ?</div>
           </q-card-section>
 
           <q-card-actions align="center">
             <div class="btnContainer">
-              <q-btn flat label="Save" class="Savebtn" to="/main" />
+              <q-btn flat label="Assign" class="Savebtn" to="/main" />
               <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup />
             </div>
           </q-card-actions>
