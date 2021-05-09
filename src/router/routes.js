@@ -5,7 +5,8 @@ const routes = [
     children: [
       { name: "Home", path: "", component: () => import("pages/Index.vue") },
       { path: "Profile", component: () => import("pages/Profile.vue") },
-      { path: "Ranks", component: () => import("pages/Rankings.vue") }
+      { path: "Ranks", component: () => import("pages/Rankings.vue") },
+      { path: "Chat", component: () => import("pages/Chat.vue") }
     ]
   },
   {
@@ -23,7 +24,8 @@ const routes = [
         path: "login",
         component: () => import("pages/Login.vue")
       },
-      { path: "Input", component: () => import("pages/InputSales.vue") }
+      { path: "Input", component: () => import("pages/InputSales.vue") },
+      { path: "main/Chat/temp", component: () => import("pages/Chattemp.vue") }
     ]
   },
   // Always leave this as last one,

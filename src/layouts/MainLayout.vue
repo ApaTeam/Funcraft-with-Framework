@@ -28,6 +28,7 @@
             unelevated
             icon="fas fa-comment-dots"
             class="NavBtn RightBtn"
+            to="/main/chat"
           />
         </div>
         <q-space />
