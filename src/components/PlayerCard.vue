@@ -2,7 +2,10 @@
   <div class="PlayerCard">
     <h5 class="Rank" :style="{ color: RankColor }">{{ Rank }}{{ Ext }}</h5>
     <img
-      :src="require('../assets/PlayerIcon/' + PlayerIcon)"
+      :src="
+        'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+        PlayerIcon
+      "
       alt=""
       class="PlayerIcon"
     />
@@ -20,6 +23,7 @@
         {{ GameName }} <span class="Level">(Lvl. {{ Level }})</span>
       </p>
     </div>
+    <h5 class="Point" :style="{ color: RankColor }">{{ RankPt }}Pts</h5>
   </div>
 </template>
 
@@ -28,16 +32,20 @@ export default {
   name: "PlayerCard",
   props: {
     Rank: Number,
+    RankPt: {
+      type: Number,
+      default: 0,
+    },
     PlayerName: String,
     GameName: String,
     Level: Number,
     PlayerIcon: String,
-    IsActive: Boolean,
   },
   data() {
     return {
       Ext: "",
       RankColor: "#CBCBCB",
+      IsActive: this.PlayerName == this.$store.state.Player.EMP_NAME,
     };
   },
   mounted() {
@@ -72,10 +80,11 @@ export default {
 
 <style lang="scss" scoped>
 .PlayerCard {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
   align-items: center;
 
-  padding: 10px 20px;
+  padding: 10px;
   margin-bottom: 20px;
 
   background: linear-gradient(
@@ -97,12 +106,15 @@ export default {
   }
   .PlayerIcon {
     height: 3rem;
+    border-radius: 1.5rem;
   }
   .Description {
     margin-left: 1rem;
+    place-self: center stretch;
     .PlayerName {
       font-size: 1rem;
       font-weight: bolder;
+      text-overflow: clip;
     }
     .GameName {
       font-size: 0.8rem;
@@ -111,6 +123,10 @@ export default {
       font-size: 0.7rem;
       font-weight: lighter;
     }
+  }
+  .Point {
+    font-size: 1.2rem;
+    justify-self: end;
   }
 }
 </style>

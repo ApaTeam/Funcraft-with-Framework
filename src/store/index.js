@@ -5,7 +5,6 @@ import {
   LocalStorage,
   SessionStorage
 }
-
 from "quasar";
 
 // import example from './module-example'
@@ -27,36 +26,17 @@ export default function(
 ) {
   const Store=new Vuex.Store( {
       state: {
-        isScrolledDown: false
+        isScrolledDown: false,
+        Player: LocalStorage.getItem("Player")
       }
 
       ,
       mutations: {
-        initState(state) {
-          if (LocalStorage.has("Player")) {
-            state["Player"]=LocalStorage.getItem("Player");
-          }
-
-          else {
-            state["Player"]= {
-              PicUrl: "",
-              Name: ""
-            }
-
-            ;
-            LocalStorage.set("Player", state["Player"]);
-          }
-        }
-
-        ,
-        setPicUrl(state, url) {
-          state.Player["PicUrl"]=url;
-          LocalStorage.set("Player", state["Player"]);
-        }
-
-        ,
-        setPlayerName(state, Name) {
-          state.Player["Name"]=Name;
+        playerLogOut(state) {
+          LocalStorage.remove("Player");
+        },
+        setPlayer(state, playerDat){
+          state["Player"] = playerDat;
           LocalStorage.set("Player", state["Player"]);
         }
 

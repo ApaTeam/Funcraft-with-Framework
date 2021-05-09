@@ -3,28 +3,31 @@
     <navbar />
     <div class="content">
       <div class="TaskTitleBox">
-        <p class="QuestType">URGENT TASK</p>
-        <p class="QuestTitle">Meeting with Mr. Mitchell <a>(Client)</a></p>
+        <p class="QuestType">{{ Task.TYPE_NAME }}</p>
+        <p class="QuestTitle">{{ Task.TASK_NAME }}</p>
       </div>
       <div class="QuestFrom">
         <q-img
-          src="~assets/Assigner.png"
+          :src="
+            'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+            Task.PROF_PIC_URL
+          "
           style="height: 142px; width: 113px"
           class="rounded-borders"
         ></q-img>
         <div class="FromDetail">
           <div class="AssignedBy">
             <p class="top">Assigned by</p>
-            <p class="name">Darias Andana Harus</p>
+            <p class="name">{{ Task.TASK_GIVER }}</p>
           </div>
           <div class="WorkTime">
             <p class="top">Work time</p>
-            <p class="hour">4 Hour</p>
+            <p class="hour">{{ Task.EXPECTED_WORK_TIME }} Hour</p>
           </div>
           <div class="StartTime">
             <p class="top">Start time</p>
-            <p class="date">Sun/April 4, 2021</p>
-            <p class="starthour">09.30 AM</p>
+            <p class="date">{{ Task.START_DT }}</p>
+            <p class="starthour">{{ this.Task.START_TIME }}</p>
           </div>
         </div>
       </div>
@@ -43,14 +46,15 @@
         >
       </div>
       <div class="rounded-borders Description">
-        <p class="top">Job Description</p>
+        <p class="top">Task Description</p>
         <p class="Content">
-          “XYZ” Sales Negotiation with Mr. Mitchell<br />
-          from PT. ABC DEF GHI .Tb
+          {{ Task.DESCRIPTION }}
         </p>
       </div>
       <div class="Reward">
-        <p>Reward : <a class="points">5 pts</a></p>
+        <p>
+          Reward : <a class="points">{{ Task.REWARD_AMT }} pts</a>
+        </p>
       </div>
       <q-btn flat rounded class="ButtonStart" label="Start Working" />
     </div>
@@ -58,10 +62,49 @@
 </template>
 
 <script>
+import { api } from "boot/axios";
 import Navbar from "src/components/Navbar.vue";
 export default {
   components: { Navbar },
   name: "QuestScreen",
+  data() {
+    return {
+      Task: null,
+    };
+  },
+  mounted() {
+    api
+      .get("/getQuestDetail", {
+        params: {
+          QuestId: this.$route.params.QuestId,
+        },
+      })
+      .then((res) => {
+        //loading animation ilang pas disini
+
+        if (res.data !== "") {
+          console.log(res.data);
+          this.Task = res.data;
+          let StartDate = new Date(this.Task.START_DT);
+          this.Task.START_DT = StartDate.toDateString();
+          this.Task.START_TIME = StartDate.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          });
+
+          if (this.Task.IS_MONTHLY) {
+            this.Task.TYPE_NAME = "MONTHLY TASK";
+          } else {
+            this.Task.TYPE_NAME = "NORMAL TASK";
+          }
+        } else {
+          //show error message disini
+        }
+      })
+      .catch(() => {});
+    console.log(this.$route.params.QuestId);
+  },
 };
 </script>
 

@@ -6,39 +6,25 @@
         <p class="SubTitle">See your rank beetween your collegues</p>
         <h5 class="Title">Monthly Tier</h5>
       </div>
-      <div class="PlayerList overflow-auto">
-        <Player-Card
-          :PlayerName="'Carlene Lim'"
-          :GameName="'CassieAlpha'"
-          :Level="1"
-          :PlayerIcon="'Player (0).png'"
-          :IsActive="true"
-          :Rank="1"
-        />
-        <Player-Card
-          :PlayerName="'Ivan WIjaya'"
-          :GameName="'CassieBeta'"
-          :Level="2"
-          :PlayerIcon="'Player (1).png'"
-          :Rank="2"
-        />
-        <Player-Card
-          :PlayerName="'Mitchell Ryuu'"
-          :GameName="'CassieCharlie'"
-          :Level="3"
-          :PlayerIcon="'Player (2).png'"
-          :Rank="3"
-        />
-        <Player-Card
-          :PlayerName="'Wijaya Lim'"
-          :GameName="'CassieDelta'"
-          :Level="4"
-          :PlayerIcon="'Player (3).png'"
-          :Rank="4"
-        />
-
+      <q-scroll-area class="PlayerList">
+        <q-virtual-scroll :items="PlayerList" separator>
+          <template v-slot="{ item, index }">
+            <q-item :key="index" dense>
+              <q-item-section>
+                <Player-Card
+                  :PlayerName="item.EMP_NAME"
+                  :GameName="item.GAME_NAME"
+                  :Level="item.GAME_LEVEL"
+                  :PlayerIcon="item.PROF_PIC_URL"
+                  :Rank="index + 1"
+                  :RankPt="item.REWARD_AMT"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-virtual-scroll>
         <q-scroll-observer @scroll="onScroll" />
-      </div>
+      </q-scroll-area>
     </div>
   </q-page>
 </template>
@@ -46,9 +32,15 @@
 <script>
 import Navbar from "src/components/Navbar.vue";
 import PlayerCard from "src/components/PlayerCard.vue";
+import { api } from "boot/axios";
 export default {
   components: { Navbar, PlayerCard },
   name: "Rankings",
+  data() {
+    return {
+      PlayerList: [],
+    };
+  },
   methods: {
     onScroll(info) {
       if (info.direction == "down") {
@@ -60,6 +52,20 @@ export default {
   },
   mounted() {
     this.$store.commit("setScrollDir", false);
+    //tambahin loading screen disini
+    api
+      .get("/rank")
+      .then((res) => {
+        //loading animation ilang pas disini
+        console.log(res);
+        if (res.data !== "") {
+          this.PlayerList = res.data;
+          console.log(this.PlayerList);
+        } else {
+          //show error message disini
+        }
+      })
+      .catch(() => {});
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);
@@ -85,8 +91,10 @@ export default {
   }
 }
 .PlayerList {
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
   margin-top: 1rem;
+  .q-item {
+    padding: 0;
+  }
 }
 </style>

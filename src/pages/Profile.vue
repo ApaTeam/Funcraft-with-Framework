@@ -16,15 +16,17 @@
           animated
           control-color="white"
           navigation
-          class="transparent"
+          class="transparent Slide_Container"
         >
           <q-carousel-slide name="CircularChart" class="CircularContainer">
             <div class="Performance">
-              <h5 class="ChartTitle">Februari 2021</h5>
+              <h5 class="ChartTitle">{{ currPerf.MonthDate }}</h5>
               <div class="Information">
                 <q-circular-progress
                   show-value
-                  :value="74"
+                  :value="
+                    (100 * currPerf.SalesProg.Prog) / currPerf.SalesProg.Target
+                  "
                   size="8rem"
                   :thickness="0.1"
                   color="blue"
@@ -32,82 +34,46 @@
                   track-color="grey"
                   class="CircularChart"
                 >
-                  <span class="ChartContent"> 76% </span>
+                  <span class="ChartContent">
+                    Total Sales <br />
+                    <span class="SubTitle"
+                      >{{ currPerf.SalesProg.Prog }} Out of
+                      {{ currPerf.SalesProg.Target }}</span
+                    >
+                  </span>
                 </q-circular-progress>
                 <div class="Agreement">
-                  <p class="Title">Total Agreement</p>
+                  <p class="Title">Performance</p>
                   <div class="Value">
-                    5 <span class="Details">out of 8</span>
+                    {{ currPerf.Performance }}<span class="Details">Pts</span>
                   </div>
                 </div>
                 <div class="Reward">
                   <p class="Title">Total Reward</p>
-                  <div class="Value">Rp. 1.000.000</div>
+                  <div class="Value">{{ currPerf.Reward }}</div>
                 </div>
               </div>
             </div>
           </q-carousel-slide>
 
           <q-carousel-slide name="BarChart" class="BarContainer">
-            <bar-comp :chartdata="chartData"></bar-comp>
+            <bar-comp
+              :chartdata="chartData"
+              :options="{ responsive: true }"
+            ></bar-comp>
           </q-carousel-slide>
         </q-carousel>
       </div>
       <div class="History">
         <h5 class="Title">Your History</h5>
         <div class="MonthList">
-          <div class="Month">
+          <div class="Month" v-for="item in perfHistory" :key="item.MonthDate">
             <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
-            </div>
-          </div>
-          <div class="Month">
-            <div class="Description">
-              <h5 class="MonthName">January 2021</h5>
-              <p class="Reward">Rp. 10.000.000,-</p>
+              <h5 class="MonthName">{{ item.MonthDate }}</h5>
+              <p class="Reward">{{ item.Reward }}</p>
+              <p class="Performance">
+                {{ item.Performance }} <span class="Details">Pts</span>
+              </p>
             </div>
           </div>
         </div>
@@ -143,17 +109,48 @@ export default {
         ],
         datasets: [
           {
-            label: "GitHub Commits",
-            backgroundColor: "#f87979",
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+            label: "Sales Performance",
+            backgroundColor: "#02dac5",
+            data: [42, 39, 45, 50, 52],
           },
           {
-            label: "GitHub Commits 2",
-            backgroundColor: "#fafafa",
-            data: [60, 10, 2, 3, 1, 40, 39, 80, 40, 20, 12, 11],
+            label: "Sales Reward",
+            backgroundColor: "#cfad69",
+            data: [79, 78, 80, 100, 110],
           },
         ],
       },
+      currPerf: {
+        SalesProg: {
+          Prog: 5,
+          Target: 8,
+        },
+        MonthDate: null,
+        Performance: 52,
+        Reward: "Rp 1.100.000",
+      },
+      perfHistory: [
+        {
+          MonthDate: "Aprill 2021",
+          Performance: 50,
+          Reward: "Rp 1.000.000",
+        },
+        {
+          MonthDate: "March 2021",
+          Performance: 45,
+          Reward: "Rp 800.000",
+        },
+        {
+          MonthDate: "February 2021",
+          Performance: 39,
+          Reward: "Rp 780.000",
+        },
+        {
+          MonthDate: "January 2021",
+          Performance: 42,
+          Reward: "Rp 790.000",
+        },
+      ],
     };
   },
   methods: {
@@ -167,6 +164,11 @@ export default {
   },
   mounted() {
     this.$store.commit("setScrollDir", false);
+    let today = new Date();
+    this.currPerf.MonthDate = today.toLocaleString("default", {
+      month: "long",
+      year: "numeric",
+    });
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);
@@ -185,6 +187,10 @@ export default {
 }
 .Charts {
   flex-grow: 0;
+  .Slide_Container {
+    height: calc(100vw - 3rem);
+    width: calc(100vw - 3rem);
+  }
 
   .Description {
     .Title {
@@ -223,8 +229,12 @@ export default {
           "chart agreement"
           "chart reward";
         .ChartContent {
-          font-size: 1.3rem;
+          font-size: 1rem;
           font-weight: bold;
+          text-align: center;
+          .SubTitle {
+            font-size: 0.8rem;
+          }
         }
         .CircularChart {
           grid-area: chart;
@@ -258,10 +268,6 @@ export default {
       }
     }
   }
-  .BarContainer {
-    position: relative;
-    width: calc(100vw - 3rem);
-  }
 }
 
 .History {
@@ -291,10 +297,29 @@ export default {
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       .Description {
+        display: grid;
+        grid-template-areas:
+          "Month Performance"
+          "Reward Performance";
         .MonthName {
+          grid-area: Month;
           font-weight: bold;
           font-size: 1.1rem;
           color: #a978e6;
+        }
+        .Reward {
+          grid-area: Reward;
+        }
+        .Performance {
+          grid-area: Performance;
+          place-self: center;
+          justify-self: end;
+          font-size: 1.3rem;
+          color: #02dac5;
+          .Details {
+            font-size: 0.8rem;
+            color: #00a595;
+          }
         }
       }
     }
@@ -302,7 +327,8 @@ export default {
 }
 
 @media only screen and (min-device-width: 768px) {
-  .BarContainer {
+  .Slide_Container {
+    height: calc(50vh - 3rem) !important;
     width: calc(50vh - 3rem) !important;
   }
 }

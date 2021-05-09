@@ -3,13 +3,21 @@
     <div class="title">
       <img class="Funcraft logo" src="~assets/Funcraft.svg" />
       <div class="playerimage">
-        <img class="player logo" src="~assets/PlayerIcon/Player (1).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (2).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (3).png" />
-        <img class="player logo" src="~assets/PlayerIcon/Player (4).png" />
+        <img class="player logo" src="~assets/PlayerIcon/Warrior.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Mage.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Archer.png" />
+        <img class="player logo" src="~assets/PlayerIcon/Sorcerer.png" />
       </div>
     </div>
-    <div class="inputbox">
+    <q-banner class="loginBanner text-white" v-if="showLogin">
+      This app is still in devlopment, to use this app please use :
+      <br />
+      <br />email : admin, <br />password : admin
+      <template v-slot:action>
+        <q-btn flat color="white" label="Dismiss" @click="showLogin = false" />
+      </template>
+    </q-banner>
+    <q-form @submit="loginMethod" class="inputbox">
       <h4>Login</h4>
       <p>Please Sign In to Continue</p>
       <q-input
@@ -19,7 +27,7 @@
         color="purple-9"
         label-color="purple-1"
         class="input1"
-        v-model="email"
+        v-model.trim="email"
         label="E-MAIL"
       >
         <template v-slot:prepend>
@@ -33,7 +41,7 @@
         color="purple-9"
         label-color="purple-1"
         class="input2"
-        v-model="password"
+        v-model.trim="password"
         :type="isPwd ? 'password' : 'text'"
         label="PASSWORD"
       >
@@ -49,14 +57,9 @@
         </template>
       </q-input>
       <a>Forgot Password</a>
-    </div>
-    <q-btn
-      flat
-      rounded
-      class="ButtonLogin"
-      label="LOGIN"
-      @click="loginMethod"
-    />
+      <q-btn flat rounded class="ButtonLogin" label="LOGIN" type="submit" />
+    </q-form>
+
     <p>Don't have an account? <a>SIGN UP</a></p>
   </q-page>
 </template>
@@ -70,21 +73,27 @@ export default {
       email: "",
       password: "",
       isPwd: true,
+      showLogin: true,
     };
   },
   methods: {
     loginMethod() {
+      //tambahin loading animation disini
       api
         .post("/login", {
           Email: this.email,
           Pass: this.password,
         })
         .then((res) => {
-          console.log(res);
-          if (res.data != null) {
+          //loading animation ilang pas disini
+          // console.log(res);
+          if (res.data !== "") {
             //redirect
+            this.$store.commit("setPlayer", res.data);
+            console.log(res.data);
+            this.$router.push({ name: "Home" });
           } else {
-            //show error message
+            //show error message disini
           }
         })
         .catch(() => {});
@@ -164,5 +173,16 @@ export default {
   a {
     color: #a978e6;
   }
+}
+.loginBanner {
+  background: linear-gradient(
+    246.81deg,
+    rgba(108, 0, 192, 0.5) -93.94%,
+    rgba(0, 0, 0, 0.32) 116.58%
+  );
+  border: 1px solid #3c3c3c;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 </style>

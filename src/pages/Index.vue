@@ -1,16 +1,35 @@
 <template>
   <q-page class="flex column PageIndex">
     <Navbar :type="'Title'" />
-    <img alt="" src="~assets/Player-WithBG.png" class="PlayerImage" />
+    <div class="Background">
+      <img alt="" src="~assets/Background/BG1.png" class="BGImage" />
+      <q-img
+        :src="
+          require('../assets/PlayerIcon/' +
+            this.$store.state.Player.JOB_NAME +
+            '.png')
+        "
+        class="BGChar"
+      />
+    </div>
+
     <div class="Content overflow-auto" v-on:scroll.passive="handleScroll">
       <div class="Tabs">
         <div class="DragBarContainer">
           <div class="DragBar"></div>
         </div>
+        <q-btn
+          to="/Input"
+          class="InpBtn"
+          text-color="#f4f4f4"
+          label="Input Sales"
+        />
         <div class="PlayerInfo">
           <p class="CharacterName">
-            <span class="Name"> CassieAlpha </span>
-            <span class="Level">(Lvl. 1)</span>
+            <span class="Name"> {{ this.$store.state.Player.NAME }} </span>
+            <span class="Level"
+              >(Lvl. {{ this.$store.state.Player.LEVEL }} )</span
+            >
           </p>
           <div class="PlayerStat">
             <q-img
@@ -20,36 +39,26 @@
               contain
             />
             <div class="StatList">
+              <p class="JobName">{{ this.$store.state.Player.JOB_NAME }}</p>
               <div class="Stat Health">
-                <p class="StatValue">60/100</p>
+                <p class="StatValue">{{ this.$store.state.Player.HP }}/100</p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="0.8"
+                  :value="this.$store.state.Player.HP / 100"
                   color="red"
                   class="Bar"
                 />
               </div>
               <div class="Stat Mana">
-                <p class="StatValue">25/75</p>
+                <p class="StatValue">{{ this.$store.state.Player.EXP }}/100</p>
                 <q-linear-progress
                   rounded
                   dark
                   size=".8rem"
-                  :value="0.33"
+                  :value="this.$store.state.Player.EXP / 100"
                   color="cyan"
-                  class="Bar"
-                />
-              </div>
-              <div class="Stat Gold">
-                <p class="StatValue">8/13</p>
-                <q-linear-progress
-                  rounded
-                  dark
-                  size=".8rem"
-                  :value="0.7"
-                  color="yellow"
                   class="Bar"
                 />
               </div>
@@ -57,28 +66,36 @@
           </div>
         </div>
         <div class="QuestArea">
-          <div class="MonthlyQuest">
-            <h5 class="Title">Monthly Quest</h5>
+          <div class="MonthlyQuest" v-if="monthlyTask.length > 0">
+            <h5 class="Title">Monthly Task</h5>
             <div class="QuestList">
-              <div class="QuestContainer" @click="chpage(0)">
+              <div
+                v-for="task of monthlyTask"
+                :key="task.TASK_ID"
+                class="QuestContainer"
+                @click="chpage(task.TASK_ID)"
+              >
                 <p class="QuestName">
-                  Make Agreement
-                  <span class="QuestRate">(5/7)</span>
+                  {{ task.TASK_NAME }}
+                  <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
+                    >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
+                  >
                 </p>
 
                 <q-linear-progress
+                  v-if="task.IS_PROGRESSIVE"
                   dark
-                  :value="5 / 7"
+                  :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
                   size=".5rem"
                   class="ProgressBar"
                   track-color="black"
                 />
-                <h5 class="QuestPoint">5 Pts</h5>
+                <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
               </div>
             </div>
           </div>
-          <div class="DailyQuest">
-            <h5 class="Title">Daily Quest</h5>
+          <div class="DailyQuest" v-if="normalTask.length > 0">
+            <h5 class="Title">Normal Task</h5>
             <q-scroll-area
               horizontal
               class="QuestList"
@@ -88,52 +105,28 @@
               }"
             >
               <div class="row no-wrap">
-                <div class="QuestContainer" @click="chpage(1)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(2)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
+                <div
+                  v-for="task of normalTask"
+                  :key="task.TASK_ID"
+                  class="QuestContainer"
+                  @click="chpage(task.TASK_ID)"
+                >
+                  <p class="QuestName">
+                    {{ task.TASK_NAME }}
+                  </p>
+                  <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
+                    >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
+                  >
 
                   <q-linear-progress
-                    :value="5 / 7"
+                    v-if="task.IS_PROGRESSIVE"
+                    dark
+                    :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
                     size=".5rem"
                     class="ProgressBar"
                     track-color="black"
                   />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(3)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
-                </div>
-                <div class="QuestContainer" @click="chpage(4)">
-                  <p class="QuestName">Make Agreement</p>
-                  <span class="QuestRate">(5/7)</span>
-
-                  <q-linear-progress
-                    :value="5 / 7"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">5 Pts</h5>
+                  <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
                 </div>
               </div>
             </q-scroll-area>
@@ -145,6 +138,7 @@
 </template>
 
 <script>
+import { api } from "boot/axios";
 import Navbar from "components/Navbar.vue";
 export default {
   components: { Navbar },
@@ -154,6 +148,8 @@ export default {
       isTop: false,
       windowHeight: window.outerHeight,
       isScrolling: null,
+      monthlyTask: [],
+      normalTask: [],
     };
   },
   methods: {
@@ -167,25 +163,57 @@ export default {
         if (e.target.scrollTop < 0.05 * max_scroll) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.$store.commit("setScrollDir", false);
           return;
         }
         if (e.target.scrollTop > 0.95 * max_scroll) {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.$store.commit("setScrollDir", true);
           return;
         }
         if (this.isTop) {
           e.target.scrollTop = 0;
           this.isTop = false;
+          this.$store.commit("setScrollDir", false);
         } else {
           e.target.scrollTop = max_scroll;
           this.isTop = true;
+          this.$store.commit("setScrollDir", true);
         }
       }, 20);
     },
     chpage(QuestId) {
-      this.$router.push({ path: "/quest" });
+      this.$router.push({ path: "/quest/" + QuestId });
     },
+  },
+  mounted() {
+    this.$store.commit("setScrollDir", false);
+    api
+      .get("/getAllQuest", {
+        params: {
+          EmpId: this.$store.state.Player.EMP_ID,
+        },
+      })
+      .then((res) => {
+        //loading animation ilang pas disini
+
+        if (res.data !== "") {
+          for (let i of res.data) {
+            if (i.IS_MONTHLY) {
+              this.monthlyTask.push(i);
+            } else {
+              this.normalTask.push(i);
+            }
+          }
+        } else {
+          //show error message disini
+        }
+      })
+      .catch(() => {});
+  },
+  destroyed() {
+    this.$store.commit("setScrollDir", true);
   },
 };
 </script>
@@ -195,14 +223,34 @@ export default {
 .PageIndex {
   position: relative;
 }
-.PlayerImage {
+.Background {
   position: absolute;
-  width: 100%;
-
+  top: 0;
   left: 0;
   right: 0;
-  top: 0;
+  bottom: 40%;
+  .BGImage {
+    position: absolute;
+    width: 100%;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    z-index: 1;
+  }
+  .BGChar {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: 20vh;
+    height: 20vh;
+    image-rendering: pixelated;
+    transform: translate(-50%, -50%);
+  }
 }
+
 .Content {
   z-index: 2;
   //bikin component ini scrollable
@@ -238,7 +286,19 @@ export default {
     transform: translateX(-50%);
   }
 }
+
+.InpBtn {
+  background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
+  border-radius: 1rem;
+  padding: 0.2em 1.5em;
+  color: #f4f4f4;
+  margin-bottom: 1rem;
+}
+
 .PlayerInfo {
+  .JobName {
+    color: #e5a01b;
+  }
   .CharacterName {
     .Name {
       color: #02dac5;

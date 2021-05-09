@@ -10,11 +10,11 @@
 export default {
   name: "Splash",
   mounted() {
-    this.$store.commit("setPicUrl", "user(1).jpg");
-    this.$store.commit("setPlayerName", "Ivan");
+    // this.$store.commit("setPicUrl", "user(1).jpg");
+    // this.$store.commit("setPlayerName", "Ivan");
     setTimeout(() => {
       this.$router.push({ path: "/main" });
-    }, 3000);
+    }, 2000);
   },
 };
 </script>
@@ -31,7 +31,11 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
