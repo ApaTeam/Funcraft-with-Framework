@@ -26,7 +26,7 @@ const routes = [
       },
       { path: "Input", component: () => import("pages/InputSales.vue") },
       { path: "NewTask", component: () => import("pages/AssignTask.vue") },
-      { path: "main/Chat/temp", component: () => import("pages/Chattemp.vue") }
+      { path: "Chat/temp", component: () => import("pages/Chattemp.vue") }
     ]
   },
   // Always leave this as last one,
