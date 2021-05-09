@@ -12,7 +12,8 @@
           <!-- <q-icon name="fas fa-gamepad" /> -->
           <q-btn
             unelevated
-            icon="fas fa-signal"
+            icon="las la-certificate"
+            size="1.2rem"
             class="NavBtn LeftBtn"
             to="/main/ranks"
           />
@@ -65,10 +66,12 @@ export default {
     padding: 10px 0;
     .ButtonsContainer {
       background: linear-gradient(
-        252.74deg,
-        rgba(55, 0, 179, 0.8) -171.41%,
-        rgba(56, 56, 56, 0.352) 92.84%
-      );
+          252.74deg,
+          rgba(55, 0, 179, 0.8) -171.41%,
+          rgba(56, 56, 56, 0.352) 92.84%
+        ),
+        linear-gradient(252.74deg, rgba(black, 0.5) 0%, rgba(black, 0.5) 100%);
+
       border-radius: 20px;
     }
 

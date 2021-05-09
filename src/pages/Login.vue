@@ -1,66 +1,73 @@
 <template>
   <q-page class="flex column Login">
-    <div class="title">
-      <img class="Funcraft logo" src="~assets/Funcraft.svg" />
-      <div class="playerimage">
-        <img class="player logo" src="~assets/PlayerIcon/Warrior.png" />
-        <img class="player logo" src="~assets/PlayerIcon/Mage.png" />
-        <img class="player logo" src="~assets/PlayerIcon/Archer.png" />
-        <img class="player logo" src="~assets/PlayerIcon/Sorcerer.png" />
+    <div class="PageContainer">
+      <div class="title">
+        <img class="Funcraft logo" src="~assets/Funcraft.svg" />
+        <div class="playerimage">
+          <img class="player logo" src="~assets/PlayerIcon/Warrior.png" />
+          <img class="player logo" src="~assets/PlayerIcon/Mage.png" />
+          <img class="player logo" src="~assets/PlayerIcon/Archer.png" />
+          <img class="player logo" src="~assets/PlayerIcon/Sorcerer.png" />
+        </div>
       </div>
-    </div>
-    <q-banner class="loginBanner text-white" v-if="showLogin">
-      This app is still in devlopment, to use this app please use :
-      <br />
-      <br />email : admin, <br />password : admin
-      <template v-slot:action>
-        <q-btn flat color="white" label="Dismiss" @click="showLogin = false" />
-      </template>
-    </q-banner>
-    <q-form @submit="loginMethod" class="inputbox">
-      <h4>Login</h4>
-      <p>Please Sign In to Continue</p>
-      <q-input
-        dark
-        outlined
-        filled
-        color="purple-9"
-        label-color="purple-1"
-        class="input1"
-        v-model.trim="email"
-        label="E-MAIL"
-      >
-        <template v-slot:prepend>
-          <q-icon name="email" />
-        </template>
-      </q-input>
-      <q-input
-        dark
-        outlined
-        filled
-        color="purple-9"
-        label-color="purple-1"
-        class="input2"
-        v-model.trim="password"
-        :type="isPwd ? 'password' : 'text'"
-        label="PASSWORD"
-      >
-        <template v-slot:prepend>
-          <q-icon name="lock" />
-        </template>
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
+      <q-banner class="loginBanner text-white" v-if="showLogin">
+        This app is still in devlopment, to use this app please use :
+        <br />
+        <br />email : admin, <br />password : admin
+        <template v-slot:action>
+          <q-btn
+            flat
+            color="white"
+            label="Dismiss"
+            @click="showLogin = false"
           />
         </template>
-      </q-input>
-      <a>Forgot Password</a>
-      <q-btn flat rounded class="ButtonLogin" label="LOGIN" type="submit" />
-    </q-form>
+      </q-banner>
+      <q-form @submit="loginMethod" class="inputbox">
+        <h4>Login</h4>
+        <p>Please Sign In to Continue</p>
+        <q-input
+          dark
+          outlined
+          filled
+          color="purple-9"
+          label-color="purple-1"
+          class="input1"
+          v-model.trim="email"
+          label="E-MAIL"
+        >
+          <template v-slot:prepend>
+            <q-icon name="email" />
+          </template>
+        </q-input>
+        <q-input
+          dark
+          outlined
+          filled
+          color="purple-9"
+          label-color="purple-1"
+          class="input2"
+          v-model.trim="password"
+          :type="isPwd ? 'password' : 'text'"
+          label="PASSWORD"
+        >
+          <template v-slot:prepend>
+            <q-icon name="lock" />
+          </template>
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
+        <a>Forgot Password</a>
+        <q-btn flat rounded class="ButtonLogin" label="LOGIN" type="submit" />
+      </q-form>
 
-    <p>Don't have an account? <a>SIGN UP</a></p>
+      <p>Don't have an account? <a>SIGN UP</a></p>
+    </div>
   </q-page>
 </template>
 
@@ -78,7 +85,7 @@ export default {
   },
   methods: {
     loginMethod() {
-      this.$q.loading.show()
+      this.$q.loading.show();
       //tambahin loading animation disini
       api
         .post("/login", {
@@ -86,7 +93,7 @@ export default {
           Pass: this.password,
         })
         .then((res) => {
-          this.$q.loading.hide()
+          this.$q.loading.hide();
           //loading animation ilang pas disini
           // console.log(res);
           if (res.data !== "") {
@@ -107,9 +114,12 @@ export default {
 
 <style lang="scss" scoped>
 .Login {
+  height: 100vh;
+  overflow-y: auto;
   padding: 10vh 2rem;
   font-family: Roboto;
   font-size: 12px;
+
   > * {
     width: 100%;
   }
