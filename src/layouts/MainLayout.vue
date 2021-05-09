@@ -13,7 +13,7 @@
           <q-btn
             unelevated
             icon="las la-certificate"
-            size="1.2rem"
+            size=""
             class="NavBtn LeftBtn"
             to="/main/ranks"
           />
