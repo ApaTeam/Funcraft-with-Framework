@@ -189,6 +189,7 @@ export default {
   },
   mounted() {
     this.$store.commit("setScrollDir", false);
+    this.$q.loading.show()
     api
       .get("/getAllQuest", {
         params: {
@@ -196,6 +197,7 @@ export default {
         },
       })
       .then((res) => {
+        this.$q.loading.hide()
         //loading animation ilang pas disini
 
         if (res.data !== "") {

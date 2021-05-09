@@ -13,7 +13,7 @@ export default {
     // this.$store.commit("setPicUrl", "user(1).jpg");
     // this.$store.commit("setPlayerName", "Ivan");
     setTimeout(() => {
-      this.$router.push({ path: "/main" });
+      this.$router.push({ path: "/login" });
     }, 2000);
   },
 };

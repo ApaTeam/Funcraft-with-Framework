@@ -52,10 +52,12 @@ export default {
   },
   mounted() {
     this.$store.commit("setScrollDir", false);
+    this.$q.loading.show()
     //tambahin loading screen disini
     api
       .get("/rank")
       .then((res) => {
+        this.$q.loading.hide()
         //loading animation ilang pas disini
         console.log(res);
         if (res.data !== "") {

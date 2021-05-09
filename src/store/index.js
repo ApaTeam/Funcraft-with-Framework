@@ -27,7 +27,8 @@ export default function(
   const Store=new Vuex.Store( {
       state: {
         isScrolledDown: false,
-        Player: LocalStorage.getItem("Player")
+        Player: LocalStorage.getItem("Player"),
+        taskname:""
       }
 
       ,
