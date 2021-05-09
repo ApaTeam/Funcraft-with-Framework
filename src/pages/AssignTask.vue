@@ -92,7 +92,7 @@
         <q-card class="modalContainer">
           <q-card-section align="center">
             <div class="ImageContainer">
-              <q-img
+              <img
                 :src="
                   require('../assets/PlayerIcon/' +
                     this.$store.state.Player.JOB_NAME +
