@@ -15,17 +15,21 @@
           />
         </div>
         <div class="AssignContainer">
-          <div class="Assignee">
+          <div
+            class="Assignee"
+            v-for="item in AssignedPlayer"
+            :key="item.EMP_ID"
+          >
             <q-avatar font-size="2.3rem">
               <img
                 :src="
                   'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
-                  this.$store.state.Player.PROF_PIC_URL
+                  item.PROF_PIC_URL
                 "
               />
             </q-avatar>
-            <Label class="Name">Ivan Wijaya</Label>
-            <Label class="JobTitle">Dept. A</Label>
+            <Label class="Name">{{ item.EMP_NAME }}</Label>
+            <Label class="JobTitle">{{ item.EMP_POS }}</Label>
           </div>
         </div>
         <label>Task Name</label>
@@ -118,7 +122,7 @@
               style="height: 70vh"
             >
               <template v-slot="{ item, index }">
-                <q-item :key="index" dense>
+                <q-item :key="item.EMP_ID" dense>
                   <q-item-section class="PlayerContainer">
                     <q-checkbox v-model="CheckBoxList[index]" />
                     <q-avatar font-size="2.3rem">
@@ -137,7 +141,13 @@
           </q-card-section>
           <q-card-actions align="center">
             <div class="btnContainer">
-              <q-btn flat label="Add" class="Savebtn" v-close-popup />
+              <q-btn
+                flat
+                label="Add"
+                class="Savebtn"
+                v-close-popup
+                @click="AssignPlayer"
+              />
             </div>
           </q-card-actions>
         </q-card>
@@ -155,11 +165,22 @@ export default {
   data() {
     return {
       showAlert: false,
-      AddAsignee: true,
+      AddAsignee: false,
       PlayerList: [],
       CheckBoxList: [],
       AssignedPlayer: [],
     };
+  },
+  methods: {
+    AssignPlayer() {
+      this.AssignedPlayer = new Array();
+      for (let i = 0; i < this.PlayerList.length; i++) {
+        if (this.CheckBoxList[i]) {
+          this.AssignedPlayer.push(this.PlayerList[i]);
+        }
+      }
+      console.log(this.AssignedPlayer);
+    },
   },
   mounted() {
     api
