@@ -2,7 +2,7 @@
   <q-page class="flex column InputSales">
     <navbar :type="'Profile'" />
     <div class="pageContent">
-      <form action="" class="FormContainer" @submit="showAlert = true">
+      <form action="" class="FormContainer">
         <h5 class="Title">Input Sales</h5>
         <label>Name</label>
         <q-input dark dense filled placeholder="Input name.." />
@@ -40,7 +40,7 @@
         </div>
 
         <div class="savebtn">
-          <q-btn label="Save" type="submit" />
+          <q-btn label="Save" @click="showAlert = true" />
         </div>
       </form>
 
@@ -63,7 +63,13 @@
 
           <q-card-actions align="center">
             <div class="btnContainer">
-              <q-btn flat label="Save" class="Savebtn" to="/main" />
+              <q-btn
+                flat
+                label="Save"
+                class="Savebtn"
+                to="/main"
+                type="submit"
+              />
               <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup />
             </div>
           </q-card-actions>

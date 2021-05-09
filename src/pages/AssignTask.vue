@@ -2,7 +2,7 @@
   <q-page class="flex column AssignTask">
     <navbar :type="'Profile'" />
     <div class="pageContent">
-      <form action="" class="FormContainer" @submit="showAlert = true">
+      <form action="" class="FormContainer">
         <div class="TitleContainer">
           <h5 class="Title">Assign Task</h5>
           <q-btn
@@ -84,7 +84,7 @@
         </q-input>
 
         <div class="savebtn">
-          <q-btn label="Save" type="submit" />
+          <q-btn label="Save" @click="showAlert = true" />
         </div>
       </form>
 
@@ -107,7 +107,13 @@
 
           <q-card-actions align="center">
             <div class="btnContainer">
-              <q-btn flat label="Assign" class="Savebtn" to="/main" />
+              <q-btn
+                flat
+                label="Assign"
+                class="Savebtn"
+                to="/main"
+                type="submit"
+              />
               <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup />
             </div>
           </q-card-actions>
