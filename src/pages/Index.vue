@@ -21,7 +21,7 @@
         <div class="TabScrollContainer" :style="overflowTab">
           <q-btn
             to="/Input"
-            class="InpBtn"
+            class="InpBtn Btn"
             text-color="#f4f4f4"
             label="Input Sales"
           />
@@ -72,29 +72,12 @@
             <div class="MonthlyQuest" v-if="monthlyTask.length > 0">
               <h5 class="Title">Monthly Task</h5>
               <div class="QuestList">
-                <div
+                <QuestContainer
                   v-for="task of monthlyTask"
                   :key="task.TASK_ID"
-                  class="QuestContainer"
-                  @click="chpage(task.TASK_ID)"
-                >
-                  <p class="QuestName">
-                    {{ task.TASK_NAME }}
-                    <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
-                      >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
-                    >
-                  </p>
-
-                  <q-linear-progress
-                    v-if="task.IS_PROGRESSIVE"
-                    dark
-                    :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
-                    size=".5rem"
-                    class="ProgressBar"
-                    track-color="black"
-                  />
-                  <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
-                </div>
+                  :task="task"
+                  :is-monthly="true"
+                />
               </div>
             </div>
             <div class="DailyQuest" v-if="normalTask.length > 0">
@@ -108,29 +91,12 @@
                 }"
               >
                 <div class="row no-wrap">
-                  <div
+                  <QuestContainer
                     v-for="task of normalTask"
                     :key="task.TASK_ID"
-                    class="QuestContainer"
-                    @click="chpage(task.TASK_ID)"
-                  >
-                    <p class="QuestName">
-                      {{ task.TASK_NAME }}
-                    </p>
-                    <span class="QuestRate" v-if="task.IS_PROGRESSIVE"
-                      >({{ task.PROGRESS_AMT }}/{{ task.COMPLETION_AMT }})</span
-                    >
-
-                    <q-linear-progress
-                      v-if="task.IS_PROGRESSIVE"
-                      dark
-                      :value="task.PROGRESS_AMT / task.COMPLETION_AMT"
-                      size=".5rem"
-                      class="ProgressBar"
-                      track-color="black"
-                    />
-                    <h5 class="QuestPoint">{{ task.REWARD_AMT }} Pts</h5>
-                  </div>
+                    :task="task"
+                    :is-monthly="false"
+                  />
                 </div>
               </q-scroll-area>
             </div>
@@ -141,7 +107,7 @@
           >
             <q-btn
               to="/NewTask"
-              class="NewTaskBtn"
+              class="NewTaskBtn Btn"
               text-color="#f4f4f4"
               label="Assign New Task"
             />
@@ -155,8 +121,9 @@
 <script>
 import { api } from "boot/axios";
 import Navbar from "components/Navbar.vue";
+import QuestContainer from "components/QuestContainer";
 export default {
-  components: { Navbar },
+  components: { Navbar, QuestContainer },
   name: "PageIndex",
   data: function () {
     return {
@@ -255,21 +222,25 @@ export default {
   bottom: 40%;
   .BGImage {
     position: absolute;
-    width: 100%;
-
     left: 0;
     right: 0;
     top: 0;
+
+    width: 100%;
 
     z-index: 1;
   }
   .BGChar {
     position: absolute;
-    z-index: 2;
+
     left: 50%;
     top: 50%;
+
     width: 20vh;
     height: 20vh;
+
+    z-index: 2;
+
     image-rendering: pixelated;
     transform: translate(-50%, -50%);
   }
@@ -288,7 +259,7 @@ export default {
 
   width: 100%;
   height: 90vh;
-  border-radius: 25px 25px 0 0;
+  border-radius: 1.5rem 1.5rem 0 0;
   margin-top: 40vh;
 
   padding: 1rem 1.5rem;
@@ -300,26 +271,28 @@ export default {
 }
 .DragBarContainer {
   position: relative;
+  width: 100%;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  width: 100%;
+
   .DragBar {
     position: absolute;
+    left: 50%;
     width: 5rem;
     height: 0.4rem;
+
+    transform: translateX(-50%);
+
     border-radius: 0.2rem;
     background: #f4f4f4;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 
 .InpBtn {
-  background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
-  border-radius: 1rem;
-  padding: 0.2em 0;
-  margin-bottom: 1rem;
   width: 100%;
+  margin-bottom: 1rem;
+
+  background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
 }
 .NewTaskContainer {
   margin-bottom: 2rem;
@@ -332,8 +305,6 @@ export default {
       rgba(0, 255, 117, 0.55) -53.4%,
       rgba(0, 255, 255, 0.55) 97.08%
     );
-    border-radius: 1rem;
-    padding: 0.2em 1.2rem;
   }
 }
 
@@ -364,13 +335,14 @@ export default {
       flex-grow: 1;
     }
     .Stat {
+      $BarWidth : 70%;
       display: flex;
       align-items: center;
       .Bar {
-        width: 70%;
+        width: $BarWidth;
       }
       .StatValue {
-        width: 30%;
+        width: 100% - $BarWidth;
       }
     }
   }
@@ -387,91 +359,10 @@ export default {
     font-size: 1.2rem;
     margin-bottom: 1rem;
   }
-  .QuestContainer {
-    border-radius: 15px;
-    padding: 0.5rem 1rem;
-    display: grid;
-    * {
-      font-weight: bold;
-    }
-    .QuestName {
-      grid-area: Name;
-    }
-    .QuestRate {
-      grid-area: Progress;
-      font-weight: normal;
-      text-align: start;
-    }
-    .ProgressBar {
-      grid-area: Bar;
-      border-radius: 0.5rem;
-    }
-    .QuestPoint {
-      grid-area: Point;
-      font-size: 1.2rem;
-      justify-self: end;
-      align-self: center;
-    }
-  }
-  .MonthlyQuest {
-    .QuestContainer {
-      width: 100%;
-
-      grid-template-areas:
-        "Name Point"
-        "Bar Point";
-      grid-template-columns: 5fr 2fr;
-      row-gap: 0.5rem;
-      background: linear-gradient(
-        77.32deg,
-        rgba(187, 134, 252, 0.9) 46.71%,
-        rgba(134, 195, 252, 0.9) 98.58%,
-        rgba(232, 234, 255, 0.9) 177.76%
-      );
-
-      * {
-        color: black;
-      }
-      .ProgressBar {
-        color: #2f3037;
-      }
-    }
-  }
   .DailyQuest {
     .QuestList {
       width: 100%;
       height: 170px;
-      .QuestContainer {
-        width: 150px;
-        height: 150px;
-        margin-right: 1rem;
-
-        grid-template-areas:
-          "Name"
-          "Bar"
-          "Progress"
-          "Point";
-        grid-template-rows: 2fr 1fr 2fr 1fr;
-
-        &:nth-child(odd) {
-          background: linear-gradient(
-            38.38deg,
-            rgba(2, 218, 197, 0.75) -7.52%,
-            rgba(255, 206, 81, 0.75) 165.07%
-          );
-        }
-        &:nth-child(even) {
-          background: linear-gradient(
-            224.34deg,
-            rgba(0, 194, 255, 0.85) 8.03%,
-            rgba(0, 26, 255, 0.3995) 182.75%
-          );
-        }
-
-        .ProgressBar {
-          color: white;
-        }
-      }
     }
   }
 }

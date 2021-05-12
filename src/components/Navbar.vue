@@ -3,7 +3,8 @@
     <div class="NavContainer">
       <Nav class="NavArea">
         <q-btn
-          v-if="type != 'Title'"
+          class="BackBtn Btn"
+          v-if="type !== 'Title'"
           flat
           color="standard"
           icon="arrow_back_ios"
@@ -29,6 +30,7 @@
               'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
               this.$store.state.Player.PROF_PIC_URL
             "
+            alt="Profile Picture"
           />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
@@ -42,7 +44,7 @@
           </q-menu>
         </q-avatar>
 
-        <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" />
+        <img v-else class="Funcraft logo" src="~assets/Funcraft.svg" alt="FUNCRAFT"/>
       </Nav>
     </div>
   </div>
@@ -102,6 +104,10 @@ export default {
 
     border-bottom: 1px solid rgba(168, 120, 227, 0.3);
     width: 90%;
+  }
+
+  .BackBtn{
+    border-radius: .5rem;
   }
 
   .logo {
