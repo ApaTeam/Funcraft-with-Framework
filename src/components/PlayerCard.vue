@@ -1,5 +1,5 @@
 <template>
-  <div class="PlayerCard">
+  <div class="PlayerCard Btn">
     <h5 class="Rank" :style="{ color: RankColor }">{{ Rank }}{{ Ext }}</h5>
     <img
       :src="
@@ -45,17 +45,17 @@ export default {
     return {
       Ext: "",
       RankColor: "#CBCBCB",
-      IsActive: this.PlayerName == this.$store.state.Player.EMP_NAME,
+      IsActive: this.PlayerName === this.$store.state.Player.EMP_NAME,
     };
   },
   mounted() {
     let j = this.Rank % 10,
       k = this.Rank % 100;
-    if (j == 1 && k != 11) {
+    if (j === 1 && k !== 11) {
       this.Ext = "st";
-    } else if (j == 2 && k != 12) {
+    } else if (j === 2 && k !== 12) {
       this.Ext = "nd";
-    } else if (j == 3 && k != 13) {
+    } else if (j === 3 && k !== 13) {
       this.Ext = "rd";
     } else {
       this.Ext = "th";
@@ -84,7 +84,7 @@ export default {
   grid-template-columns: 1fr 1fr 3fr 1fr;
   align-items: center;
 
-  padding: 10px;
+  padding: .8rem;
   margin-bottom: 20px;
 
   background: linear-gradient(
@@ -93,7 +93,6 @@ export default {
     rgba(0, 0, 0, 0.32) 116.58%
   );
   border: 1px solid #3c3c3c;
-  border-radius: 10px;
 
   box-sizing: border-box;
   backdrop-filter: blur(4px);

@@ -18,3 +18,9 @@ body {
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
+
+.Btn{
+  padding: 0.2rem 1.2rem;
+  border-radius: 1rem;
+  color: #f4f4f4;
+}
