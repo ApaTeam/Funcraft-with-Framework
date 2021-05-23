@@ -5,7 +5,7 @@
       <form action="" class="FormContainer">
         <h5 class="Title">Input Sales</h5>
         <label>Name</label>
-        <q-input dark dense filled placeholder="Input name.." />
+        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input name.." />
 
         <div class="inlineinput">
           <label>Sales Date :</label>
@@ -14,25 +14,27 @@
             dense
             filled
             class="inputbox"
+            v-model="FormInput.SalesDt"
             placeholder="Date"
             type="date"
           />
         </div>
 
         <label>Location</label>
-        <q-input dark dense filled placeholder="Input location.." />
+        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.." />
 
         <label>Additional Description</label>
         <q-input
           dark
           filled
+          v-model="FormInput.Desc"
           placeholder="Insert additional description.."
           type="textarea"
         />
 
         <div class="inlineinput">
           <label>Total Sales :</label>
-          <q-input dark dense filled class="inputbox" placeholder="">
+          <q-input dark dense filled v-model="FormInput.Sales" class="inputbox" placeholder="">
             <template v-slot:prepend>
               <q-icon name="money" />
             </template>
@@ -87,6 +89,13 @@ export default {
   data() {
     return {
       showAlert: false,
+      FormInput: {
+        Name: "",
+        SalesDt: null,
+        Location: "",
+        Desc: "",
+        Sales: null
+      }
     };
   },
 };

@@ -78,7 +78,7 @@ export default {
   name: "QuestScreen",
   data() {
     return {
-      Task: null,
+      Task: "",
       btnlabel: "Start Working",
       btncolor: "linear-gradient(#00FF75,#00FFFF)",
     };
