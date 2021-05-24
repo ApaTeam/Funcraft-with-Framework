@@ -73,6 +73,7 @@
 
 <script>
 import { api } from "boot/axios";
+import { createHmac } from "crypto";
 export default {
   name: "Login",
   data() {
@@ -90,7 +91,7 @@ export default {
       api
         .post("/login", {
           Email: this.email,
-          Pass: this.password,
+          Pass: createHmac("sha256", this.password).digest("hex"),
         })
         .then((res) => {
           this.$q.loading.hide();
