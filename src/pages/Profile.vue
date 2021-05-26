@@ -67,7 +67,7 @@
       <div class="History">
         <h5 class="Title">Your History</h5>
         <div class="MonthList">
-          <div class="Month" v-for="item in perfHistory" :key="item.MonthDate">
+          <div class="Month Btn" v-for="item in perfHistory" :key="item.MonthDate">
             <div class="Description">
               <h5 class="MonthName">{{ item.MonthDate }}</h5>
               <p class="Reward">{{ item.Reward }}</p>
@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     onScroll(info) {
-      if (info.direction == "down") {
+      if (info.direction === "down") {
         this.$store.commit("setScrollDir", true);
         return;
       }
@@ -294,8 +294,7 @@ export default {
       );
       border: 1px solid #3c3c3c;
       box-sizing: border-box;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
       .Description {
         display: grid;
         grid-template-areas:

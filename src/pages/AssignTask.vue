@@ -33,17 +33,18 @@
           </div>
         </div>
         <label>Task Name</label>
-        <q-input dark dense filled placeholder="Input name.." />
+        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input task name.." />
         <label>Task Description</label>
         <q-input
           dark
           filled
+          v-model="FormInput.Desc"
           placeholder="Insert additional description.."
           type="textarea"
         />
 
         <label>Location</label>
-        <q-input dark dense filled placeholder="Input location.." />
+        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.." />
 
         <label>Start Date</label>
         <q-input
@@ -51,6 +52,7 @@
           dense
           filled
           class="inputbox"
+          v-model="FormInput.StartDt"
           placeholder="Date"
           type="date"
         />
@@ -61,11 +63,13 @@
           dense
           filled
           class="inputbox"
+          v-model="FormInput.Reward"
           placeholder=""
           type="number"
         >
-          <template v-slot:prepend>
-            <q-icon name="money" />
+          <template v-slot:append>
+            <label>Pts</label>
+<!--            <q-icon name="money" />-->
           </template>
         </q-input>
 
@@ -75,11 +79,12 @@
           dense
           filled
           class="inputbox"
+          v-model="FormInput.ExpWorkTime"
           placeholder="0"
           type="number"
         >
           <template v-slot:append>
-            <label for="">Hours</label>
+            <label>Hours</label>
           </template>
         </q-input>
 
@@ -175,6 +180,14 @@ export default {
       PlayerList: [],
       CheckBoxList: [],
       AssignedPlayer: [],
+      FormInput:{
+        Name: "",
+        Desc:"",
+        Location: "",
+        StartDt: null,
+        Reward: null,
+        ExpWorkTime: 0
+      },
     };
   },
   methods: {
