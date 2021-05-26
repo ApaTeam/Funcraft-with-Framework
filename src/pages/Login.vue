@@ -96,7 +96,7 @@ export default {
         .then((res) => {
           this.$q.loading.hide();
           //loading animation ilang pas disini
-          // console.log(res);
+          console.log(res);
           if (res.data !== "") {
             //redirect
             this.$store.commit("setPlayer", res.data);
@@ -104,9 +104,14 @@ export default {
             this.$router.push({ name: "Home" });
           } else {
             //show error message disini
+            this.showLogin = true;
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$q.loading.hide();
+          //show error message disini
+          this.showLogin = true;
+        });
     },
   },
 };
