@@ -115,7 +115,9 @@ export default {
           //show error message disini
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        this.$q.loading.hide();
+      });
     console.log(this.$route.params.QuestId);
   },
   methods: {
