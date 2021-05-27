@@ -201,7 +201,9 @@ export default {
           //show error message disini
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        this.$q.loading.hide();
+      });
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);
