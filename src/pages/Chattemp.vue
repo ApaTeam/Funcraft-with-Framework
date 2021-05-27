@@ -27,7 +27,7 @@
         outlined
         v-model="text"
         placeholder="Send message.."
-        dense="false"
+        :dense="false"
         dark
       />
       <q-btn class="btnmore" label=">" />

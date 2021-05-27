@@ -11,7 +11,7 @@
           <template v-slot="{ item, index }">
             <q-item :key="index" dense>
               <q-item-section>
-                
+
                 <Player-Card
                   :PlayerName="item.EMP_NAME"
                   :GameName="item.GAME_NAME"
@@ -58,17 +58,19 @@ export default {
     api
       .get("/rank")
       .then((res) => {
-        this.$q.loading.hide()
-        //loading animation ilang pas disini
+        this.$store.commit("setOfflineState",false);
         console.log(res);
         if (res.data !== "") {
           this.PlayerList = res.data;
           console.log(this.PlayerList);
         } else {
-          //show error message disini
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        this.$store.commit("setOfflineState",true);
+      }).finally(()=>{
+      this.$q.loading.hide();
+    });
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);

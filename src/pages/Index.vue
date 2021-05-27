@@ -186,10 +186,8 @@ export default {
         },
       })
       .then((res) => {
-        this.$q.loading.hide();
-        //loading animation ilang pas disini
-
         if (res.data !== "") {
+          this.$store.commit("setOfflineState",false);
           for (let i of res.data) {
             if (i.IS_MONTHLY) {
               this.monthlyTask.push(i);
@@ -197,13 +195,18 @@ export default {
               this.normalTask.push(i);
             }
           }
+          this.$q.localStorage.set("MonthlyTask", this.monthlyTask);
+          this.$q.localStorage.set("NormalTask", this.normalTask);
         } else {
-          //show error message disini
         }
       })
       .catch(() => {
-        this.$q.loading.hide();
-      });
+        this.$store.commit("setOfflineState",true);
+        this.monthlyTask = this.$q.localStorage.getItem("MonthlyTask");
+        this.normalTask = this.$q.localStorage.getItem("NormalTask");
+      }).finally(()=>{
+      this.$q.loading.hide();
+    });
   },
   destroyed() {
     this.$store.commit("setScrollDir", false);

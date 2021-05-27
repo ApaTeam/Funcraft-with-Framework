@@ -28,7 +28,8 @@ export default function(
       state: {
         isScrolledDown: false,
         Player: LocalStorage.getItem("Player"),
-        taskname:""
+        taskname:"",
+        isOffline : false
       }
 
       ,
@@ -39,11 +40,12 @@ export default function(
         setPlayer(state, playerDat){
           state["Player"] = playerDat;
           LocalStorage.set("Player", state["Player"]);
-        }
-
-        ,
+        },
         setScrollDir(state, scrollDir) {
           state.isScrolledDown=scrollDir;
+        },
+        setOfflineState(state,isOffline){
+          state['isOffline'] = isOffline;
         }
       }
 

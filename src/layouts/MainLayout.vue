@@ -2,6 +2,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
+      <OfflineBanner/>
       <router-view />
       <div
         v-if="!this.$store.state.isScrolledDown"
@@ -40,14 +41,17 @@
 
 
 <script>
+import OfflineBanner from "components/OfflineBanner";
 export default {
   name: "MainLayout",
+  components: {OfflineBanner},
 };
 </script>
 <style lang="scss">
 .SubTitle {
   margin: 0;
 }
+
 .pageCont {
   background: linear-gradient(
       349.3deg,

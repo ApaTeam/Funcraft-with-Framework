@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex column QuestScreen">
-    <navbar />
+    <navbar/>
     <div class="content">
       <div class="TaskTitleBox">
         <p class="QuestType">{{ Task.TYPE_NAME }}</p>
@@ -43,7 +43,7 @@
               this.$store.state.taskname = this.Task.TASK_NAME;
             }
           "
-          >See in Maps</a
+        >See in Maps</a
         >
       </div>
       <div class="rounded-borders Description">
@@ -71,10 +71,11 @@
 </template>
 
 <script>
-import { api } from "boot/axios";
+import {api} from "boot/axios";
 import Navbar from "src/components/Navbar.vue";
+
 export default {
-  components: { Navbar },
+  components: {Navbar},
   name: "QuestScreen",
   data() {
     return {
@@ -92,9 +93,7 @@ export default {
         },
       })
       .then((res) => {
-        this.$q.loading.hide();
-        //loading animation ilang pas disini
-
+        this.$store.commit("setOfflineState",false);
         if (res.data !== "") {
           console.log(res.data);
           this.Task = res.data;
@@ -112,12 +111,15 @@ export default {
             this.Task.TYPE_NAME = "NORMAL TASK";
           }
         } else {
-          //show error message disini
         }
       })
       .catch(() => {
+        this.$store.commit("setOfflineState", true);
+      })
+      .finally(() => {
         this.$q.loading.hide();
-      });
+      })
+    ;
     console.log(this.$route.params.QuestId);
   },
   methods: {
@@ -137,16 +139,19 @@ export default {
   color: #b1b1b1;
   margin: 0;
 }
+
 .content {
   display: flex;
   flex-direction: column;
   margin: 1.8rem 20px;
 
   padding: 12px;
+
   .TaskTitleBox {
     display: flex;
     flex-direction: column;
     margin: 0;
+
     .QuestType {
       font-family: Montserrat;
       font-weight: bold;
@@ -154,78 +159,95 @@ export default {
       color: #ff9393;
       margin-bottom: 0;
     }
+
     .QuestTitle {
       font-family: Roboto;
       font-weight: bold;
       font-size: 24px;
       margin-top: 0;
+
       a {
         font-weight: normal;
         font-size: 18px;
       }
     }
   }
+
   .QuestFrom {
     display: flex;
     flex-direction: row;
+
     .FromDetail {
       display: flex;
       flex-direction: column;
       margin: 0 20px;
       font-family: Roboto;
       font-size: 14px;
+
       .name {
         color: #f5ac1f;
         margin-bottom: 6px;
       }
+
       .hour {
         font-weight: bold;
         margin-bottom: 6px;
       }
+
       .date {
         font-weight: bold;
         margin: 0;
       }
+
       .starthour {
         font-size: 12px;
       }
     }
   }
+
   .Location {
     padding: 20px;
+
     .address {
       margin-bottom: 0;
       font-weight: bold;
     }
+
     a {
       font-size: 10px;
       color: #2ca180;
     }
   }
+
   .Description {
     padding: 20px;
     background: linear-gradient(
-      rgb(244, 244, 244, 0.1),
-      rgb(255, 255, 255, 0.1)
+        rgb(244, 244, 244, 0.1),
+        rgb(255, 255, 255, 0.1)
     );
+
     .Content {
       font-weight: bold;
     }
   }
+
   .Reward {
     text-align: right;
+
     p {
       font-weight: bold;
+
       a {
         color: #f5ac1f;
       }
     }
   }
+
   .ButtonStart {
     margin-top: 10vh;
     background: linear-gradient(
-      rgb(30, 52, 253, 0.55),
-      rgb(161, 85, 255, 0.55)
+        rgb(30, 52, 253, 0.55),
+        rgb(161, 85, 255, 0.55)
     );
 
     border: transparent;

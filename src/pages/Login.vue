@@ -94,7 +94,6 @@ export default {
           Pass: createHmac("sha256", this.password).digest("hex"),
         })
         .then((res) => {
-          this.$q.loading.hide();
           //loading animation ilang pas disini
           console.log(res);
           if (res.data !== "") {
@@ -103,15 +102,16 @@ export default {
             console.log(res.data);
             this.$router.push({ name: "Home" });
           } else {
-            //show error message disini
+            this.$store.commit("setOfflineState",true);
             this.showLogin = true;
           }
         })
         .catch(() => {
-          this.$q.loading.hide();
-          //show error message disini
+          this.$store.commit("setOfflineState",true);
           this.showLogin = true;
-        });
+        }).finally(()=>{
+        this.$q.loading.hide();
+      });
     },
   },
 };
