@@ -5,15 +5,15 @@
       <q-item clickable v-ripple to="/chat/temp">
         <q-item-section avatar>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+            <img src="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(4).jpg" />
           </q-avatar>
         </q-item-section>
 
         <q-item-section>
-          Insert Player Name
+          Mitchell Ryu
           <q-item-label caption lines="2"
-            >Lorem ipsum dolor sit amet, consectetur adipiscit
-            elit.</q-item-label
+            >Yes, what's your question ?
+            </q-item-label
           >
         </q-item-section>
 
