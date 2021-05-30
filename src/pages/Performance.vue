@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column PageProfile">
+  <q-page class="flex column PagePerformance">
     <navbar />
     <div class="Content overflow-auto">
       <div class="Charts">
@@ -88,7 +88,7 @@ import Navbar from "src/components/Navbar.vue";
 import BarComp from "src/components/BarComponent.vue";
 export default {
   components: { Navbar, BarComp },
-  name: "Profile",
+  name: "Performance",
   data() {
     return {
       slidePage: "CircularChart",
