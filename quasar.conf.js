@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://v1.quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function(/* ctx */) {
+module.exports = function (/* ctx */) {
   return {
     // https://v1.quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -108,17 +108,18 @@ module.exports = function(/* ctx */) {
         exclude: [/\.map$/, /_redirects/],
         skipWaiting: true,
         clientsClaim: true,
-        runtimeCaching: [{
-          urlPattern: new RegExp('https://fonts.*'),
-          handler: 'CacheFirst'
-        },
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp('https://fonts.*'),
+            handler: 'CacheFirst'
+          },
           {
             urlPattern: /\.js/,
-            handler: 'NetworkFirst'
+            handler: 'StaleWhileRevalidate'
           },
           {
             urlPattern: /\.css/,
-            handler: 'NetworkFirst'
+            handler: 'StaleWhileRevalidate'
           }]
       }, // only for GenerateSW
       manifest: {
