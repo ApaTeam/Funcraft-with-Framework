@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex column PagePerformance">
-    <navbar />
+    <navbar/>
     <div class="Content overflow-auto">
       <div class="Charts">
         <div class="Description">
@@ -15,7 +15,7 @@
           swipeable
           animated
           control-color="white"
-          navigation
+          arrows
           class="transparent Slide_Container"
         >
           <q-carousel-slide name="CircularChart" class="CircularContainer">
@@ -35,9 +35,9 @@
                   class="CircularChart"
                 >
                   <span class="ChartContent">
-                    Total Sales <br />
+                    Total Sales <br/>
                     <span class="SubTitle"
-                      >{{ currPerf.SalesProg.Prog }} Out of
+                    >{{ currPerf.SalesProg.Prog }} Out of
                       {{ currPerf.SalesProg.Target }}</span
                     >
                   </span>
@@ -57,12 +57,20 @@
           </q-carousel-slide>
 
           <q-carousel-slide name="BarChart" class="BarContainer">
+            <!--            NOTES : jadiin kotak -->
             <bar-comp
               :chartdata="chartData"
-              :options="{ responsive: true }"
+              :options="{ responsive: true,}"
             ></bar-comp>
           </q-carousel-slide>
         </q-carousel>
+      </div>
+      <div class="SalesHistBtnContainer">
+        <q-btn
+          class="SalesHistBtn Btn"
+          text-color="#f4f4f4"
+          label="Sales History"
+        />
       </div>
       <div class="History">
         <h5 class="Title">Your History</h5>
@@ -78,7 +86,7 @@
           </div>
         </div>
       </div>
-      <q-scroll-observer @scroll="onScroll" />
+      <q-scroll-observer @scroll="onScroll"/>
     </div>
   </q-page>
 </template>
@@ -86,37 +94,27 @@
 <script>
 import Navbar from "src/components/Navbar.vue";
 import BarComp from "src/components/BarComponent.vue";
+
 export default {
-  components: { Navbar, BarComp },
+  components: {Navbar, BarComp},
   name: "Performance",
   data() {
     return {
       slidePage: "CircularChart",
       chartData: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
+        labels: [],
         datasets: [
           {
             label: "Sales Performance",
-            backgroundColor: "#02dac5",
+            borderColor: "#02dac5",
             data: [42, 39, 45, 50, 52],
+            fill: false
           },
           {
             label: "Sales Reward",
-            backgroundColor: "#cfad69",
+            borderColor: "#cfad69",
             data: [79, 78, 80, 100, 110],
+            fill: false
           },
         ],
       },
@@ -163,6 +161,11 @@ export default {
     },
   },
   mounted() {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for (let i = 0; i < this.chartData.datasets[0].data.length; i++) {
+      console.log(i);
+      this.chartData.labels.push(months[i]);
+    }
     this.$store.commit("setScrollDir", false);
     let today = new Date();
     this.currPerf.MonthDate = today.toLocaleString("default", {
@@ -185,8 +188,10 @@ export default {
 
   height: calc(100vh - 6rem);
 }
+
 .Charts {
   flex-grow: 0;
+
   .Slide_Container {
     height: calc(100vw - 3rem);
     width: calc(100vw - 3rem);
@@ -196,13 +201,16 @@ export default {
     .Title {
       font-weight: bold;
     }
+
     .SubTitle {
       font-weight: bold;
       color: #ff9393;
     }
   }
+
   .CircularContainer {
     display: grid;
+
     .Performance {
       place-self: center;
       display: flex;
@@ -221,6 +229,7 @@ export default {
         font-size: 1.1rem;
         font-weight: bold;
       }
+
       .Information {
         margin-top: 1rem;
         display: grid;
@@ -228,39 +237,50 @@ export default {
         grid-template-areas:
           "chart agreement"
           "chart reward";
+
         .ChartContent {
           font-size: 1rem;
           font-weight: bold;
           text-align: center;
+
           .SubTitle {
             font-size: 0.8rem;
           }
         }
+
         .CircularChart {
           grid-area: chart;
           place-self: center;
         }
+
         .Agreement {
           grid-area: agreement;
+
           .Value {
             color: #02dac5;
+
             .Details {
               color: #00a595;
             }
           }
         }
+
         .Reward {
           grid-area: reward;
+
           .Value {
             color: #e5a01b;
           }
         }
+
         .Title {
           font-weight: bold;
         }
+
         .Value {
           font-size: 1.2rem;
           font-weight: bold;
+
           .Details {
             font-size: 0.8rem;
           }
@@ -270,51 +290,73 @@ export default {
   }
 }
 
+.SalesHistBtnContainer {
+  text-align: center;
+  margin-bottom: .7rem;
+
+  .SalesHistBtn {
+    text-align: center;
+    background: linear-gradient(
+        256.64deg,
+        rgba(0, 255, 117, 0.55) -53.4%,
+        rgba(0, 255, 255, 0.55) 97.08%
+    );
+  }
+}
+
 .History {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+
   .Title {
     flex-grow: 0;
     font-weight: bold;
     font-size: 1.2rem;
   }
+
   .MonthList {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     padding-top: 1rem;
+
     .Month {
       margin-bottom: 1.5rem;
       padding: 1rem 2rem;
       background: linear-gradient(
-        246.81deg,
-        rgba(108, 0, 192, 0.5) -93.94%,
-        rgba(0, 0, 0, 0.32) 116.58%
+          246.81deg,
+          rgba(108, 0, 192, 0.5) -93.94%,
+          rgba(0, 0, 0, 0.32) 116.58%
       );
       border: 1px solid #3c3c3c;
       box-sizing: border-box;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
       .Description {
         display: grid;
         grid-template-areas:
           "Month Performance"
           "Reward Performance";
+
         .MonthName {
           grid-area: Month;
           font-weight: bold;
           font-size: 1.1rem;
           color: #a978e6;
         }
+
         .Reward {
           grid-area: Reward;
         }
+
         .Performance {
           grid-area: Performance;
           place-self: center;
           justify-self: end;
           font-size: 1.3rem;
           color: #02dac5;
+
           .Details {
             font-size: 0.8rem;
             color: #00a595;
