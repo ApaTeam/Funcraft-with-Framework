@@ -1,16 +1,18 @@
-
 <template>
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
-      <router-view />
+      <OfflineBanner/>
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 
 <script>
+import OfflineBanner from "components/OfflineBanner";
 export default {
   name: "BlankLayout",
+  components: {OfflineBanner},
 };
 </script>
 
@@ -20,12 +22,13 @@ export default {
   margin: 0;
 }
 .pageCont {
+  position: relative;
   background: linear-gradient(
       349.3deg,
       #000000 -4.62%,
       rgba(29, 0, 89, 0.45) 88.46%
-    ),
-    #000000;
+  ),
+  #000000;
   color: #f4f4f4;
 }
 </style>

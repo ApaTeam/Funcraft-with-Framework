@@ -34,8 +34,8 @@
           />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
-              <q-item clickable to="/main/profile">
-                <q-item-section>My Profile</q-item-section>
+              <q-item clickable to="/main/Performance">
+                <q-item-section>My Performance</q-item-section>
               </q-item>
               <q-item clickable @click="LogOut">
                 <q-item-section>Log Out</q-item-section>

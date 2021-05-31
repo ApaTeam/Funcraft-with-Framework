@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex column AssignTask">
-    <navbar :type="'Profile'" />
+    <navbar :type="'Profile'"/>
     <div class="pageContent">
       <form action="" class="FormContainer">
         <div class="TitleContainer">
@@ -33,7 +33,7 @@
           </div>
         </div>
         <label>Task Name</label>
-        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input task name.." />
+        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input task name.."/>
         <label>Task Description</label>
         <q-input
           dark
@@ -44,7 +44,7 @@
         />
 
         <label>Location</label>
-        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.." />
+        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.."/>
 
         <label>Start Date</label>
         <q-input
@@ -69,7 +69,7 @@
         >
           <template v-slot:append>
             <label>Pts</label>
-<!--            <q-icon name="money" />-->
+            <!--            <q-icon name="money" />-->
           </template>
         </q-input>
 
@@ -89,7 +89,7 @@
         </q-input>
 
         <div class="savebtn">
-          <q-btn label="Save" @click="showAlert = true" />
+          <q-btn label="Save" @click="showAlert = true"/>
         </div>
       </form>
 
@@ -119,7 +119,7 @@
                 to="/main"
                 type="submit"
               />
-              <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup />
+              <q-btn outline label="Cancel" class="Cancelbtn" v-close-popup/>
             </div>
           </q-card-actions>
         </q-card>
@@ -135,7 +135,7 @@
               <template v-slot="{ item, index }">
                 <q-item :key="item.EMP_ID" dense>
                   <q-item-section class="PlayerContainer">
-                    <q-checkbox v-model="CheckBoxList[index]" />
+                    <q-checkbox v-model="CheckBoxList[index]"/>
                     <q-avatar font-size="2.3rem">
                       <img
                         :src="
@@ -168,10 +168,11 @@
 </template>
 
 <script>
-import { api } from "boot/axios";
+import {api} from "boot/axios";
 import Navbar from "src/components/Navbar.vue";
+
 export default {
-  components: { Navbar },
+  components: {Navbar},
   name: "AssignTask",
   data() {
     return {
@@ -180,9 +181,9 @@ export default {
       PlayerList: [],
       CheckBoxList: [],
       AssignedPlayer: [],
-      FormInput:{
+      FormInput: {
         Name: "",
-        Desc:"",
+        Desc: "",
         Location: "",
         StartDt: null,
         Reward: null,
@@ -202,11 +203,11 @@ export default {
     },
   },
   mounted() {
+    this.$q.loading.show();
     api
       .get("/rank")
       .then((res) => {
-        this.$q.loading.hide();
-        //loading animation ilang pas disini
+        this.$store.commit("setOfflineState",false);
         console.log(res);
         if (res.data !== "") {
           this.PlayerList = res.data;
@@ -215,10 +216,13 @@ export default {
           });
           console.log(this.PlayerList);
         } else {
-          //show error message disini
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        this.$store.commit("setOfflineState", true);
+      }).finally(() => {
+      this.$q.loading.hide();
+    });
   },
 };
 </script>
@@ -233,6 +237,7 @@ export default {
   .TitleContainer {
     display: flex;
     justify-content: space-between;
+
     .Title {
       text-align: left;
       font-weight: bold;
@@ -244,6 +249,7 @@ export default {
     display: grid;
     grid-template-columns: 6em auto;
     align-items: center;
+
     .inputbox {
       width: 100%;
     }
@@ -254,14 +260,15 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     margin-top: 3rem;
+
     button {
       width: 182px;
       height: 45px;
       font-size: 16px;
       background: linear-gradient(
-        247.7deg,
-        rgba(30, 52, 253, 0.75) -73.17%,
-        rgba(161, 85, 255, 0.75) 64.31%
+          247.7deg,
+          rgba(30, 52, 253, 0.75) -73.17%,
+          rgba(161, 85, 255, 0.75) 64.31%
       );
       border-radius: 15px;
     }
@@ -272,44 +279,52 @@ export default {
     font-size: 12px;
   }
 }
+
 .modalContainer {
   padding: 1rem 4rem;
+
   .btnContainer {
     display: flex;
     flex-direction: column;
     width: 100%;
+
     > * {
       padding-bottom: 0.2rem;
       padding-top: 0.2rem;
       border-radius: 15px;
     }
+
     .Savebtn {
       margin-bottom: 0.5rem;
       background: linear-gradient(
-        247.7deg,
-        rgba(30, 52, 253, 0.75) -73.17%,
-        rgba(161, 85, 255, 0.75) 64.31%
+          247.7deg,
+          rgba(30, 52, 253, 0.75) -73.17%,
+          rgba(161, 85, 255, 0.75) 64.31%
       );
       color: #f4f4f4;
     }
   }
+
   .ImageContainer {
     width: 3rem;
     height: 3rem;
   }
 }
+
 .q-input {
   background: linear-gradient(
-    250.02deg,
-    rgba(36, 0, 138, 0.2) 10.99%,
-    rgba(60, 60, 60, 0.2) 93.39%
+      250.02deg,
+      rgba(36, 0, 138, 0.2) 10.99%,
+      rgba(60, 60, 60, 0.2) 93.39%
   );
   border-radius: 7px;
 }
+
 .AssignBtn {
   padding-bottom: 0.3rem;
   padding-top: 0.3rem;
 }
+
 .AssignContainer {
   height: 100px;
   width: calc(100vw - 4rem);
@@ -317,19 +332,23 @@ export default {
   display: grid;
   grid-auto-flow: column;
   gap: 0.5rem;
+
   .Assignee {
     width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
+
     Label {
       padding: 0;
     }
+
     .JobTitle {
       color: #f5ac1f;
     }
   }
 }
+
 .AddAsigneeContainer {
   width: 90vw;
 
@@ -337,24 +356,28 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+
     > * {
       padding-bottom: 0.2rem;
       padding-top: 0.2rem;
       border-radius: 15px;
     }
+
     .Savebtn {
       margin-bottom: 0.5rem;
       background: linear-gradient(
-        247.7deg,
-        rgba(30, 52, 253, 0.75) -73.17%,
-        rgba(161, 85, 255, 0.75) 64.31%
+          247.7deg,
+          rgba(30, 52, 253, 0.75) -73.17%,
+          rgba(161, 85, 255, 0.75) 64.31%
       );
       color: #f4f4f4;
     }
   }
+
   .PlayerContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 3fr;
+
     .EmpName {
       font-size: 1rem;
       text-align: left;
@@ -362,6 +385,7 @@ export default {
     }
   }
 }
+
 @media only screen and (min-device-width: 768px) {
   .AddAsigneeContainer {
     width: 40vh;

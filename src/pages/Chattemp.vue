@@ -6,15 +6,20 @@
         <q-chat-message label="Sunday, 19th" />
 
         <q-chat-message
-          avatar="https://cdn.quasar.dev/img/avatar4.jpg"
-          :text="['hey, how are you?']"
+          :avatar="
+            'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+              this.$store.state.Player.PROF_PIC_URL
+          "
+          :text="[
+            'hey, i have a question about this task. Can i ask a question ?'
+          ]"
           sent
           stamp="7 minutes ago"
           bg-color="whitesmoke"
         />
         <q-chat-message
-          avatar="https://cdn.quasar.dev/img/avatar3.jpg"
-          :text="['Lorem ipsum dolor sit amet, consectetur adipiscit elit.']"
+          avatar="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(4).jpg"
+          :text="[`Yes, what's your question ?`]"
           stamp="5 minutes ago"
         />
       </div>
@@ -27,7 +32,7 @@
         outlined
         v-model="text"
         placeholder="Send message.."
-        dense="false"
+        :dense="false"
         dark
       />
       <q-btn class="btnmore" label=">" />
@@ -42,12 +47,11 @@ export default {
   name: "Chattemp",
   data() {
     return {
-      text: "",
+      text: ""
     };
-  },
+  }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .bottom {
