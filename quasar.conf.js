@@ -107,7 +107,19 @@ module.exports = function(/* ctx */) {
       workboxOptions: {
         exclude: [/\.map$/, /_redirects/],
         skipWaiting: true,
-        clientsClaim: true
+        clientsClaim: true,
+        runtimeCaching: [{
+          urlPattern: new RegExp('https://fonts.*'),
+          handler: 'CacheFirst'
+        },
+          {
+            urlPattern: /\.js/,
+            handler: 'NetworkFirst'
+          },
+          {
+            urlPattern: /\.css/,
+            handler: 'NetworkFirst'
+          }]
       }, // only for GenerateSW
       manifest: {
         name: `FunCraft`,
