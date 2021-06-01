@@ -30,10 +30,21 @@ export default function(
         Player: LocalStorage.getItem("Player"),
         taskname:"",
         isOffline : false,
+        AddChat : false,
+        PlayerList : [],
       }
 
       ,
       mutations: {
+        addPlayerList(state, list){
+          state["PlayerList"] = list;
+        },
+        clearPlayerList(state){
+          state["PlayerList"] = [];
+        },
+        setAddChat(state,status){
+          state['AddChat'] = status;
+        },
         playerLogOut(state) {
           LocalStorage.remove("Player");
         },
