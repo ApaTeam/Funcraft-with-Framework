@@ -1,6 +1,10 @@
-# FunCraft (vue_gamify)
+<img src="src/assets/Funcraft.svg" alt="Funcraft" width="500"/>
 
-A task tracker gamification app for employee
+A fun gamified task tracker designed for sales officer
+
+website : [Funcraft site](https://funcraft-site.netlify.app/)
+
+application : [PWA](https://funcraft.netlify.app/)
 
 ## Install the dependencies
 ```bash
@@ -13,10 +17,7 @@ quasar dev
 ```
 
 
-### Build the app for production
+### Build the app for production (PWA)
 ```bash
-quasar build
+quasar build -m pwa
 ```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v1.quasar.dev/quasar-cli/quasar-conf-js).

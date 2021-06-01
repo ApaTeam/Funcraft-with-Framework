@@ -11,7 +11,6 @@
           <template v-slot="{ item, index }">
             <q-item :key="index" dense>
               <q-item-section>
-
                 <Player-Card
                   :PlayerName="item.EMP_NAME"
                   :GameName="item.GAME_NAME"
