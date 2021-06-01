@@ -1,68 +1,57 @@
 <template>
   <div
-    class="QuestContainer Btn"
-    @click="chPage(Task.TASK_ID)"
+    class="AssignedTask Btn"
+    @click="chPage(Task.ASG_TASK_ID)"
     :class="IsMonthly ? 'MonthlyQuest' : 'DailyQuest'"
   >
-    <p class="QuestName">
+    <p class="TaskName">
       {{ Task.TASK_NAME }}
-      <span class="QuestRate" v-if="Task.IS_PROGRESSIVE && IsMonthly"
-      >({{ Task.PROGRESS_AMT }}/{{ Task.COMPLETION_AMT }})</span
-      >
     </p>
-    <span class="QuestRate" v-if="Task.IS_PROGRESSIVE && !IsMonthly"
-    >({{ Task.PROGRESS_AMT }}/{{ Task.COMPLETION_AMT }})</span
+    <span class="TaskTaker"
+    >{{ Task.EMP_NAME }}</span
     >
-
-    <q-linear-progress
-      v-if="Task.IS_PROGRESSIVE"
-      dark
-      :value="Task.PROGRESS_AMT / Task.COMPLETION_AMT"
-      size=".5rem"
-      class="ProgressBar"
-      track-color="black"
-    />
-    <h5 class="QuestPoint">{{ Task.REWARD_AMT }} Pts</h5>
+    <h5 class="TaskReward">{{ Task.REWARD_AMT }} Pts</h5>
   </div>
 </template>
 
 <script>
 export default {
-  name: "QuestContainer",
+  name: "AssignedTask",
   components: {},
   props: {
     Task: Object,
-    IsMonthly : Boolean
+    IsMonthly: Boolean
   },
   methods: {
     chPage(QuestId) {
-      this.$router.push({ path: "/quest/" + QuestId });
+      this.$router.push({path: "/quest/" + QuestId});
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
-.QuestContainer {
+.AssignedTask {
   padding: 0.5rem 1rem;
   display: grid;
+
   * {
     font-weight: bold;
   }
-  .QuestName {
+
+  .TaskName {
     grid-area: Name;
   }
-  .QuestRate {
-    grid-area: Progress;
+
+  .TaskTaker {
+    grid-area: Taker;
+    font-size: .75rem;
     font-weight: normal;
     text-align: start;
   }
-  .ProgressBar {
-    grid-area: Bar;
-    border-radius: 0.5rem;
-  }
-  .QuestPoint {
-    grid-area: Point;
+
+  .TaskReward {
+    grid-area: Reward;
     font-size: 1.2rem;
     justify-self: end;
     align-self: center;
@@ -71,12 +60,12 @@ export default {
 
 .MonthlyQuest {
   width: 100%;
+  margin-bottom: .5rem;
 
   grid-template-areas:
-        "Name Point"
-        "Bar Point";
-  grid-template-columns: 5fr 2fr;
-  row-gap: 0.5rem;
+        "Name Reward"
+        "Taker Reward";
+  grid-template-columns: 1fr 1fr;
   background: linear-gradient(
       77.32deg,
       rgba(187, 134, 252, 0.9) 46.71%,
@@ -87,8 +76,8 @@ export default {
   * {
     color: black;
   }
-  .ProgressBar {
-    color: #2f3037;
+  .TaskTaker{
+    color: #f4f4f4;
   }
 }
 
@@ -99,10 +88,13 @@ export default {
 
   grid-template-areas:
           "Name"
-          "Bar"
-          "Progress"
-          "Point";
+          "Taker"
+          "Reward";
   grid-template-rows: 2fr 1fr 2fr 1fr;
+
+  .TaskTaker{
+    color: black;
+  }
 
   &:nth-child(odd) {
     background: linear-gradient(
@@ -111,16 +103,13 @@ export default {
         rgba(255, 206, 81, 0.75) 165.07%
     );
   }
+
   &:nth-child(even) {
     background: linear-gradient(
         224.34deg,
         rgba(0, 194, 255, 0.85) 8.03%,
         rgba(0, 26, 255, 0.3995) 182.75%
     );
-  }
-
-  .ProgressBar {
-    color: white;
   }
 }
 </style>
