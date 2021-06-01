@@ -4,10 +4,19 @@
     <div class="pageContent">
       <form action="" class="FormContainer">
         <h5 class="Title">Input Sales</h5>
-        <label>Name</label>
-        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input name.." />
-
-        <div class="inlineinput">
+        <div class="CustomerInput">
+          <p>Customer Info</p>
+          <div class="inlineInput">
+            <label>Name :</label>
+            <q-input dark dense filled v-model="FormInput.CustName" placeholder="Input customer name.." />
+          </div>
+          <div class="inlineInput">
+            <label>Id :</label>
+            <q-input dark dense filled v-model="FormInput.CustId" placeholder="Input customer Id number.." />
+          </div>
+        </div>
+        <p>Sales Info</p>
+        <div class="inlineInput">
           <label>Sales Date :</label>
           <q-input
             dark
@@ -19,9 +28,18 @@
             type="date"
           />
         </div>
-
-        <label>Location</label>
-        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.." />
+        <div class="inlineInput">
+          <label>Tenor :</label>
+          <q-input
+            dark
+            dense
+            filled
+            class="inputbox"
+            v-model="FormInput.SalesTenor"
+            placeholder="Input sales length / tenor..."
+            type="number"
+          />
+        </div>
 
         <label>Additional Description</label>
         <q-input
@@ -32,9 +50,9 @@
           type="textarea"
         />
 
-        <div class="inlineinput">
+        <div class="inlineInput">
           <label>Total Sales :</label>
-          <q-input dark dense filled v-model="FormInput.Sales" class="inputbox" placeholder="">
+          <q-input dark dense filled v-model="FormInput.SalesAmt" class="inputbox" placeholder="">
             <template v-slot:prepend>
               <q-icon name="money" />
             </template>
@@ -90,11 +108,12 @@ export default {
     return {
       showAlert: false,
       FormInput: {
-        Name: "",
+        CustName: "",
+        CustId:"",
+        SalesTenor : null,
         SalesDt: null,
-        Location: "",
         Desc: "",
-        Sales: null
+        SalesAmt: null
       }
     };
   },
@@ -112,8 +131,8 @@ export default {
     font-weight: bold;
     font-size: 20px;
   }
-  .inlineinput {
-    padding-top: 1rem;
+  .inlineInput {
+    padding-top: .2rem;
     display: grid;
     grid-template-columns: 6em auto;
     align-items: center;
@@ -145,6 +164,11 @@ export default {
     font-size: 12px;
   }
 }
+
+.CustomerInput{
+  margin-bottom: .5rem;
+}
+
 .modalContainer {
   padding: 1rem 4rem;
   .btnContainer {
