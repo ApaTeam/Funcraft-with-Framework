@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://v1.quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function(/* ctx */) {
+module.exports = function (/* ctx */) {
   return {
     // https://v1.quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -104,7 +104,24 @@ module.exports = function(/* ctx */) {
     // https://v1.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: { skipWaiting: true, clientsClaim: true }, // only for GenerateSW
+      workboxOptions: {
+        exclude: [/\.map$/, /_redirects/],
+        skipWaiting: true,
+        clientsClaim: true,
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp('https://fonts.*'),
+            handler: 'CacheFirst'
+          },
+          {
+            urlPattern: /\.js/,
+            handler: 'StaleWhileRevalidate'
+          },
+          {
+            urlPattern: /\.css/,
+            handler: 'StaleWhileRevalidate'
+          }]
+      }, // only for GenerateSW
       manifest: {
         name: `FunCraft`,
         short_name: `FunCraft`,

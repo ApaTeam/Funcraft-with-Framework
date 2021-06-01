@@ -15,15 +15,6 @@
           <p class="Greetings">Hi, {{ this.$store.state.Player.EMP_NAME }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
-        <!-- :src="
-            'http://localhost:3000/image/user/' +
-            this.$store.state.Player.PicUrl
-          " -->
-        <!-- @click="
-            () => {
-              this.$router.push('/main/profile');
-            }
-          " -->
         <q-avatar font-size="2.3rem" v-if="type != null" class="logo">
           <img
             :src="
@@ -34,6 +25,9 @@
           />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
+              <q-item clickable>
+                <q-item-section>My Profile</q-item-section>
+              </q-item>
               <q-item clickable to="/main/Performance">
                 <q-item-section>My Performance</q-item-section>
               </q-item>

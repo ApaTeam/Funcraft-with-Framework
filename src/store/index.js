@@ -29,7 +29,7 @@ export default function(
         isScrolledDown: false,
         Player: LocalStorage.getItem("Player"),
         taskname:"",
-        isOffline : false
+        isOffline : false,
       }
 
       ,

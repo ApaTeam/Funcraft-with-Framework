@@ -1,8 +1,8 @@
 <template>
   <q-page class="flex column PageIndex">
-    <Navbar :type="'Title'" />
+    <Navbar :type="'Title'"/>
     <div class="Background">
-      <img alt="" src="~assets/Background/BG1.png" class="BGImage" />
+      <img alt="" src="~assets/Background/BG1.png" class="BGImage"/>
       <q-img
         :src="
           require('../assets/PlayerIcon/' +
@@ -19,17 +19,20 @@
           <div class="DragBar"></div>
         </div>
         <div class="TabScrollContainer" :style="overflowTab">
-          <q-btn
-            to="/Input"
-            class="InpBtn Btn"
-            text-color="#f4f4f4"
-            label="Input Sales"
-          />
+          <div class="InpBtnContainer">
+            <q-btn
+              to="/Input"
+              class="InpBtn Btn"
+              text-color="#f4f4f4"
+              label="Input Sales"
+            />
+          </div>
+
           <div class="PlayerInfo">
             <p class="CharacterName">
               <span class="Name"> {{ this.$store.state.Player.NAME }} </span>
               <span class="Level"
-                >(Lvl. {{ this.$store.state.Player.LEVEL }} )</span
+              >(Lvl. {{ this.$store.state.Player.LEVEL }} )</span
               >
             </p>
             <div class="PlayerStat">
@@ -119,11 +122,12 @@
 </template>
 
 <script>
-import { api } from "boot/axios";
+import {api} from "boot/axios";
 import Navbar from "components/Navbar.vue";
 import QuestContainer from "components/QuestContainer";
+
 export default {
-  components: { Navbar, QuestContainer },
+  components: {Navbar, QuestContainer},
   name: "PageIndex",
   data: function () {
     return {
@@ -173,7 +177,7 @@ export default {
       }, 20);
     },
     chpage(QuestId) {
-      this.$router.push({ path: "/quest/" + QuestId });
+      this.$router.push({path: "/quest/" + QuestId});
     },
   },
   mounted() {
@@ -187,7 +191,7 @@ export default {
       })
       .then((res) => {
         if (res.data !== "") {
-          this.$store.commit("setOfflineState",false);
+          this.$store.commit("setOfflineState", false);
           for (let i of res.data) {
             if (i.IS_MONTHLY) {
               this.monthlyTask.push(i);
@@ -201,10 +205,10 @@ export default {
         }
       })
       .catch(() => {
-        this.$store.commit("setOfflineState",true);
+        this.$store.commit("setOfflineState", true);
         this.monthlyTask = this.$q.localStorage.getItem("MonthlyTask");
         this.normalTask = this.$q.localStorage.getItem("NormalTask");
-      }).finally(()=>{
+      }).finally(() => {
       this.$q.loading.hide();
     });
   },
@@ -219,12 +223,14 @@ export default {
 .PageIndex {
   position: relative;
 }
+
 .Background {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 40%;
+
   .BGImage {
     position: absolute;
     left: 0;
@@ -235,6 +241,7 @@ export default {
 
     z-index: 1;
   }
+
   .BGChar {
     position: absolute;
 
@@ -257,6 +264,7 @@ export default {
   height: calc(100vh - 5rem);
   overflow-y: hidden;
 }
+
 .Tabs {
   position: relative;
   display: flex;
@@ -270,10 +278,12 @@ export default {
   padding: 1rem 1.5rem;
 
   background: linear-gradient(197.99deg, #2e0097 -80.8%, #000000 78.41%);
+
   .TabScrollContainer {
     height: 100%;
   }
 }
+
 .DragBarContainer {
   position: relative;
   width: 100%;
@@ -293,22 +303,31 @@ export default {
   }
 }
 
-.InpBtn {
-  width: 100%;
-  margin-bottom: 1rem;
+.InpBtnContainer {
+  text-align: center;
 
-  background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
+  .InpBtn {
+    $padd: 2.2rem;
+    padding: {
+      left: $padd;
+      right: $padd;
+    };
+    margin-bottom: 1rem;
+    background: linear-gradient(247.7deg, #1e34fd -73.17%, #a155ff 64.31%);
+  }
 }
+
 .NewTaskContainer {
   margin-bottom: 2rem;
   width: 100%;
   text-align: center;
+
   .NewTaskBtn {
     text-align: center;
     background: linear-gradient(
-      256.64deg,
-      rgba(0, 255, 117, 0.55) -53.4%,
-      rgba(0, 255, 255, 0.55) 97.08%
+        256.64deg,
+        rgba(0, 255, 117, 0.55) -53.4%,
+        rgba(0, 255, 255, 0.55) 97.08%
     );
   }
 }
@@ -317,6 +336,7 @@ export default {
   .JobName {
     color: #e5a01b;
   }
+
   .CharacterName {
     .Name {
       color: #02dac5;
@@ -324,6 +344,7 @@ export default {
       font-size: 1.2rem;
     }
   }
+
   .PlayerStat {
     display: flex;
     justify-content: space-between;
@@ -339,19 +360,23 @@ export default {
       flex-direction: column;
       flex-grow: 1;
     }
+
     .Stat {
-      $BarWidth : 70%;
+      $BarWidth: 70%;
       display: flex;
       align-items: center;
+
       .Bar {
         width: $BarWidth;
       }
+
       .StatValue {
         width: 100% - $BarWidth;
       }
     }
   }
 }
+
 .QuestArea {
   display: flex;
   flex-direction: column;
@@ -360,10 +385,12 @@ export default {
   > * {
     margin-bottom: 1rem;
   }
+
   .Title {
     font-size: 1.2rem;
     margin-bottom: 1rem;
   }
+
   .DailyQuest {
     .QuestList {
       width: 100%;
