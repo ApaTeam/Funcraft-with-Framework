@@ -129,7 +129,7 @@ export default {
 
   .MonthlyQuest {
     .QuestList {
-    max-height: 15rem;
+      max-height: 10rem;
       overflow-y: auto;
     }
   }

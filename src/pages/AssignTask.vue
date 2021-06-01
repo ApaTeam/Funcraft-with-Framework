@@ -32,61 +32,78 @@
             <Label class="JobTitle">{{ item.EMP_POS }}</Label>
           </div>
         </div>
-        <label>Task Name</label>
-        <q-input dark dense filled v-model="FormInput.Name" placeholder="Input task name.."/>
-        <label>Task Description</label>
-        <q-input
-          dark
-          filled
-          v-model="FormInput.Desc"
-          placeholder="Insert additional description.."
-          type="textarea"
-        />
+        <div class="InpContainer">
+          <label>Task Name</label>
+          <q-input dark dense filled v-model="FormInput.Name" placeholder="Input task name.."/>
+        </div>
+        <div class="InpContainer">
+          <label>Task Description</label>
+          <q-input
+            dark
+            filled
+            v-model="FormInput.Desc"
+            placeholder="Insert additional description.."
+            type="textarea"
+          />
+        </div>
 
-        <label>Location</label>
-        <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.."/>
+        <div class="InpContainer">
+          <label>Location</label>
+          <q-input dark dense filled v-model="FormInput.Location" placeholder="Input location.."/>
+        </div>
 
-        <label>Start Date</label>
-        <q-input
-          dark
-          dense
-          filled
-          class="inputbox"
-          v-model="FormInput.StartDt"
-          placeholder="Date"
-          type="date"
-        />
+        <div class="InpContainer">
+          <label>Start Date</label>
+          <q-input
+            dark
+            dense
+            filled
+            class="inputbox"
+            v-model="FormInput.StartDt"
+            placeholder="Date"
+            type="date"
+          >
+            <template v-slot:append>
+              <q-icon name="far fa-calendar-alt" size="xs"/>
+            </template>
+          </q-input>
+        </div>
 
-        <label>Reward</label>
-        <q-input
-          dark
-          dense
-          filled
-          class="inputbox"
-          v-model="FormInput.Reward"
-          placeholder=""
-          type="number"
-        >
-          <template v-slot:append>
-            <label>Pts</label>
-            <!--            <q-icon name="money" />-->
-          </template>
-        </q-input>
+        <div class="InpContainer">
+          <label>Reward</label>
+          <q-input
+            dark
+            dense
+            filled
+            class="inputbox"
+            v-model="FormInput.Reward"
+            placeholder=""
+            type="number"
+          >
+            <template v-slot:append>
+              <label>Pts</label>
+              <!--            <q-icon name="money" />-->
+            </template>
+          </q-input>
+        </div>
 
-        <label>Expected Work Time</label>
-        <q-input
-          dark
-          dense
-          filled
-          class="inputbox"
-          v-model="FormInput.ExpWorkTime"
-          placeholder="0"
-          type="number"
-        >
-          <template v-slot:append>
-            <label>Hours</label>
-          </template>
-        </q-input>
+        <div class="InpContainer">
+          <label>Expected Work Time</label>
+          <q-input
+            dark
+            dense
+            filled
+            class="inputbox"
+            v-model="FormInput.ExpWorkTime"
+            placeholder="0"
+            type="number"
+          >
+            <template v-slot:append>
+              <label>Hours</label>
+            </template>
+          </q-input>
+        </div>
+
 
         <div class="savebtn">
           <q-btn label="Save" @click="showAlert = true"/>
@@ -207,7 +224,7 @@ export default {
     api
       .get("/rank")
       .then((res) => {
-        this.$store.commit("setOfflineState",false);
+        this.$store.commit("setOfflineState", false);
         console.log(res);
         if (res.data !== "") {
           this.PlayerList = res.data;
@@ -280,6 +297,10 @@ export default {
   }
 }
 
+.InpContainer {
+  margin-top: 1rem;
+}
+
 .modalContainer {
   padding: 1rem 4rem;
 
@@ -326,7 +347,7 @@ export default {
 }
 
 .AssignContainer {
-  height: 100px;
+  height: 9rem;
   width: calc(100vw - 4rem);
   overflow-x: auto;
   display: grid;
@@ -338,6 +359,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    place-self: center;
 
     Label {
       padding: 0;
