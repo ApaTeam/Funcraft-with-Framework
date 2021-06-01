@@ -67,6 +67,7 @@
       </div>
       <div class="SalesHistBtnContainer">
         <q-btn
+          to="/main/Sales"
           class="SalesHistBtn Btn"
           text-color="#f4f4f4"
           label="Sales History"
@@ -107,29 +108,34 @@ export default {
           {
             label: "Sales Performance",
             borderColor: "#02dac5",
-            data: [42, 39, 45, 50, 52],
+            data: [42, 39, 45, 50, 52, 15],
             fill: false
           },
           {
             label: "Sales Reward",
             borderColor: "#cfad69",
-            data: [79, 78, 80, 100, 110],
+            data: [79, 78, 80, 100, 110, 30],
             fill: false
           },
         ],
       },
       currPerf: {
         SalesProg: {
-          Prog: 5,
+          Prog: 1,
           Target: 8,
         },
         MonthDate: null,
-        Performance: 52,
-        Reward: "Rp 1.100.000",
+        Performance: 15,
+        Reward: "Rp 300.000",
       },
       perfHistory: [
         {
-          MonthDate: "Aprill 2021",
+          MonthDate: "May 2021",
+          Performance: 52,
+          Reward: "Rp 1.100.000",
+        },
+        {
+          MonthDate: "April 2021",
           Performance: 50,
           Reward: "Rp 1.000.000",
         },
