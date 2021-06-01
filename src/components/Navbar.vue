@@ -15,7 +15,8 @@
           <p class="Greetings">Hi, {{ this.$store.state.Player.EMP_NAME }}</p>
           <p class="MOTD">What's for Today ?</p>
         </div>
-        <q-avatar font-size="2.3rem" v-if="type != null" class="logo">
+        <q-btn class="btnaddchat" label="+" v-if="type =='Chat'" @click="open"></q-btn>
+        <q-avatar font-size="2.3rem" v-else-if="type != null" class="logo">
           <img
             :src="
               'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
@@ -25,7 +26,7 @@
           />
           <q-menu anchor="bottom end" self="top end" auto-close>
             <q-list style="min-width: 100px" class="popupText">
-              <q-item clickable>
+              <q-item clickable to="/main/Profile">
                 <q-item-section>My Profile</q-item-section>
               </q-item>
               <q-item clickable to="/main/Performance">
@@ -58,6 +59,9 @@ export default {
     LogOut() {
       this.$store.commit("playerLogOut");
       this.$router.go({ name: "Login" });
+    },
+    open(){
+      this.$store.commit('setAddChat', true);
     },
   },
 };
@@ -116,6 +120,9 @@ export default {
 //   height: 2.3rem;
 //   border-radius: 100%;
 // }
+.btnaddchat{
+  font-size: 1.2rem;
+}
 .MOTDContainer {
   padding-left: 1rem;
   .Greetings {
