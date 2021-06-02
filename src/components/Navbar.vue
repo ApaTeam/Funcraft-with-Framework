@@ -46,7 +46,7 @@
 </template>
 
 <script>
-//type : Title, Profile, (null)
+//type : Title, Profile, Chat, (null)
 export default {
   name: "Navbar",
   props: {

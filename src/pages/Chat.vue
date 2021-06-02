@@ -1,11 +1,13 @@
 <template>
   <q-page class="flex column pageChat">
-    <Navbar :type="'Chat'"/>
+    <Navbar :type="'Chat'" />
     <q-list bordered>
       <q-item clickable v-ripple to="/chat/temp">
         <q-item-section avatar>
           <q-avatar>
-            <img src="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(4).jpg" />
+            <img
+              src="https://storage.googleapis.com/funcraft_backend_bucket/Assets/user(4).jpg"
+            />
           </q-avatar>
         </q-item-section>
 
@@ -13,8 +15,7 @@
           Mitchell Ryu
           <q-item-label caption lines="2"
             >Yes, what's your question ?
-            </q-item-label
-          >
+          </q-item-label>
         </q-item-section>
 
         <q-item-section side top>
@@ -22,7 +23,7 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <q-dialog v-model="this.$store.state.AddChat">
+    <q-dialog :value="this.$store.state.AddChat" @input="close">
       <q-card class="AddAsigneeContainer">
         <q-card-section align="center" class="PlayerList">
           <q-virtual-scroll
@@ -32,17 +33,21 @@
           >
             <template v-slot="{ item }">
               <q-item :key="item.EMP_ID" dense>
-                <q-btn class="PlayerContainer" @click="close">
-                  <q-avatar font-size="2.3rem">
-                    <img
-                      :src="
-                        'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
-                        item.PROF_PIC_URL
-                      "
-                    />
-                  </q-avatar>
-                  <h5 class="EmpName">{{ item.EMP_NAME }}</h5>
-                </q-btn>
+                <q-item-section>
+                  <q-btn class="" @click="close">
+                    <div class="PlayerContainer">
+                      <q-avatar font-size="2.3rem">
+                        <img
+                          :src="
+                            'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
+                              item.PROF_PIC_URL
+                          "
+                        />
+                      </q-avatar>
+                      <h5 class="EmpName">{{ item.EMP_NAME }}</h5>
+                    </div>
+                  </q-btn>
+                </q-item-section>
               </q-item>
             </template>
           </q-virtual-scroll>
@@ -53,22 +58,22 @@
 </template>
 
 <script>
-import {api} from "boot/axios";
+import { api } from "boot/axios";
 import Navbar from "src/components/Navbar.vue";
 export default {
   components: { Navbar },
   name: "Chat",
   methods: {
-    close(){
-      this.$store.commit('setAddChat', false);
-    },
+    close() {
+      this.$store.commit("setAddChat", false);
+    }
   },
   mounted() {
     this.$q.loading.show();
     api
       .get("/rank")
-      .then((res) => {
-        this.$store.commit("setOfflineState",false);
+      .then(res => {
+        this.$store.commit("setOfflineState", false);
         console.log(res);
         if (res.data !== "") {
           this.$store.commit("addPlayerList", res.data);
@@ -78,16 +83,16 @@ export default {
       })
       .catch(() => {
         this.$store.commit("setOfflineState", true);
-      }).finally(() => {
-      this.$q.loading.hide();
-    });
+      })
+      .finally(() => {
+        this.$q.loading.hide();
+      });
   },
-  destroyed(){
+  destroyed() {
     this.$store.commit("clearPlayerList");
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .text-caption {
@@ -99,10 +104,9 @@ export default {
 
   .PlayerContainer {
     display: flex;
-    flex-direction: row;
     width: 100%;
     justify-content: space-between;
-
+    
     .EmpName {
       font-size: 1rem;
       text-align: left;
