@@ -17,7 +17,7 @@
             this.$store.state.Player.PROF_PIC_URL
           "
           alt="Picture"
-          class="smallview"
+          class="smallview ProfilePic"
         />
         <q-file dark dense filled class="inputform" v-model="ProfilePic" />
       </div>
@@ -37,10 +37,7 @@
       </div>
       <div class="BackgroundPic row">
         <img
-          :src="
-            'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
-            this.$store.state.Player.PROF_PIC_URL
-          "
+          src="~assets/Background/BG1.png"
           alt="Profile Picture"
           class="smallview"
         />
@@ -148,5 +145,8 @@ export default {
       color: white;
     }
   }
+}
+.ProfilePic{
+  border-radius: 50%;
 }
 </style>
