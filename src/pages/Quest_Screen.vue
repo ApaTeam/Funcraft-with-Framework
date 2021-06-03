@@ -10,15 +10,21 @@
         <q-img
           :src="
             'https://storage.googleapis.com/funcraft_backend_bucket/Assets/' +
-            Task.PROF_PIC_URL
+            Task.PIC
           "
           style="height: 142px; width: 113px"
           class="rounded-borders"
         ></q-img>
         <div class="FromDetail">
           <div class="AssignedBy">
-            <p class="top">Assigned by</p>
-            <p class="name">{{ Task.TASK_GIVER }}</p>
+            <p class="top">Assigned
+            <span v-if="this.$store.state.Player.EMP_POS === 'Junior Salesman'">by</span>
+              <span v-else>to</span>
+            </p>
+            <p class="name">
+              <span v-if="this.$store.state.Player.EMP_POS === 'Junior Salesman'">{{ Task.TASK_GIVER }}</span>
+              <span v-else>{{ Task.TASK_TAKER }}</span>
+              </p>
           </div>
           <div class="WorkTime">
             <p class="top">Work time</p>
@@ -58,7 +64,7 @@
         </p>
       </div>
       <q-btn
-        v-if="Task.IS_PROGRESSIVE != 1"
+        v-if="Task.IS_PROGRESSIVE !== 1 && this.$store.state.Player.EMP_POS === 'Junior Salesman'"
         flat
         rounded
         id="btnclass"
@@ -66,6 +72,35 @@
         :label="btnlabel"
         @click="changestate"
       />
+      <div class="rounded-borders Description QuestStat" v-if="this.$store.state.Player.EMP_POS !== 'Junior Salesman'">
+        <div class="StatusContainer">
+          <p class="top">Quest Status</p>
+          <p class="Content">
+            {{ Task.STATUS }}
+          </p>
+        </div>
+        <div class="UpdateContainer" v-if="this.Task.LAST_OPEN">
+          <p class="top">Last Updated</p>
+          <p class="Content">
+            {{ Task.LAST_OPEN }}
+          </p>
+        </div>
+        <div class="ProgressContainer" v-if="Task.IS_PROGRESSIVE">
+          <p class="top">Quest Progress</p>
+          <p class="Content">
+            <q-linear-progress
+              dark
+              :value="Task.PROGRESS_AMT / Task.COMPLETION_AMT"
+              size=".5rem"
+              class="ProgressBar"
+              color="white"
+            />
+            <span class="TaskRate"
+            >({{ Task.PROGRESS_AMT }}/{{ Task.COMPLETION_AMT }})</span
+            >
+          </p>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -93,7 +128,7 @@ export default {
         },
       })
       .then((res) => {
-        this.$store.commit("setOfflineState",false);
+        this.$store.commit("setOfflineState", false);
         if (res.data !== "") {
           console.log(res.data);
           this.Task = res.data;
@@ -104,11 +139,30 @@ export default {
             minute: "2-digit",
             hour12: true,
           });
+          switch (this.Task.STATUS) {
+            case 'OPN':
+              this.Task.STATUS = 'Opened'
+              this.Task.LAST_OPEN = new Date().toDateString();
+              break;
+            case 'ASG':
+              this.Task.STATUS = 'Unread'
+              this.Task.LAST_OPEN = null;
+              break;
+            case 'CMP':
+              this.Task.STATUS = 'Completed'
+              this.Task.LAST_OPEN = new Date().toDateString();
+              break;
+          }
 
           if (this.Task.IS_MONTHLY) {
             this.Task.TYPE_NAME = "MONTHLY TASK";
           } else {
             this.Task.TYPE_NAME = "NORMAL TASK";
+          }
+          if(this.$store.state.Player.EMP_POS === 'Junior Salesman'){
+            this.Task.PIC = this.Task.TASK_GIVER_PIC;
+          }else{
+            this.Task.PIC = this.Task.TASK_TAKER_PIC;
           }
         } else {
         }
@@ -252,6 +306,37 @@ export default {
 
     border: transparent;
     color: white;
+  }
+}
+
+.QuestStat {
+  margin-top: 1rem;
+  display: grid;
+  row-gap: .7rem;
+  grid-template-areas:
+    "status update"
+    "progress progress";
+  .StatusContainer{
+    grid-area: status;
+  }
+  .UpdateContainer{
+    grid-area: update;
+    text-align: right;
+  }
+  .ProgressContainer{
+    grid-area: progress;
+    .Content{
+      margin-top: .5rem;
+      display: flex;
+      align-items: center;
+      .ProgressBar{
+        flex-grow: 0;
+      }
+      .TaskRate{
+        margin-left: 1rem;
+        flex-grow: 1;
+      }
+    }
   }
 }
 </style>
