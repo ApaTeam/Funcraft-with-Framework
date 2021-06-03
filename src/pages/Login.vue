@@ -13,7 +13,8 @@
       <q-banner class="loginBanner text-white" v-if="showLogin">
         This app is still in devlopment, to use this app please use :
         <br />
-        <br />email : admin, <br />password : admin
+        <br />email : admin (adminsales for testing sales officer)
+        <br />password : admin
         <template v-slot:action>
           <q-btn
             flat

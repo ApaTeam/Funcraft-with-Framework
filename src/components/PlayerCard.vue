@@ -40,12 +40,13 @@ export default {
     GameName: String,
     Level: Number,
     PlayerIcon: String,
+    EMP_ID:Number
   },
   data() {
     return {
       Ext: "",
       RankColor: "#CBCBCB",
-      IsActive: this.PlayerName === this.$store.state.Player.EMP_NAME,
+      IsActive: this.EMP_ID === this.$store.state.Player.EMP_ID,
     };
   },
   mounted() {

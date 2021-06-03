@@ -4,7 +4,7 @@ import axios from "axios";
 Vue.prototype.$axios = axios;
 
 const api = axios.create({
-  // baseURL: "https://funcraft-312802.et.r.appspot.com/"
+   //baseURL: "https://funcraft-312802.et.r.appspot.com/"
      baseURL: process.env.NODE_ENV === "production"
       ? "https://funcraft-312802.et.r.appspot.com/"
       : "http://localhost:3000"

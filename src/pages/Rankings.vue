@@ -18,6 +18,7 @@
                   :PlayerIcon="item.PROF_PIC_URL"
                   :Rank="index + 1"
                   :RankPt="item.REWARD_AMT"
+                  :EMP_ID="item.EMP_ID"
                 />
               </q-item-section>
             </q-item>
