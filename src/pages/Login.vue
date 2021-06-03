@@ -88,22 +88,19 @@ export default {
   methods: {
     loginMethod() {
       this.$q.loading.show();
-      //tambahin loading animation disini
       api
         .post("/login", {
           Email: this.email,
           Pass: createHmac("sha256", this.password).digest("hex"),
         })
         .then((res) => {
-          //loading animation ilang pas disini
           console.log(res);
           if (res.data !== "") {
-            //redirect
             this.$store.commit("setPlayer", res.data);
             console.log(res.data);
             this.$router.push({ name: "Home" });
           } else {
-            this.$store.commit("setOfflineState",true);
+            this.$store.commit("showErrMsg","Wrong E-Mail / Password");
             this.showLogin = true;
           }
         })

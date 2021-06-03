@@ -3,6 +3,7 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
       <OfflineBanner/>
+      <ErrorBanner/>
       <router-view />
       <div
         v-if="!this.$store.state.isScrolledDown"
@@ -42,9 +43,10 @@
 
 <script>
 import OfflineBanner from "components/OfflineBanner";
+import ErrorBanner from "components/ErrorBanner";
 export default {
   name: "MainLayout",
-  components: {OfflineBanner},
+  components: {ErrorBanner, OfflineBanner},
 };
 </script>
 <style lang="scss">

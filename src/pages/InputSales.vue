@@ -43,7 +43,7 @@
               filled
               class="inputbox"
               v-model="FormInput.SalesTenor"
-              placeholder="Input sales length / tenor..."
+              placeholder="Input sales term / tenor..."
               type="number"
             />
           </div>
