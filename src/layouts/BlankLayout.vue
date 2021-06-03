@@ -2,6 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-page-container class="pageCont">
       <OfflineBanner/>
+      <ErrorBanner/>
       <router-view/>
     </q-page-container>
   </q-layout>
@@ -10,9 +11,10 @@
 
 <script>
 import OfflineBanner from "components/OfflineBanner";
+import ErrorBanner from "components/ErrorBanner";
 export default {
   name: "BlankLayout",
-  components: {OfflineBanner},
+  components: {ErrorBanner, OfflineBanner},
 };
 </script>
 

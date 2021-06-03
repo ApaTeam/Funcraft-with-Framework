@@ -32,6 +32,8 @@ export default function(
         isOffline : false,
         AddChat : false,
         PlayerList : [],
+        isError:false,
+        ErrMsg: ""
       }
 
       ,
@@ -57,6 +59,13 @@ export default function(
         },
         setOfflineState(state,isOffline){
           state['isOffline'] = isOffline;
+        },
+        showErrMsg(state,MSG){
+          state['ErrMsg'] = MSG;
+          state['isError'] = true;
+        },
+        hideErrMsg(state){
+          state['isError'] = false;
         }
       }
 

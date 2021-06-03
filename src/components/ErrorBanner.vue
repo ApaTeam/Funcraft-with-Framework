@@ -1,15 +1,15 @@
 <template>
-  <q-banner class="BannerContainer offlineBanner text-white" v-if="this.$store.state.isOffline">
+  <q-banner class="BannerContainer ErrorBanner text-white" v-if="this.$store.state.isError">
     <template v-slot:avatar>
-      <q-icon name="signal_wifi_off" size="sm" color="white" />
+      <q-icon name="warning" size="sm" color="white" />
     </template>
-    unable to get data, App is currently offline
+    {{this.$store.state.ErrMsg}}
     <template v-slot:action>
       <q-btn
         flat
         color="white"
         label="Dismiss"
-        @click="dismissOffline"
+        @click="dismissBanner"
       />
     </template>
   </q-banner>
@@ -17,10 +17,10 @@
 
 <script>
 export default {
-  name: "OfflineBanner",
+  name: "ErrorBanner",
   methods: {
-    dismissOffline() {
-      this.$store.commit("setOfflineState", false);
+    dismissBanner() {
+      this.$store.commit("hideErrMsg");
     }
   },
 }
@@ -36,9 +36,9 @@ export default {
   right: $side-padding;
   z-index: 101;
   background: linear-gradient(
-    246.81deg,
-    rgba(108, 0, 192, 0.5) -93.94%,
-    rgba(0, 0, 0, 0.32) 116.58%
+      246.81deg,
+      rgba(108, 0, 192, 0.5) -93.94%,
+      rgba(0, 0, 0, 0.32) 116.58%
   ),
   linear-gradient(black 0%, black 100%);
   border: 1px solid #3c3c3c;
@@ -47,3 +47,4 @@ export default {
   border-radius: 10px;
 }
 </style>
+
