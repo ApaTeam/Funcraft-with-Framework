@@ -1,6 +1,5 @@
 <template>
   <div class="TabScrollContainer" :style="overflowTab">
-    <PlayerInfo/>
     <div class="QuestArea">
       <div class="MonthlyQuest" v-if="monthlyTask.length > 0">
         <h5 class="Title">Assigned Monthly Task</h5>

@@ -29,7 +29,7 @@
               <q-item clickable to="/main/Profile">
                 <q-item-section>My Profile</q-item-section>
               </q-item>
-              <q-item clickable to="/main/Performance">
+              <q-item clickable to="/main/Performance" v-if="this.$store.state.Player.EMP_POS === 'Junior Salesman'">
                 <q-item-section>My Performance</q-item-section>
               </q-item>
               <q-item clickable @click="LogOut">
